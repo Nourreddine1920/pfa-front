@@ -1,17 +1,14 @@
+import {
+  faPlus
+} from "@fortawesome/fontawesome-free-solid";
+// Import Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 // Import Components
-import { Row, Col } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 // Import Calendar
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-// Import Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faDownload,
-  faPencilAlt,
-  faPlus,
-  faTrash,
-} from "@fortawesome/fontawesome-free-solid";
 
 class Event extends React.Component {
   constructor(props) {

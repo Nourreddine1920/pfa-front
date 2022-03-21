@@ -38,7 +38,7 @@ class Sidebar extends React.Component {
     };
 
     function init() {
-      console.log('iniiiitttt ....')
+      console.log("iniiiitttt ....");
       var $this = Sidemenu;
       $("#sidebar-menu a").on("click", function (e) {
         if ($(this).parent().hasClass("submenu")) {
@@ -126,18 +126,14 @@ class Sidebar extends React.Component {
                     </li>
                     <li
                       className={
-                        pathnames.includes("teacher-dashboard")
-                          ? "active"
-                          : ""
+                        pathnames.includes("teacher-dashboard") ? "active" : ""
                       }
                     >
                       <Link to="/teacher-dashboard"> Teacher Dashboard </Link>
                     </li>
                     <li
                       className={
-                        pathnames.includes("student-dashboard")
-                          ? "active"
-                          : ""
+                        pathnames.includes("student-dashboard") ? "active" : ""
                       }
                     >
                       <Link to="/student-dashboard"> Student Dashboard </Link>
@@ -163,17 +159,13 @@ class Sidebar extends React.Component {
                   </a>
                   <ul>
                     <li
-                      className={
-                        pathnames.includes("students") ? "active" : ""
-                      }
+                      className={pathnames.includes("students") ? "active" : ""}
                     >
                       <Link to="/students"> Student List </Link>
                     </li>
                     <li
                       className={
-                        pathnames.includes("student-details")
-                          ? "active"
-                          : ""
+                        pathnames.includes("student-details") ? "active" : ""
                       }
                     >
                       <Link to="/student-details"> Student View </Link>
@@ -187,9 +179,7 @@ class Sidebar extends React.Component {
                     </li>
                     <li
                       className={
-                        pathnames.includes("edit-student")
-                          ? "active"
-                          : ""
+                        pathnames.includes("edit-student") ? "active" : ""
                       }
                     >
                       <Link to="/edit-student"> Student Edit </Link>
@@ -215,17 +205,13 @@ class Sidebar extends React.Component {
                   </a>
                   <ul>
                     <li
-                      className={
-                        pathnames.includes("teachers") ? "active" : ""
-                      }
+                      className={pathnames.includes("teachers") ? "active" : ""}
                     >
                       <Link to="/teachers"> Teacher List </Link>
                     </li>
                     <li
                       className={
-                        pathnames.includes("teacher-details")
-                          ? "active"
-                          : ""
+                        pathnames.includes("teacher-details") ? "active" : ""
                       }
                     >
                       <Link to="/teacher-details"> Teacher View </Link>
@@ -239,60 +225,15 @@ class Sidebar extends React.Component {
                     </li>
                     <li
                       className={
-                        pathnames.includes("edit-teacher")
-                          ? "active"
-                          : ""
+                        pathnames.includes("edit-teacher") ? "active" : ""
                       }
                     >
                       <Link to="/edit-teacher"> Teacher Edit </Link>
                     </li>
                   </ul>
                 </li>
-                <li
-                  className={`submenu ${
-                    pathnames.includes("departments")
-                      ? "active"
-                      : pathnames.includes("add-department")
-                      ? "active"
-                      : pathnames.includes("edit-department")
-                      ? "active"
-                      : ""
-                  }`}
-                >
-                  <a href="#">
-                    <FontAwesomeIcon icon={faBuilding} />
-                    <span> Departments</span>
-                    <span className="menu-arrow"> </span>
-                  </a>
-                  <ul>
-                    <li
-                      className={
-                        pathnames.includes("departments") ? "active" : ""
-                      }
-                    >
-                      <Link to="/departments"> Department List </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("add-department")
-                          ? "active"
-                          : ""
-                      }
-                    >
-                      <Link to="/add-department"> Department Add </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("edit-department")
-                          ? "active"
-                          : ""
-                      }
-                    >
-                      <Link to="/edit-department"> Department Edit </Link>
-                    </li>
-                  </ul>
-                </li>
-                <li
+                
+                {/* <li
                   className={`submenu ${
                     pathnames.includes("subjects")
                       ? "active"
@@ -309,9 +250,7 @@ class Sidebar extends React.Component {
                   </a>
                   <ul>
                     <li
-                      className={
-                        pathnames.includes("subjects") ? "active" : ""
-                      }
+                      className={pathnames.includes("subjects") ? "active" : ""}
                     >
                       <Link to="/subjects"> Subject List </Link>
                     </li>
@@ -324,19 +263,17 @@ class Sidebar extends React.Component {
                     </li>
                     <li
                       className={
-                        pathnames.includes("edit-subject")
-                          ? "active"
-                          : ""
+                        pathnames.includes("edit-subject") ? "active" : ""
                       }
                     >
                       <Link to="/edit-subject"> Subject Edit </Link>
                     </li>
                   </ul>
-                </li>
+                </li> */}
                 <li className="menu-title">
                   <span> Management </span>
                 </li>
-                <li
+                {/* <li
                   className={`submenu ${
                     pathnames.includes("fees-collections")
                       ? "active"
@@ -360,24 +297,18 @@ class Sidebar extends React.Component {
                   <ul>
                     <li
                       className={
-                        pathnames.includes("fees-collections")
-                          ? "active"
-                          : ""
+                        pathnames.includes("fees-collections") ? "active" : ""
                       }
                     >
                       <Link to="/fees-collections"> Fees Collection </Link>
                     </li>
                     <li
-                      className={
-                        pathnames.includes("expenses") ? "active" : ""
-                      }
+                      className={pathnames.includes("expenses") ? "active" : ""}
                     >
                       <Link to="/expenses"> Expenses </Link>
                     </li>
                     <li
-                      className={
-                        pathnames.includes("salary") ? "active" : ""
-                      }
+                      className={pathnames.includes("salary") ? "active" : ""}
                     >
                       <Link to="/salary"> Salary </Link>
                     </li>
@@ -392,9 +323,7 @@ class Sidebar extends React.Component {
                     </li>
                     <li
                       className={
-                        pathnames.includes("add-expenses")
-                          ? "active"
-                          : ""
+                        pathnames.includes("add-expenses") ? "active" : ""
                       }
                     >
                       <Link to="/add-expenses"> Add Expenses </Link>
@@ -407,57 +336,24 @@ class Sidebar extends React.Component {
                       <Link to="/add-salary"> Add Salary </Link>
                     </li>
                   </ul>
-                </li>
-                <li
-                  className={
-                    pathnames.includes("holiday") ? "active" : ""
-                  }
-                >
-                  <Link to="/holiday">
-                    <FontAwesomeIcon icon={faHockeyPuck} /> <span>Holiday</span>
-                  </Link>
-                </li>
-                <li
-                  className={pathnames.includes("fees") ? "active" : ""}
-                >
-                  <Link to="/fees">
-                    <FontAwesomeIcon icon={faDollarSign} /> <span>Fees</span>
-                  </Link>
-                </li>
-                <li
-                  className={pathnames.includes("exam") ? "active" : ""}
-                >
+                </li> */}
+
+                <li className={pathnames.includes("exam") ? "active" : ""}>
                   <Link to="/exam">
                     <FontAwesomeIcon icon={faClipboard} />
                     <span>Exam list</span>
                   </Link>
                 </li>
+
                 <li
-                  className={pathnames.includes("event") ? "active" : ""}
-                >
-                  <Link to="/event">
-                    <FontAwesomeIcon icon={faCalendar} /> <span>Events</span>
-                  </Link>
-                </li>
-                <li
-                  className={
-                    pathnames.includes("time-table") ? "active" : ""
-                  }
+                  className={pathnames.includes("time-table") ? "active" : ""}
                 >
                   <Link to="/time-table">
                     <FontAwesomeIcon icon={faTable} /> <span>Time Table</span>
                   </Link>
                 </li>
-                <li
-                  className={
-                    pathnames.includes("library") ? "active" : ""
-                  }
-                >
-                  <Link to="/library">
-                    <FontAwesomeIcon icon={faBook} /> <span>Library</span>
-                  </Link>
-                </li>
-                <li className="menu-title">
+
+                {/* <li className="menu-title">
                   <span> Pages </span>
                 </li>
                 <li className="submenu">
@@ -482,210 +378,21 @@ class Sidebar extends React.Component {
                   </ul>
                 </li>
                 <li
-                  className={
-                    pathnames.includes("blank-page") ? "active" : ""
-                  }
+                  className={pathnames.includes("blank-page") ? "active" : ""}
                 >
                   <Link to="/blank-page">
                     <FontAwesomeIcon icon={faFile} /> <span>Blank Page</span>
                   </Link>
-                </li>
+                </li> */}
                 <li className="menu-title">
                   <span> Others </span>
                 </li>
                 <li
-                  className={
-                    pathnames.includes("sports") ? "active" : ""
-                  }
+                  className={pathnames.includes("blank-page") ? "active" : ""}
                 >
-                  <Link to="/sports">
-                    <FontAwesomeIcon icon={faBaseballBall} />
-                    <span>Sports</span>
+                  <Link to="/blank-page">
+                    <FontAwesomeIcon icon={faFile} /> <span>Blank Page</span>
                   </Link>
-                </li>
-                <li
-                  className={
-                    pathnames.includes("hostel") ? "active" : ""
-                  }
-                >
-                  <Link to="/hostel">
-                    <FontAwesomeIcon icon={faBuilding} /> <span>Hostel</span>
-                  </Link>
-                </li>
-                <li
-                  className={
-                    pathnames.includes("transport") ? "active" : ""
-                  }
-                >
-                  <Link to="/transport">
-                    <FontAwesomeIcon icon={faBus} /> <span>Transport</span>
-                  </Link>
-                </li>
-                <li className="menu-title">
-                  <span> UI Interface </span>
-                </li>
-                <li
-                  className={
-                    pathnames.includes("components") ? "active" : ""
-                  }
-                >
-                  <Link to="/components">
-                    <FontAwesomeIcon icon={faSquarespace} />
-                    <span>Components</span>
-                  </Link>
-                </li>
-                <li
-                  className={`submenu ${
-                    pathnames.includes("form-basic-inputs")
-                      ? "active"
-                      : pathnames.includes("form-input-groups")
-                      ? "active"
-                      : pathnames.includes("form-horizontal")
-                      ? "active"
-                      : pathnames.includes("form-vertical")
-                      ? "active"
-                      : pathnames.includes("form-mask")
-                      ? "active"
-                      : pathnames.includes("form-validation")
-                      ? "active"
-                      : ""
-                  }`}
-                >
-                  <a href="#">
-                    <FontAwesomeIcon icon={faColumns} /> <span> Forms </span>
-                    <span className="menu-arrow"> </span>
-                  </a>
-                  <ul>
-                    <li
-                      className={
-                        pathnames.includes("form-basic-inputs")
-                          ? "active"
-                          : ""
-                      }
-                    >
-                      <Link to="/form-basic-inputs"> Basic Inputs </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("form-input-groups")
-                          ? "active"
-                          : ""
-                      }
-                    >
-                      <Link to="/form-input-groups"> Input Groups </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("form-horizontal")
-                          ? "active"
-                          : ""
-                      }
-                    >
-                      <Link to="/form-horizontal"> Horizontal Form </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("form-vertical")
-                          ? "active"
-                          : ""
-                      }
-                    >
-                      <Link to="/form-vertical"> Vertical Form </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("form-mask") ? "active" : ""
-                      }
-                    >
-                      <Link to="/form-mask"> Form Mask </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("form-validation")
-                          ? "active"
-                          : ""
-                      }
-                    >
-                      <Link to="/form-validation"> Form Validation </Link>
-                    </li>
-                  </ul>
-                </li>
-                <li
-                  className={`submenu ${
-                    pathnames.includes("tables-basic")
-                      ? "active"
-                      : pathnames.includes("data-tables")
-                      ? "active"
-                      : ""
-                  }`}
-                >
-                  <a href="#">
-                    <FontAwesomeIcon icon={faTable} /> <span> Tables </span>
-                    <span className="menu-arrow"> </span>
-                  </a>
-                  <ul>
-                    <li
-                      className={
-                        pathnames.includes("tables-basic")
-                          ? "active"
-                          : ""
-                      }
-                    >
-                      <Link to="/tables-basic"> Basic Tables </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("data-tables") ? "active" : ""
-                      }
-                    >
-                      <Link to="/data-tables"> Data Table </Link>
-                    </li>
-                  </ul>
-                </li>
-                <li className="submenu">
-                  <a href="#">
-                    <FontAwesomeIcon icon={faCode} /> <span>Multi Level</span>
-                    <span className="menu-arrow"> </span>
-                  </a>
-                  <ul>
-                    <li className="submenu">
-                      <a href="#">
-                        <span> Level 1 </span>
-                        <span className="menu-arrow"></span>
-                      </a>
-                      <ul>
-                        <li>
-                          <a href="#">
-                            <span> Level 2 </span>
-                          </a>
-                        </li>
-                        <li className="submenu">
-                          <a href="#">
-                            <span> Level 2 </span>
-                            <span className="menu-arrow"></span>
-                          </a>
-                          <ul>
-                            <li>
-                              <a href="#"> Level 3 </a>
-                            </li>
-                            <li>
-                              <a href="#"> Level 3 </a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <span> Level 2 </span>
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <span> Level 1 </span>
-                      </a>
-                    </li>
-                  </ul>
                 </li>
               </ul>
             </div>

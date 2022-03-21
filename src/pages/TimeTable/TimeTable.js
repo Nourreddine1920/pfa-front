@@ -14,7 +14,6 @@ import {
   faTrash,
 } from "@fortawesome/fontawesome-free-solid";
 
-
 const data = [
   {
     id: "PRE2309",
@@ -172,55 +171,50 @@ const columns = [
   },
 ];
 
-class TimeTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const TimeTable = () => {
+  const tableData = {
+    columns,
+    data,
+  };
 
-  render() {
-    const tableData = {
-      columns,
-      data,
-    };
-    return (
-      <div>
+  return (
+    <div>
+      <div className="page-header">
         <div className="page-header">
-          <div className="page-header">
-            <Row>
-              <Col className="col">
-                <h3 className="page-title"> Time Table </h3>
-                <ul className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a href="/dashboard"> Dashboard </a>
-                  </li>
-                  <li className="breadcrumb-item active"> Time Table </li>
-                </ul>
-              </Col>
-              <Col className="col-auto text-end float-end ms-auto">
-                <a href="#" className="btn btn-outline-primary me-2">
-                  <FontAwesomeIcon icon={faDownload} /> Download
-                </a>
-                <a href="/add-time-table" className="btn btn-primary">
-                  <FontAwesomeIcon icon={faPlus} />
-                </a>
-              </Col>
-            </Row>
-          </div>
+          <Row>
+            <Col className="col">
+              <h3 className="page-title"> Time Table </h3>
+              <ul className="breadcrumb">
+                <li className="breadcrumb-item">
+                  <a href="/dashboard"> Dashboard </a>
+                </li>
+                <li className="breadcrumb-item active"> Time Table </li>
+              </ul>
+            </Col>
+            <Col className="col-auto text-end float-end ms-auto">
+              <a href="#" className="btn btn-outline-primary me-2">
+                <FontAwesomeIcon icon={faDownload} /> Download
+              </a>
+              <a href="/add-time-table" className="btn btn-primary">
+                <FontAwesomeIcon icon={faPlus} />
+              </a>
+            </Col>
+          </Row>
         </div>
-        <Card>
-          <DataTableExtensions {...tableData}>
-            <DataTable
-              noHeader
-              defaultSortField="id"
-              defaultSortAsc={false}
-              pagination
-              highlightOnHover
-            />
-          </DataTableExtensions>
-        </Card>
       </div>
-    );
-  }
-}
+      <Card>
+        <DataTableExtensions {...tableData}>
+          <DataTable
+            noHeader
+            defaultSortField="id"
+            defaultSortAsc={false}
+            pagination
+            highlightOnHover
+          />
+        </DataTableExtensions>
+      </Card>
+    </div>
+  );
+};
+
 export { TimeTable };

@@ -1,21 +1,20 @@
-import React from "react";
-// Import Components
-import { Row, Col, Card, Media } from "react-bootstrap";
-//Import Data Table
-import DataTable from "react-data-table-component";
-import DataTableExtensions from "react-data-table-component-extensions";
-import "react-data-table-component-extensions/dist/index.css";
-// Import Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDownload,
   faPencilAlt,
   faPlus,
-  faTrash,
+  faTrash
 } from "@fortawesome/fontawesome-free-solid";
+// Import Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+// Import Components
+import { Card, Col, Media, Row } from "react-bootstrap";
+//Import Data Table
+import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
 
 const data = [
-  
   {
     id: "PRE2209",
     name: "Aaliyah",
@@ -207,55 +206,51 @@ const columns = [
   },
 ];
 
-class TeachersList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const TeachersList = () => {
+  const tableData = {
+    columns,
+    data,
+  };
 
-  render() {
-    const tableData = {
-      columns,
-      data,
-    };
-    return (
-      <div>
+  return (
+    <div>
+      <div className="page-header">
         <div className="page-header">
-          <div className="page-header">
-            <Row>
-              <Col className="col">
-                <h3 className="page-title"> Teachers </h3>
-                <ul className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a href="/dashboard"> Dashboard </a>
-                  </li>
-                  <li className="breadcrumb-item active"> Teachers </li>
-                </ul>
-              </Col>
-              <Col className="col-auto text-end float-right ms-auto">
-                <a href="#" className="btn btn-outline-primary me-2">
-                  <FontAwesomeIcon icon={faDownload} /> Download
-                </a>
-                <a href="/add-teacher" className="btn btn-primary">
-                  <FontAwesomeIcon icon={faPlus} />
-                </a>
-              </Col>
-            </Row>
-          </div>
+          <Row>
+            <Col className="col">
+              <h3 className="page-title"> Teachers </h3>
+              <ul className="breadcrumb">
+                <li className="breadcrumb-item">
+                  <a href="/dashboard"> Dashboard </a>
+                </li>
+                <li className="breadcrumb-item active"> Teachers </li>
+              </ul>
+            </Col>
+            <Col className="col-auto text-end float-right ms-auto">
+              <a href="#" className="btn btn-outline-primary me-2">
+                <FontAwesomeIcon icon={faDownload} /> Download
+              </a>
+              <a href="/add-teacher" className="btn btn-primary">
+                <FontAwesomeIcon icon={faPlus} />
+              </a>
+            </Col>
+          </Row>
         </div>
-        <Card>
-          <DataTableExtensions {...tableData}>
-            <DataTable
-              noHeader
-              defaultSortField="id"
-              defaultSortAsc={false}
-              pagination
-              highlightOnHover
-            />
-          </DataTableExtensions>
-        </Card>
       </div>
-    );
-  }
-}
-export default TeachersList;
+      <Card>
+        <DataTableExtensions {...tableData}>
+          <DataTable
+            noHeader
+            defaultSortField="id"
+            defaultSortAsc={false}
+            pagination
+            highlightOnHover
+          />
+        </DataTableExtensions>
+      </Card>
+    </div>
+  );
+};
+
+export { TeachersList };
+

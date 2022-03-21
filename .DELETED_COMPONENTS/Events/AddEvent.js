@@ -1,6 +1,6 @@
 import React from "react";
 // Import Components
-import { Row, Col, Card, Form, Button } from "react-bootstrap";
+import { Button, Card, Col, Form, Row } from "react-bootstrap";
 
 class AddEvent extends React.Component {
   constructor(props) {

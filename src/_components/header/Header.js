@@ -1,14 +1,11 @@
-import React from "react";
-import { Dropdown } from "react-bootstrap";
-import $ from "jquery";
-
+import {
+  faAlignLeft, faSearch
+} from "@fortawesome/fontawesome-free-solid";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAlignLeft,
-  faBell,
-  faSearch,
-} from "@fortawesome/fontawesome-free-solid";
+import $ from "jquery";
+import React from "react";
+
 
 class Header extends React.Component {
   // handlesidebar = () => {
