@@ -1,18 +1,18 @@
-import React from "react";
-// Import Components
-import { Row, Col, Card, Media } from "react-bootstrap";
-//Import Data Table
-import DataTable from "react-data-table-component";
-import DataTableExtensions from "react-data-table-component-extensions";
-import "react-data-table-component-extensions/dist/index.css";
-// Import Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDownload,
   faPencilAlt,
   faPlus,
-  faTrash,
+  faTrash
 } from "@fortawesome/fontawesome-free-solid";
+// Import Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+// Import Components
+import { Card, Col, Media, Row } from "react-bootstrap";
+//Import Data Table
+import DataTable from "react-data-table-component";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
 
 const data = [
   {
@@ -140,13 +140,13 @@ const data = [
 const columns = [
   {
     name: "ID",
-    selector: (row) => row.id,
+    selector: (row) => row.id.toString(),
     sortable: true,
   },
   {
     name: "Name",
     sortable: true,
-
+    selector: (row) => row.name.toString(),
     cell: (row) => (
       <Media className="user-dt">
         <a href="/student-details">
@@ -156,39 +156,39 @@ const columns = [
           />
         </a>
         <Media.Body>
-          <a href="/student - details ">{row.name}</a>
+          <a href="/student-details ">{row.name}</a>
         </Media.Body>
       </Media>
     ),
   },
   {
     name: "Class",
-    selector: (row) => row.class,
+    selector: (row) => row.class.toString(),
     sortable: true,
   },
   {
     name: "DOB",
-    selector: (row) => row.dob,
+    selector: (row) => row.dob.toString(),
     sortable: true,
   },
   {
     name: "Parent Name",
-    selector: (row) => row.parentName,
+    selector: (row) => row.parentName.toString(),
     sortable: true,
   },
   {
     name: "Mobile Number",
-    selector: (row) => row.mobileNumber,
+    selector: (row) => row.mobileNumber.toString(),
     sortable: true,
   },
   {
     name: "Address",
-    selector: (row) => row.address,
+    selector: (row) => row.address.toString(),
     sortable: true,
   },
   {
     name: "Action",
-    selector: (row) => row.action,
+    selector: (row) => row.action.toString(),
     sortable: true,
     cell: () => (
       <div>
@@ -203,56 +203,52 @@ const columns = [
   },
 ];
 
-class StudentsList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const StudentsList = () => {
+  const tableData = {
+    columns,
+    data,
+  };
 
-  render() {
-    const tableData = {
-      columns,
-      data,
-    };
-    return (
-      <div>
+  return (
+    <div>
+      <div className="page-header">
         <div className="page-header">
-          <div className="page-header">
-            <Row>
-              <Col className="col">
-                <h3 className="page-title"> Students </h3>
-                <ul className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a href="/dashboard"> Dashboard </a>
-                  </li>
-                  <li className="breadcrumb-item active"> Students </li>
-                </ul>
-              </Col>
-              <Col className="col-auto text-end float-right ms-auto">
-                <a href="#" className="btn btn-outline-primary me-2">
-                  <FontAwesomeIcon icon={faDownload} /> Download
-                </a>
-                <a href="/add-student" className="btn btn-primary">
-                  <FontAwesomeIcon icon={faPlus} />
-                </a>
-              </Col>
-            </Row>
-          </div>
+          <Row>
+            <Col className="col">
+              <h3 className="page-title"> Students </h3>
+              <ul className="breadcrumb">
+                <li className="breadcrumb-item">
+                  <a href="/dashboard"> Dashboard </a>
+                </li>
+                <li className="breadcrumb-item active"> Students </li>
+              </ul>
+            </Col>
+            <Col className="col-auto text-end float-right ms-auto">
+              <a href="#" className="btn btn-outline-primary me-2">
+                <FontAwesomeIcon icon={faDownload} /> Download
+              </a>
+              <a href="/add-student" className="btn btn-primary">
+                <FontAwesomeIcon icon={faPlus} />
+              </a>
+            </Col>
+          </Row>
         </div>
-
-        <Card>
-          <DataTableExtensions {...tableData}>
-            <DataTable
-              noHeader
-              defaultSortField="id"
-              defaultSortAsc={false}
-              pagination
-              highlightOnHover
-            />
-          </DataTableExtensions>
-        </Card>
       </div>
-    );
-  }
-}
-export default StudentsList;
+
+      <Card>
+        <DataTableExtensions {...tableData}>
+          <DataTable
+            noHeader
+            defaultSortField="id"
+            defaultSortAsc={false}
+            pagination
+            highlightOnHover
+          />
+        </DataTableExtensions>
+      </Card>
+    </div>
+  );
+};
+
+export { StudentsList };
+

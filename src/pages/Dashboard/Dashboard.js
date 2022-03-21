@@ -2,22 +2,19 @@ import {
   faBuilding,
   faCrown,
   faFileAlt,
-  faUserGraduate,
+  faUserGraduate
 } from "@fortawesome/fontawesome-free-solid";
 import {
   faFacebook,
   faInstagram,
   faLinkedinIn,
-  faTwitter,
+  faTwitter
 } from "@fortawesome/free-brands-svg-icons";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
+import React from "react";
 // Import Components
 import { Card, Col, Row, Table } from "react-bootstrap";
-// Import Chart
-import Chart from "chart.js/auto";
-import { Bar, Line } from "react-chartjs-2";
 
 // Revenue Chart
 const data = {

@@ -1,8 +1,4 @@
 import React from "react";
-
-// Import Logo
-
-
 const ForgotPassword = () => {
   return (
     <div className="main-wrapper login-body">
@@ -10,7 +6,11 @@ const ForgotPassword = () => {
         <div className="container">
           <div className="loginbox">
             <div className="login-left">
-              <img className="img-fluid" src="assets/img/logo-white.png" alt="Logo" />
+              <img
+                className="img-fluid"
+                src="assets/img/logo-white.png"
+                alt="Logo"
+              />
             </div>
             <div className="login-right">
               <div className="login-right-wrap">

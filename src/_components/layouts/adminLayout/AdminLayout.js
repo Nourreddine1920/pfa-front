@@ -1,6 +1,6 @@
 import React from "react";
 // Import Component
-import { Sidebar, Header, Footer } from "../../../_components";
+import { Footer, Header, Sidebar } from "../../../_components";
 
 class AdminLayout extends React.Component {
   render() {

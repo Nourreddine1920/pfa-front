@@ -1,10 +1,6 @@
-import React from "react";
-
-
-// Import Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
 const Register = () => {
   return (
     <div className="main-wrapper login-body">
@@ -12,7 +8,11 @@ const Register = () => {
         <div className="container">
           <div className="loginbox">
             <div className="login-left">
-              <img className="img-fluid" src="/assets/img/logo-white.png" alt="Logo" />
+              <img
+                className="img-fluid"
+                src="/assets/img/logo-white.png"
+                alt="Logo"
+              />
             </div>
             <div className="login-right">
               <div className="login-right-wrap">
