@@ -11,5 +11,7 @@
 
 - hide `components` && `form-basic-inputs` && `form-horizontal` && `form-input-groups` && `form-mask`
 - hide `form-validation` && `form-vertical`  && `tables-basic` && `data-tables` && `blank-page` 
+- add `notification` 
 
 # 🚩🚩 ... from class based to functional component ... 🚩🚩
+# add .DELETED_COMPONENTS to gitignore #
