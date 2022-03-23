@@ -1,15 +1,17 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import {
   faBookOpen,
   faClipboardCheck,
   faClock,
   faHourglassEnd,
 } from "@fortawesome/fontawesome-free-solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import React from "react";
 // Import Components
 import { Col, Row } from "react-bootstrap";
 import ProgressBar from "react-customizable-progressbar";
 import { withRouter } from "react-router-dom";
+import MyPdf from "../../_components/PdfLoader";
 export const BoardList = (props) => {
   console.log("props...", props);
   return (
@@ -45,18 +47,18 @@ export const BoardList = (props) => {
                     <div className="card-body dash-widget1">
                       <div className="circle-bar circle-bar2">
                         <ProgressBar
-                          width="{15}"
-                          radius="{40}"
-                          progress="{20}"
-                          rotate="{-210}"
-                          strokeWidth="{8}"
+                          width={15}
+                          radius={40}
+                          progress={20}
+                          rotate={-210}
+                          strokeWidth={8}
                           strokeColor="#6e6bfa"
                           strokeLinecap="square"
-                          trackStrokeWidth="{8}"
+                          trackStrokeWidth={8}
                           trackStrokeColor="#e6e6e6"
                           trackStrokeLinecap="square"
-                          pointerRadius="{0}"
-                          initialAnimation="{true}"
+                          pointerRadius={0}
+                          initialAnimation={true}
                           transition="1.5s ease 0.5s"
                           trackTransition="0s ease"
                         >
@@ -104,18 +106,18 @@ export const BoardList = (props) => {
                     <div className="card-body dash-widget1 dash-widget2">
                       <div className="circle-bar circle-bar2">
                         <ProgressBar
-                          width="{15}"
-                          radius="{40}"
-                          progress="{50}"
-                          rotate="{-210}"
-                          strokeWidth="{8}"
+                          width={15}
+                          radius={40}
+                          progress={50}
+                          rotate={-210}
+                          strokeWidth={8}
                           strokeColor="#6e6bfa"
                           strokeLinecap="square"
-                          trackStrokeWidth="{8}"
+                          trackStrokeWidth={8}
                           trackStrokeColor="#e6e6e6"
                           trackStrokeLinecap="square"
-                          pointerRadius="{0}"
-                          initialAnimation="{true}"
+                          pointerRadius={0}
+                          initialAnimation={true}
                           transition="1.5s ease 0.5s"
                           trackTransition="0s ease"
                         >
@@ -165,6 +167,7 @@ export const BoardList = (props) => {
           </div>
         </div>
       </Row>
+      <MyPdf />
     </div>
   );
 };
