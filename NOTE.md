@@ -15,3 +15,28 @@
 
 # 🚩🚩 ... from class based to functional component ... 🚩🚩
 # add .DELETED_COMPONENTS to gitignore #
+# add `activity` route 
+- `activitylist` 
+  - for teacher 
+    - upload TP (homework/)
+    - student view TP (download/compleet-TP/InProgress...)
+    - make test in board (upload(.hex/bin) file / ...)
+  - for student 
+    - upload TP (his work/)
+    - view TP (download/compleet-TP/InProgress...)
+    - make test in board (upload(.hex/bin) file / ...)
+- `activityitem` 
+  - ...
+# add `board` route
+- `boardlist` (list of board)
+  - 
+- `board`
+  - Name (STM32F4x/STM32L5x)  (string)
+  - Serial number (string)
+  - last-use (Date)
+  - state (available/not-available/in-use/...) (choices['...'])
+  - datasheet (pdf file)
+  - galery [list off board image]
+  - history of use (shart (pie))
+    - failed tests(activitys)
+    - sucessded tests(activitys)

@@ -232,7 +232,7 @@ class Sidebar extends React.Component {
                     </li>
                   </ul>
                 </li>
-                
+
                 {/* <li
                   className={`submenu ${
                     pathnames.includes("subjects")
@@ -337,7 +337,18 @@ class Sidebar extends React.Component {
                     </li>
                   </ul>
                 </li> */}
-
+                <li className={pathnames.includes("activity") ? "active" : ""}>
+                  <Link to="/activity">
+                    <FontAwesomeIcon icon={faShieldAlt} />
+                    <span>Activity list</span>
+                  </Link>
+                </li>
+                <li className={pathnames.includes("boardslist") ? "active" : ""}>
+                  <Link to="/boardslist">
+                    <FontAwesomeIcon icon={faHockeyPuck} />
+                    <span>Board list</span>
+                  </Link>
+                </li>
                 <li className={pathnames.includes("exam") ? "active" : ""}>
                   <Link to="/exam">
                     <FontAwesomeIcon icon={faClipboard} />

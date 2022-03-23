@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ActivityItem, ActivityList } from "./pages/Activity";
 import BlankPage from "./pages/BlankPage/BlankPage";
+import { Board, BoardList } from "./pages/Boards";
 import Components from "./pages/Components/Components";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import StudentDashboard from "./pages/Dashboard/StudentDashboard";
@@ -76,6 +78,10 @@ class RouterComponent extends React.Component {
                   <Route path="/edit-teacher" component={EditTeacher} />
                   <Route path="/teacher-details" component={TeacherDetails} />
                   <Route path="/exam" component={Exam} />
+                  <Route path="/activity" component={ActivityList} />
+                  <Route path="/activityitem" component={ActivityItem} />
+                  <Route path="/boardslist" component={BoardList} />
+                  <Route path="/board" component={Board} />
                   <Route path="/add-exam" component={AddExam} />
                   <Route path="/edit-exam" component={EditExam} />
                   <Route path="/time-table" component={TimeTable} />
