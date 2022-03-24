@@ -81,8 +81,8 @@ class Header extends React.Component {
               className="dropdown-toggle nav-link"
               data-bs-toggle="dropdown"
             >
-              {/* <i className="far fa-bell"></i> */}
-              <FontAwesomeIcon icon={faMagic} />
+              
+              <FontAwesomeIcon icon="fa-solid fa-bell" />
               <span className="badge badge-pill">3</span>
             </a>
             <div className="dropdown-menu notifications">

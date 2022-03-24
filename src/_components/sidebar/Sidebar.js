@@ -22,6 +22,7 @@ import {
   faBus,
   faColumns,
   faCode,
+  faBookmark,
 } from "@fortawesome/fontawesome-free-solid";
 import { faSquarespace } from "@fortawesome/free-brands-svg-icons";
 
@@ -339,13 +340,13 @@ class Sidebar extends React.Component {
                 </li> */}
                 <li className={pathnames.includes("activity") ? "active" : ""}>
                   <Link to="/activity">
-                    <FontAwesomeIcon icon={faShieldAlt} />
+                    <FontAwesomeIcon icon={faBookmark} />
                     <span>Activity list</span>
                   </Link>
                 </li>
                 <li className={pathnames.includes("boardslist") ? "active" : ""}>
                   <Link to="/boardslist">
-                    <FontAwesomeIcon icon={faHockeyPuck} />
+                  <FontAwesomeIcon icon="fa-solid fa-microchip" />
                     <span>Board list</span>
                   </Link>
                 </li>

@@ -1,23 +1,29 @@
-import "./Demo.css";
+// import "./Demo.css";
 const Demo = () => {
-    
   return (
     <div id="content">
       <ul className="timeline">
         <li className="event" data-date="12:30 - 1:00pm">
-          <h3>Registration</h3>
-          <p>
-            Get here on time, it's first come first serve. Be late, get turned
-            away.
-          </p>
-          <p>
-            Get here on time, it's first come first serve. Be late, get turned
-            away.
-          </p>
-          <p>
-            Get here on time, it's first come first serve. Be late, get turned
-            away.
-          </p>
+          <div
+            style={{
+                backgroundColor: "aliceblue",
+                borderRadius: "5px 5px 26px",
+            }}
+            >
+              <h3>Registration</h3>
+            <p>
+              Get here on time, it's first come first serve. Be late, get turned
+              away.
+            </p>
+            <p>
+              Get here on time, it's first come first serve. Be late, get turned
+              away.
+            </p>
+            <p>
+              Get here on time, it's first come first serve. Be late, get turned
+              away.
+            </p>
+          </div>
         </li>
         <li className="event" data-date="2:30 - 4:00pm">
           <h3>Opening Ceremony</h3>

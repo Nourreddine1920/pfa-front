@@ -2,7 +2,9 @@ import React from "react";
 // Import Components
 import { Col, Row, Card } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
-import Demo from "../Demo/Demo";
+// import Demo from "../Demo/Demo";
+import Demo1 from "../Demo/Demo1";
+import Demo2 from "../Demo/Demo2";
 
 
 export const Notifs = (props) => {
@@ -103,7 +105,9 @@ export const Notifs = (props) => {
                 </span>
               </li>
             </ul> */}
-            <Demo/>
+            {/* <Demo/> */}
+            <Demo1/>
+            {/* <Demo2/> */}
           </Card.Body>
         </Card>
       </Row>
