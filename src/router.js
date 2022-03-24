@@ -7,6 +7,7 @@ import Components from "./pages/Components/Components";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import StudentDashboard from "./pages/Dashboard/StudentDashboard";
 import TeacherDashboard from "./pages/Dashboard/TeacherDashboard";
+import Demo from "./pages/Demo/Demo";
 import Error from "./pages/Error/Error";
 import { AddExam, EditExam, Exam } from "./pages/Exam";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
@@ -105,6 +106,7 @@ class RouterComponent extends React.Component {
                   <Route path="/form-vertical" component={FormVertical} />
                   <Route path="/tables-basic" component={TablesBasic} />
                   <Route path="/data-tables" component={DataTables} />
+                  <Route path="/demo" component={Demo} />
                 </Switch>
               </div>
               <Route render={(props) => <Footer {...props} />} />

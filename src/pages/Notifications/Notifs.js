@@ -2,8 +2,11 @@ import React from "react";
 // Import Components
 import { Col, Row, Card } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
+import Demo from "../Demo/Demo";
+
 
 export const Notifs = (props) => {
+  
   return (
     <div className="main-wrapper login-body">
       <div className="page-header">
@@ -22,10 +25,10 @@ export const Notifs = (props) => {
       <Row>
         <Card className="flex-fill">
           <Card.Header>
-            <h5 className="card-title"> Student or Teacher Activity </h5>
+            <h5 className="card-title"> Student or Teacher Notifications </h5>
           </Card.Header>
-          <Card.Body>
-            <ul className="activity-feed notification-list">
+          <Card.Body id="notifs">
+            {/* <ul className="activity-feed notification-list">
               <li className="feed-item notification-message">
                 <div className="feed-date"> 4 mins ago </div>
                 <span className="feed-text">
@@ -94,15 +97,13 @@ export const Notifs = (props) => {
                         <p className="noti-details">
                           <span className="noti-title">John Hendry</span> sent a cancellation request <span className="noti-title"> Apple iPhone XR</span>
                         </p>
-                        {/* <p className="noti-time">
-                          <span className="notification-time"></span>
-                        </p> */}
                       </div>
                     </div>
                   </a>
                 </span>
               </li>
-            </ul>
+            </ul> */}
+            <Demo/>
           </Card.Body>
         </Card>
       </Row>

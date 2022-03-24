@@ -88,7 +88,7 @@ class Header extends React.Component {
             <div className="dropdown-menu notifications">
               <div className="topnav-dropdown-header">
                 <span className="notification-title">Notifications</span>
-                <a href="javascript:void(0)" className="clear-noti">
+                <a href="" className="clear-noti">
                   Clear All
                 </a>
               </div>
