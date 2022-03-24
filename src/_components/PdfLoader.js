@@ -18,15 +18,26 @@ class MyPdf extends Component {
     const { pageNumber, numPages } = this.state;
 
     return (
-      <div>
-        <nav>
-          <button onClick={this.goToPrevPage}>Prev</button>
-          <button onClick={this.goToNextPage}>Next</button>
+      <div >
+        <nav
+          // className="dash-btn"
+          style={{ justifyContent: "space-between", display: "flex" }}
+        >
+          <button className="btn btn-info" onClick={this.goToPrevPage}>
+            Prev
+          </button>
+          <button className="btn btn-info" onClick={this.goToNextPage}>
+            Next
+          </button>
         </nav>
 
-        <div style={{ width: 300 }}>
+        <div >
           <Document file={pdf} onLoadSuccess={this.onDocumentLoadSuccess}>
-            <Page pageNumber={pageNumber} width={600} />
+            <Page
+              pageNumber={pageNumber}
+              width={360}
+              style={{ textAlign: "center" }}
+            />
           </Document>
         </div>
 

@@ -1,10 +1,12 @@
 import {
-  faAlignLeft, faSearch
+  faAlignLeft, faMagic, faSearch
 } from "@fortawesome/fontawesome-free-solid";
+import { faFonticons } from "@fortawesome/free-brands-svg-icons";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import $ from "jquery";
 import React from "react";
+
 
 
 class Header extends React.Component {
@@ -79,7 +81,8 @@ class Header extends React.Component {
               className="dropdown-toggle nav-link"
               data-bs-toggle="dropdown"
             >
-              <i className="far fa-bell"></i>
+              {/* <i className="far fa-bell"></i> */}
+              <FontAwesomeIcon icon={faMagic} />
               <span className="badge badge-pill">3</span>
             </a>
             <div className="dropdown-menu notifications">
@@ -200,7 +203,7 @@ class Header extends React.Component {
                 </ul>
               </div>
               <div className="topnav-dropdown-footer">
-                <a href="#">View all Notifications</a>
+                <a href="/notifications">View all Notifications</a>
               </div>
             </div>
           </li>

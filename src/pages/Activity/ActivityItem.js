@@ -38,7 +38,7 @@ export const ActivityItem = (props) => {
                         <a> Lorem ipsum dolor </a>
                       </span>
                       <p>
-                        <span> In Progress </span>
+                        <span id="inprogress"> In Progress </span>
                       </p>
                     </li>
                     <li className="feed-item">
@@ -46,7 +46,10 @@ export const ActivityItem = (props) => {
                       <span className="feed-text1">
                         <a> Et dolore magna </a>
                       </span>
-                      <p> Completed </p>
+
+                      <p>
+                        <span id="completed"> Completed </span>
+                      </p>
                     </li>
                     <li className="feed-item">
                       <div className="feed-date1">Sep 02, 1 pm - 2 am</div>
@@ -54,17 +57,26 @@ export const ActivityItem = (props) => {
                         <a> Exercitation ullamco </a>
                       </span>
                       <p>
-                        <span> In Progress </span>
+                        <span id="inprogress"> In Progress </span>
                       </p>
                     </li>
                     <li className="feed-item">
-                      <div className="feed-date1">
-                        Aug 30, 10 am - 12 pm(90 min)
-                      </div>
+                      <div className="feed-date1">Sep 02, 1 pm - 2 am</div>
+                      <span className="feed-text1">
+                        <a> Exercitation ullamco </a>
+                      </span>
+                      <p>
+                        <span id="failed"> Failed </span>
+                      </p>
+                    </li>
+                    <li className="feed-item">
+                      <div className="feed-date1">Aug 30, 10 am - 12 pm</div>
                       <span className="feed-text1">
                         <a> Occaecat cupidatat </a>
                       </span>
-                      <p> Completed </p>
+                      <p>
+                        <span id="completed"> Completed </span>
+                      </p>
                     </li>
                   </ul>
                 </div>

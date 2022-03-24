@@ -22,7 +22,6 @@
     - student view TP (download/compleet-TP/InProgress...)
     - make test in board (upload(.hex/bin) file / ...)
     - Give direct, real-time feedback.
-    - Use the class stream to post announcements and engage students .
   - for student 
     - upload TP (his work/)
     - view TP (download/compleet-TP/InProgress...)

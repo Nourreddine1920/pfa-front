@@ -20,6 +20,7 @@ import {
 } from "./pages/Forms";
 import { Compose, Inbox } from "./pages/Inbox";
 import Login from "./pages/Login/Login";
+import { Notifs } from "./pages/Notifications/Notifs";
 import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
 import {
@@ -81,6 +82,7 @@ class RouterComponent extends React.Component {
                   <Route path="/activity" component={ActivityList} />
                   <Route path="/activityitem" component={ActivityItem} />
                   <Route path="/boardslist" component={BoardList} />
+                  <Route path="/notifications" component={Notifs} />
                   <Route path="/board" component={Board} />
                   <Route path="/add-exam" component={AddExam} />
                   <Route path="/edit-exam" component={EditExam} />
