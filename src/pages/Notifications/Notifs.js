@@ -15,7 +15,7 @@ export const Notifs = (props) => {
             <h3 className="page-title"> Notifications</h3>
             <ul className="breadcrumb">
               <li className="breadcrumb-item">
-                <a href="/profile"> Tarek brahmi </a>
+                <a href="/profile"> User </a>
               </li>
               <li className="breadcrumb-item active">Notifications </li>
             </ul>
@@ -27,7 +27,7 @@ export const Notifs = (props) => {
           <Card.Header>
             <h5 className="card-title"> Student or Teacher Notifications </h5>
           </Card.Header>
-          <Card.Body id="notifs">
+          <Card.Body >
             {/* <ul className="activity-feed notification-list">
               <li className="feed-item notification-message">
                 <div className="feed-date"> 4 mins ago </div>

@@ -7,7 +7,7 @@
 
 
 #content {
-	margin-top: 50px;
+	/* margin-top: 50px; */
 	text-align: center;
 }
 
@@ -18,7 +18,7 @@
 	background: rgba(255, 255, 255, 0.03);
 	/* color: rgba(255, 255, 255, 0.8); */
 	font-family: 'Source Sans Pro', sans-serif;
-	margin: 50px auto;
+	/* margin: 50px auto; */
 	letter-spacing: 0.5px;
 	position: relative;
 	line-height: 1.4em;
