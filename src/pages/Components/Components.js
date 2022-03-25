@@ -1126,58 +1126,8 @@ const Components = () => {
         </section>
         {/* Progressbar */}
         {/* Tabs */}
-        <section className="comp-section comp-dropdowns">
-          <div className="section-header">
-            <h4 className="section-title"> Tabs </h4>
-            <div className="line"> </div>
-          </div>
-          <Row>
-            <Col md={6}>
-              <Card>
-                <Card.Header>
-                  <Card.Title> Basic Tabs </Card.Title>
-                </Card.Header>
-                <Card.Body>
-                  <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
-                    <Tab eventKey="home" title="Home">
-                      Tab Content 1
-                    </Tab>
-                    <Tab eventKey="profile" title="Profile">
-                      Tab Content 2
-                    </Tab>
-                    <Tab eventKey="contact" title="Contact">
-                      Tab Content 3
-                    </Tab>
-                  </Tabs>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={6}>
-              <Card>
-                <Card.Header>
-                  <Card.Title> No Animation Tabs </Card.Title>
-                </Card.Header>
-                <Card.Body>
-                  <Tabs
-                    defaultActiveKey="home"
-                    transition={false}
-                    id="noanim-tab-example"
-                  >
-                    <Tab eventKey="home" title="Home">
-                      Tab Content 1
-                    </Tab>
-                    <Tab eventKey="profile" title="Profile">
-                      Tab Content 2
-                    </Tab>
-                    <Tab eventKey="contact" title="Contact">
-                      Tab Content 3
-                    </Tab>
-                  </Tabs>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </section>
+        Stacked Progress Bars
+
         {/* Tabs */}
         {/* Typography */}
         <section className="comp-section">

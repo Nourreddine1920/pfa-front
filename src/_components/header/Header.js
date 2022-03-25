@@ -77,7 +77,7 @@ class Header extends React.Component {
         <ul className="nav user-menu">
           <li className="nav-item dropdown noti-dropdown">
             <a
-              href="#"
+              type="button"
               className="dropdown-toggle nav-link"
               data-bs-toggle="dropdown"
             >
@@ -95,7 +95,7 @@ class Header extends React.Component {
               <div className="noti-content">
                 <ul className="notification-list">
                   <li className="notification-message">
-                    <a href="#">
+                    <a type="button">
                       <div className="media d-flex">
                         <span className="avatar avatar-sm flex-shrink-0">
                           <img
@@ -120,7 +120,7 @@ class Header extends React.Component {
                     </a>
                   </li>
                   <li className="notification-message">
-                    <a href="#">
+                    <a type="button">
                       <div className="media d-flex">
                         <span className="avatar avatar-sm flex-shrink-0">
                           <img
@@ -147,7 +147,7 @@ class Header extends React.Component {
                     </a>
                   </li>
                   <li className="notification-message">
-                    <a href="#">
+                    <a type="button">
                       <div className="media d-flex">
                         <span className="avatar avatar-sm flex-shrink-0">
                           <img
@@ -172,7 +172,7 @@ class Header extends React.Component {
                     </a>
                   </li>
                   <li className="notification-message">
-                    <a href="#">
+                    <a type="button">
                       <div className="media d-flex">
                         <span className="avatar avatar-sm flex-shrink-0">
                           <img
@@ -210,14 +210,14 @@ class Header extends React.Component {
 
           <li className="nav-item dropdown has-arrow">
             <a
-              href="#"
+              type="button"
               className="dropdown-toggle nav-link"
               data-bs-toggle="dropdown"
             >
               <span className="user-img">
                 <img
                   className="rounded-circle"
-                  src="assets/img/profiles/avatar-01.jpg"
+                  src="assets/img/profiles/avatar-13.jpg"
                   width="31"
                   alt="Ryan Taylor"
                 ></img>
@@ -227,14 +227,14 @@ class Header extends React.Component {
               <div className="user-header">
                 <div className="avatar avatar-sm">
                   <img
-                    src="assets/img/profiles/avatar-01.jpg"
+                    src="assets/img/profiles/avatar-13.jpg"
                     alt="User Image"
                     className="avatar-img rounded-circle"
                   ></img>
                 </div>
                 <div className="user-text">
                   <h6>Ryan Taylor</h6>
-                  <p className="text-muted mb-0">Administrator</p>
+                  <p className="text-muted mb-0">👨‍🏫 Teacher</p>
                 </div>
               </div>
               <a className="dropdown-item" href="/profile">

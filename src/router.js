@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import StudentDashboard from "./pages/Dashboard/StudentDashboard";
 import TeacherDashboard from "./pages/Dashboard/TeacherDashboard";
 import Demo from "./pages/Demo/Demo";
+import EditorV1 from "./pages/Editor/Editor";
+import EditorV2 from "./pages/Editor/Editor1";
 import Error from "./pages/Error/Error";
 import { AddExam, EditExam, Exam } from "./pages/Exam";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
@@ -80,6 +82,8 @@ class RouterComponent extends React.Component {
                   <Route path="/edit-teacher" component={EditTeacher} />
                   <Route path="/teacher-details" component={TeacherDetails} />
                   <Route path="/exam" component={Exam} />
+                  <Route path="/editor" component={EditorV1} />
+                  {/* <Route path="/editor" component={EditorV2} /> */}
                   <Route path="/activity" component={ActivityList} />
                   <Route path="/activityitem" component={ActivityItem} />
                   <Route path="/boardslist" component={BoardList} />

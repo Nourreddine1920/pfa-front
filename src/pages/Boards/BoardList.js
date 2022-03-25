@@ -12,6 +12,20 @@ import { Col, Row, Card, Media } from "react-bootstrap";
 import ProgressBar from "react-customizable-progressbar";
 import { withRouter } from "react-router-dom";
 import MyPdf from "../../_components/PdfLoader";
+import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+
+const IMAGES = [
+  {
+    image: "01",
+    bigImage: "/assets/img/boards/stm32f429i-discovery.png",
+  },
+  {
+    image: "02",
+    bigImage: "/assets/img/boards/nucleo.jpg",
+  },
+];
 export const BoardList = (props) => {
   console.log("props...", props);
   return (
@@ -226,13 +240,18 @@ export const BoardList = (props) => {
                   </Card.Header>
                   <Card.Body id="">
                     <Media className="me-3 d-flex">
-                      <img
-                        width={350}
-                        height= {600}
-                        src="/assets/img/boards/stm32f429i-discovery.png"
-                        className="me-3"
-                        alt="..."
-                      />
+                      <Slider {...IMAGES}>
+                        {IMAGES.map((img, index) => {
+                          <img
+                            key={index}
+                            width={350}
+                            height={600}
+                            src={img.bigImage}
+                            className="me-3"
+                            alt="..."
+                          />;
+                        })}
+                      </Slider>
                     </Media>
                   </Card.Body>
                 </Card>
