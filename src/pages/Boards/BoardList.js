@@ -5,6 +5,7 @@ import {
   faHourglassEnd,
 } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SimpleImageSlider from "react-simple-image-slider";
 
 import React from "react";
 // Import Components
@@ -13,17 +14,15 @@ import ProgressBar from "react-customizable-progressbar";
 import { withRouter } from "react-router-dom";
 import MyPdf from "../../_components/PdfLoader";
 import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const IMAGES = [
   {
-    image: "01",
-    bigImage: "/assets/img/boards/stm32f429i-discovery.png",
+    url: "/assets/img/boards/stm32f429i-discovery.png",
   },
   {
-    image: "02",
-    bigImage: "/assets/img/boards/nucleo.jpg",
+    url: "/assets/img/boards/nucleo.jpg",
   },
 ];
 export const BoardList = (props) => {
@@ -116,7 +115,7 @@ export const BoardList = (props) => {
                           type="button"
                           className="btn btn-info"
                         >
-                          Continue
+                          Make Exam
                         </button>
                       </div>
                     </div>
@@ -184,7 +183,7 @@ export const BoardList = (props) => {
                           type="button"
                           className="btn btn-info"
                         >
-                          Continue
+                          Make Exam
                         </button>
                       </div>
                     </div>
@@ -239,20 +238,15 @@ export const BoardList = (props) => {
                     </Row>
                   </Card.Header>
                   <Card.Body id="">
-                    <Media className="me-3 d-flex">
-                      <Slider {...IMAGES}>
-                        {IMAGES.map((img, index) => {
-                          <img
-                            key={index}
-                            width={350}
-                            height={600}
-                            src={img.bigImage}
-                            className="me-3"
-                            alt="..."
-                          />;
-                        })}
-                      </Slider>
-                    </Media>
+                    <div>
+                      <SimpleImageSlider
+                        width={400}
+                        height={600}
+                        images={IMAGES}
+                        showBullets={true}
+                        showNavs={true}
+                      />
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>
@@ -265,3 +259,4 @@ export const BoardList = (props) => {
 };
 
 withRouter(BoardList);
+// https://www.facebook.com/groupcall/ROOM:/?call_id=1865488687&users_to_ring[0]=100013765440053&has_video=false&initialize_video=false&nonce=147tewfr3up0&thread_type=1&use_joining_context=true&peer_id=100013765440053
