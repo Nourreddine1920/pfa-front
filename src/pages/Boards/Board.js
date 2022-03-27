@@ -1,13 +1,20 @@
 import {
-  CAccordion, CAccordionBody, CAccordionHeader, CAccordionItem, CSpinner
+  CAccordion,
+  CAccordionBody,
+  CAccordionHeader,
+  CAccordionItem,
+  CAlert,
+  CButton,
+  CSpinner,
 } from "@coreui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Col, Media, Row, Tab, Tabs } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { withRouter } from "react-router-dom";
 import Donut from "../../_components/progressbar/Chart1";
 import ProgressBBar from "../../_components/progressbar/ProgressBar";
+import $ from "jquery";
 const IMAGES = [
   {
     image: "01",
@@ -18,9 +25,33 @@ const IMAGES = [
     bigImage: "/assets/img/boards/nucleo.jpg",
   },
 ];
-
+const Allert = () => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    if (visible) {
+      $("#alert-box")
+        .addClass("show")
+        .delay(3500)
+        .queue(function () {
+          $(this).removeClass("show").dequeue();
+          // setVisible(!visible)
+        });
+    }
+  }, [visible]);
+  return (
+    <div>
+      <div id="alert-box">
+        <CAlert color="primary" visible={visible}>
+          A simple primary alert—check it out!
+        </CAlert>
+      </div>
+      <CButton color="primary" onClick={() => setVisible(!visible)}>
+        Show live alert
+      </CButton>
+    </div>
+  );
+};
 export const Board = (props) => {
-  console.log("props...", props);
   const [isOpen, setisOpen] = useState(false);
   const [tab, settab] = useState(0);
   const [activeItemkey, setactiveItemkey] = useState(1);
@@ -100,7 +131,9 @@ export const Board = (props) => {
                           </li>
                           <li>
                             <span className="title-span"> State: </span>
-                            <span className="info-span">Available</span>
+                            <span className="info-span">
+                              Available(NOT IN USE)
+                            </span>
                           </li>
                           <li>
                             <span className="title-span"> Last Use: </span>
@@ -333,7 +366,9 @@ export const Board = (props) => {
                               </p>
                             </div>
                             <div className="card-body">
-                              <div></div>
+                              <div>
+                                <Allert />
+                              </div>
                             </div>
                           </div>
                         </div>

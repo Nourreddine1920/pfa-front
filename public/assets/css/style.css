@@ -1067,11 +1067,13 @@ button.bg-danger:hover {
 .dropdown-menu {
     font-size: 14px;
 }
-.shadow-card{
+
+.shadow-card {
     box-shadow: 0px 0px 6px 0px rgb(0 0 0 / 16%);
     border: 1px solid #ececf5;
     margin-bottom: 1.875rem;
 }
+
 .card {
     border: 1px solid #ececf5;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03);
@@ -4236,9 +4238,10 @@ table.table-inbox tbody tr.checked {
         flex-direction: column;
         align-items: center;
     }
-    #card-overview{
+
+    #card-overview {
         padding-top: 17px;
-        
+
     }
 
     .title-span {
@@ -4302,4 +4305,19 @@ table.table-inbox tbody tr.checked {
         width: 310px;
         height: 355px;
     }
+}
+
+#alert-box {
+
+    position: absolute;
+
+    right: 19px;
+    z-index: 50;
+    font-weight: bold;
+    transform: translateY(-1450%);
+    transition: transform .8s;
+}
+
+#alert-box.show {
+    transform: none;
 }
