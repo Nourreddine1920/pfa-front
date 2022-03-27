@@ -13,7 +13,7 @@ const Footer = (props) => {
   }
   return (
     <footer>
-      <p> Copyright© 2022 --- PFA </p>
+      <p> Copyright © 2022 --- PFA </p>
     </footer>
   );
 };

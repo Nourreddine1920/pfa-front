@@ -1,0 +1,64 @@
+user :
+    id (integer): PK
+    kind (string) : [`OTHER`]
+    username(string):
+    first_name(string):
+    last_name(string):
+    email(string):
+    photo (image):
+    ...
+
+TimeModel(META CLASS) :
+    created_at:
+    updated_at:
+file (TimeModel) :
+    id_file (integer): PK
+    file (FILE): 
+activity (TimeModel):
+    id_activity (integer): PK
+    subject (string) : ['teacher upload TP | teacher or student make test in board  | student download tp | ....']
+    created_by (user) : ForeignKey (user)
+    ...
+
+exam (TimeModel):
+    id_exam (integer): PK
+    state (string) : [`COMPLETED`,`INPROGRESS`,`FAILED`,`OTHER`]
+    created_by (user) : ForeignKey (user)
+    file_uploaded (file) ['.hex/.bin'] : ForeignKey (file)
+    ...
+
+image (TimeModel):
+    id_image (integer): PK
+    url_image (IMAGE): 
+
+
+teacher (TimeModel):
+    id_teacher (integer): PK
+    kind (string) : [ `TEACHER`]
+    user (user): OneToOneField (user)
+    activitys (list(activity)) : ManyToManyField (activity )
+student (TimeModel):
+    id_student (integer): PK
+    kind (string) : [`STUDENT` ]
+    user (user): OneToOneField (user)
+    activitys (list(activity)) : ManyToManyField (activity )
+
+board (TimeModel):
+    id_board (integer): PK
+    name (string): STM32.....
+    in_use (boolean) : `FALSE`
+    family (string) : [F4,L5 ....]
+    serial_number (string) : XXXXXXXXXXXXXXXXX
+    gallery (list[image]) :ManyToManyField ( image)
+    state (string) : [`AVAILABLE`,`NOTAVAILABLE`,`INWORK`,`OTHER`]
+    datasheet (file) : pdf file
+    exams (list(exam)) :ManyToManyField (exam)
+    ___`uniquetogether`( id_board,serial_number)__
+
+notification (TimeModel):
+    id_notification (integer): PK
+    type_notification (integer): [1 to n] 
+    is_seen (boolean) : `FALSE`
+    notified_from (user) : ForeignKey(user)
+    notified_to (user) : ForeignKey(user)
+    ...

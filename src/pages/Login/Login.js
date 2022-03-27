@@ -39,7 +39,7 @@ const Login = () => {
             <div className="login-right">
               <div className="login-right-wrap">
                 <h1> Login </h1>
-                <p className="account-subtitle"> Access to our dashboard </p>
+                <p className="account-subtitle"> Remote access to HW testing Boards</p>
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <input

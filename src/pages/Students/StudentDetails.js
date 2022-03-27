@@ -34,7 +34,7 @@ const StudentDetails = () => {
               <div className="about-info">
                 <h4> About Me </h4>
                 <Media className="me-3 d-flex">
-                  <img src={"assets/img/user.jpg"} className="me-3" alt="..." />
+                  <img src="/assets/img/user.jpg" className="me-3" alt="..." />
                   <Media.Body>
                     <ul>
                       <li>

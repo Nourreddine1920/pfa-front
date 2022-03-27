@@ -1,29 +1,14 @@
+import {
+  faBookmark, faChalkboardTeacher, faClipboard, faCode, faFile, faTable, faThLarge,
+  faUserGraduate
+} from "@fortawesome/fontawesome-free-solid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import $ from "jquery";
 import React from "react";
 import { Scrollbars } from "react-custom-scrollbars";
-import $ from "jquery";
-import { history } from "../_helpers/history";
 import { Link } from "react-router-dom";
+import { history } from "../_helpers/history";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faThLarge,
-  faUserGraduate,
-  faChalkboardTeacher,
-  faBuilding,
-  faBook,
-  faFile,
-  faHockeyPuck,
-  faDollarSign,
-  faClipboard,
-  faCalendar,
-  faTable,
-  faShieldAlt,
-  faBaseballBall,
-  faBus,
-  faColumns,
-  faCode,
-} from "@fortawesome/fontawesome-free-solid";
-import { faSquarespace } from "@fortawesome/free-brands-svg-icons";
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -232,7 +217,7 @@ class Sidebar extends React.Component {
                     </li>
                   </ul>
                 </li>
-                
+
                 {/* <li
                   className={`submenu ${
                     pathnames.includes("subjects")
@@ -337,14 +322,30 @@ class Sidebar extends React.Component {
                     </li>
                   </ul>
                 </li> */}
-
+                <li className={pathnames.includes("activity") ? "active" : ""}>
+                  <Link to="/activity">
+                    <FontAwesomeIcon icon={faBookmark} />
+                    <span>Activity list</span>
+                  </Link>
+                </li>
+                <li className={pathnames.includes("boardslist") ? "active" : ""}>
+                  <Link to="/boardslist">
+                  <FontAwesomeIcon icon="fa-solid fa-microchip" />
+                    <span>Board list</span>
+                  </Link>
+                </li>
                 <li className={pathnames.includes("exam") ? "active" : ""}>
                   <Link to="/exam">
                     <FontAwesomeIcon icon={faClipboard} />
                     <span>Exam list</span>
                   </Link>
                 </li>
-
+                <li className={pathnames.includes("editor") ? "active" : ""}>
+                  <Link to="/editor">
+                    <FontAwesomeIcon icon={faCode} />
+                    <span>Editor</span>
+                  </Link>
+                </li>
                 <li
                   className={pathnames.includes("time-table") ? "active" : ""}
                 >
