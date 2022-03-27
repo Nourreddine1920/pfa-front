@@ -8,8 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 // Import Components
 import { Card, Col, Row, Tab, Tabs } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 
-const Profile = () => {
+const Profile = (props) => {
   return (
     <div>
       <div className="page-header">
@@ -30,7 +31,7 @@ const Profile = () => {
           <div className="profile-header">
             <div className="row align-items-center">
               <div className="col-auto profile-image">
-                <a href="#">
+                <a type="button">
                   <img
                     className="rounded-circle"
                     alt="User Image"
@@ -48,7 +49,13 @@ const Profile = () => {
                 <div className="about-text">Lorem ipsum dolor sit amet.</div>
               </div>
               <div className="col-auto profile-btn">
-                <a href="" className="btn btn-primary">
+                <a
+                  type="button"
+                  onClick={() => {
+                    props.history.push("/edit-student", {});
+                  }}
+                  className="btn btn-primary"
+                >
                   Edit
                 </a>
               </div>
@@ -59,7 +66,6 @@ const Profile = () => {
             id="uncontrolled-tab-example"
             className="profile-menu"
           >
-            {/* Personal Detail Tab */}
             <Tab eventKey="about" title="About">
               <Row>
                 <Col lg={9}>
@@ -70,7 +76,10 @@ const Profile = () => {
                         <a
                           className="edit-link"
                           data-toggle="modal"
-                          href="#edit_personal_details"
+                          type="button"
+                          onClick={() => {
+                            props.history.push("/edit-student", {});
+                          }}
                         >
                           <FontAwesomeIcon icon={faEdit} className="mr-1" />
                           Edit
@@ -115,12 +124,17 @@ const Profile = () => {
                   </Card>
                 </Col>
                 <Col lg={3}>
-                  {/* Account Status */}
                   <Card>
                     <Card.Body>
                       <Card.Title className="d-flex justify-content-between">
                         <span> Account Status </span>
-                        <a className="edit-link" href="#">
+                        <a
+                          onClick={() => {
+                            props.history.push("/edit-student", {});
+                          }}
+                          className="edit-link"
+                          type="button"
+                        >
                           <FontAwesomeIcon icon={faEdit} className="mr-1" />
                           Edit
                         </a>
@@ -131,13 +145,12 @@ const Profile = () => {
                       </button>
                     </Card.Body>
                   </Card>
-                  {/* /Account Status */}
-                  {/* Skills */}
-                  <Card>
+
+                  {/* <Card>
                     <Card.Body>
                       <Card.Title className="d-flex justify-content-between">
                         <span> Skills </span>
-                        <a className="edit-link" href="#">
+                        <a className="edit-link" type="button">
                           <FontAwesomeIcon icon={faEdit} className="mr-1" />
                           Edit
                         </a>
@@ -149,13 +162,22 @@ const Profile = () => {
                         <span> Angular </span> <span> PHP </span>
                       </div>
                     </Card.Body>
-                  </Card>
-                  {/* Skills */}
+                  </Card> */}
                 </Col>
               </Row>
             </Tab>
-            {/* Personal Detail Tab */}
-            {/* Password Tab */}
+            <Tab eventKey="files" title="Files">
+              <Card>
+                <Card.Body>
+                  <Card.Title> Uploaded files </Card.Title>
+                  <Row>
+                    <Col md={10} lg={6}>
+                      Table can goes here
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </Tab>
             <Tab eventKey="password" title="Password">
               <Card>
                 <Card.Body>
@@ -184,11 +206,10 @@ const Profile = () => {
                 </Card.Body>
               </Card>
             </Tab>
-            {/* Password Tab */}
           </Tabs>
         </Col>
       </Row>
     </div>
   );
 };
-export default Profile;
+export default withRouter(Profile);

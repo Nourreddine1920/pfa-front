@@ -1,214 +1,124 @@
-import {
-  faDownload,
-  faPencilAlt,
-  faPlus,
-  faTrash
-} from "@fortawesome/fontawesome-free-solid";
+import { faDownload } from "@fortawesome/fontawesome-free-solid";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-// Import Components
-import { Card, Col, Media, Row } from "react-bootstrap";
-//Import Data Table
-import DataTable from "react-data-table-component";
-import DataTableExtensions from "react-data-table-component-extensions";
+import React, { useEffect, useState } from "react";
+import { Card, Col, Pagination, Row } from "react-bootstrap";
 import "react-data-table-component-extensions/dist/index.css";
+import Load from "../../_components/progressbar/Load";
+import ProfileCard from "../Profile/ProfileCard";
 
 const data = [
   {
     id: "PRE2209",
     name: "Aaliyah",
-    class: "10 A",
     dob: "2 Feb 2002",
     parentName: "Jeffrey Wong",
     mobileNumber: "097 3584 5870",
     address: "911 Deer Ridge Drive,USA",
-    action: "",
+    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-01.jpg",
   },
   {
     id: "PRE2213",
     name: "Malynne",
-    class: "8 A",
     dob: "3 June 2010",
     parentName: "Fields Malynne",
     mobileNumber: "242 362 3100",
     address: "Bacardi Rd P.O. Box N-4880, New Providence",
-    action: "",
+    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-03.jpg",
   },
   {
     id: "PRE2143",
     name: "Levell Scott",
-    class: "10 A",
     dob: "12 Apr 2002",
     parentName: "Jeffrey Scott",
     mobileNumber: "026 7318 4366",
     address: "P.O. Box: 41, Gaborone",
-    action: "",
+    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-02.jpg",
   },
   {
     id: "PRE2431",
     name: "Minnie",
-    class: "11 C",
     dob: "24 Feb 2000",
     parentName: "J Shaffer",
     mobileNumber: "952 512 4909",
     address: "4771  Oral Lake Road, Golden Valley",
-    action: "",
+    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-03.jpg",
   },
   {
     id: "PRE1534",
     name: "Lois A",
-    class: "10 A",
     dob: "22 Jul 2006",
     parentName: "Cleary Wong",
     mobileNumber: "413 289 1314",
     address: "2844 Leverton Cove Road, Palmer",
-    action: "",
+    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-04.jpg",
   },
   {
     id: "PRE2153",
     name: "Calvin",
-    class: "9 B",
     dob: "8 Dec 2003",
     parentName: "Minnie J Shaffer",
     mobileNumber: "701 753 3810",
     address: "1900  Hidden Meadow Drive, Crete",
-    action: "",
+    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-05.jpg",
   },
   {
     id: "PRE1252",
     name: "Joe Kelley",
-    class: "11 C",
     dob: "7 Oct 2000",
     parentName: "Vincent Howard",
     mobileNumber: "402 221 7523",
     address: "3979  Ashwood Drive, Omaha",
-    action: "",
+    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-06.jpg",
   },
   {
     id: "PRE1434",
     name: "Vincent",
-    class: "10 A",
     dob: "4 Jan 2002",
     parentName: "Kelley Joe",
     mobileNumber: "402 221 7523",
     address: "3979  Ashwood Drive, Omaha",
-    action: "",
+    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-07.jpg",
   },
   {
     id: "PRE2345",
     name: "Kozma  Tatari",
-    class: "9 A",
     dob: "1 Feb 2006",
     parentName: "Lombardi",
     mobileNumber: "04 2239 968",
     address: "Rruga E Kavajes, Condor Center, Tirana",
-    action: "",
+    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-08.jpg",
   },
   {
     id: "PRE2365",
     name: "John Chambers",
-    class: "11 B",
     dob: "13 Sept 2003",
     parentName: "Wong Jeffrey",
     mobileNumber: "870 663 2334",
     address: "4667 Sunset Drive, Pine Bluff",
-    action: "",
+    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-09.jpg",
   },
-  {
-    id: "PRE1234",
-    name: "Nathan Humphries",
-    class: "10 B",
-    dob: "26 Apr 1994",
-    parentName: "Stephen Marley",
-    mobileNumber: "077 3499 9959",
-    address: "86 Lamphey Road, Thelnetham",
-    action: "",
-    img_url: "assets/img/profiles/avatar-10.jpg",
-  },
-];
-const columns = [
-  {
-    name: "ID",
-    selector: (row) => row.id.toString(),
-    sortable: true,
-  },
-  {
-    name: "Name",
-    sortable: true,
-    selector: (row) => row.name.toString(),
-    cell: (row) => (
-      <Media className="user-dt">
-        <a href="/student-details">
-          <img
-            src={row.img_url}
-            className="avatar-img rounded-circle avatar avatar-sm me-2"
-          />
-        </a>
-        <Media.Body>
-          <a href="/student-details ">{row.name}</a>
-        </Media.Body>
-      </Media>
-    ),
-  },
-  {
-    name: "Class",
-    selector: (row) => row.class.toString(),
-    sortable: true,
-  },
-  {
-    name: "DOB",
-    selector: (row) => row.dob.toString(),
-    sortable: true,
-  },
-  {
-    name: "Parent Name",
-    selector: (row) => row.parentName.toString(),
-    sortable: true,
-  },
-  {
-    name: "Mobile Number",
-    selector: (row) => row.mobileNumber.toString(),
-    sortable: true,
-  },
-  {
-    name: "Address",
-    selector: (row) => row.address.toString(),
-    sortable: true,
-  },
-  {
-    name: "Action",
-    selector: (row) => row.action.toString(),
-    sortable: true,
-    cell: () => (
-      <div>
-        <a href="/edit-student" className="btn btn-sm bg-success-light me-2">
-          <FontAwesomeIcon icon={faPencilAlt} />
-        </a>
-        <a href="#" className="btn btn-sm bg-danger-light">
-          <FontAwesomeIcon icon={faTrash} />
-        </a>
-      </div>
-    ),
-  },
 ];
 
-const StudentsList = () => {
-  const tableData = {
-    columns,
-    data,
-  };
-
+const StudentsList = (props) => {
+  console.log("props", props);
+  const [loading, setloading] = useState(false);
+  useEffect(() => {
+    setloading(true);
+    setTimeout(() => {
+      setloading(false);
+    }, 1200);
+  }, []);
   return (
     <div>
       <div className="page-header">
@@ -224,31 +134,57 @@ const StudentsList = () => {
               </ul>
             </Col>
             <Col className="col-auto text-end float-right ms-auto">
-              <a href="#" className="btn btn-outline-primary me-2">
+              <a type="button" className="btn btn-outline-primary me-2">
                 <FontAwesomeIcon icon={faDownload} /> Download
-              </a>
-              <a href="/add-student" className="btn btn-primary">
-                <FontAwesomeIcon icon={faPlus} />
               </a>
             </Col>
           </Row>
         </div>
       </div>
 
-      <Card>
-        <DataTableExtensions {...tableData}>
-          <DataTable
-            noHeader
-            defaultSortField="id"
-            defaultSortAsc={false}
-            pagination
-            highlightOnHover
-          />
-        </DataTableExtensions>
-      </Card>
+      {loading ? (
+        <Load title={"loading ..."} />
+      ) : (
+        <Card>
+          <Card.Body>
+            {data.map((student, index) => {
+              return (
+                <div className="profile-header" style={{ margin: "4px" }}>
+                  <div className="row align-items-center">
+                    <ProfileCard {...student} key={index} />
+                    <div className="col-auto profile-btn">
+                      <a
+                        onClick={() => {
+                          props.history.push("/student-details", {
+                            student: student,
+                          });
+                        }}
+                        type="button"
+                        className="btn btn-primary"
+                      >
+                        View Profile
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <Pagination
+              size="sm"
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              <Pagination.First />
+              <Pagination.Prev />
+              <Pagination.Item active> {1} </Pagination.Item>
+              <Pagination.Item> {2} </Pagination.Item>
+              <Pagination.Item> {3} </Pagination.Item> <Pagination.Next />
+              <Pagination.Last />
+            </Pagination>
+          </Card.Body>
+        </Card>
+      )}
     </div>
   );
 };
 
 export { StudentsList };
-
