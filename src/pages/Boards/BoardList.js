@@ -2,20 +2,19 @@ import {
   faBookOpen,
   faClipboardCheck,
   faClock,
-  faHourglassEnd,
+  faHourglassEnd
 } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SimpleImageSlider from "react-simple-image-slider";
-
 import React from "react";
 // Import Components
-import { Col, Row, Card, Media } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import ProgressBar from "react-customizable-progressbar";
 import { withRouter } from "react-router-dom";
-import MyPdf from "../../_components/PdfLoader";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
+import SimpleImageSlider from "react-simple-image-slider";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import MyPdf from "../../_components/PdfLoader";
+
 
 const IMAGES = [
   {
@@ -257,6 +256,4 @@ export const BoardList = (props) => {
     </div>
   );
 };
-
 withRouter(BoardList);
-// https://www.facebook.com/groupcall/ROOM:/?call_id=1865488687&users_to_ring[0]=100013765440053&has_video=false&initialize_video=false&nonce=147tewfr3up0&thread_type=1&use_joining_context=true&peer_id=100013765440053

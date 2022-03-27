@@ -1,19 +1,13 @@
 import {
-  CSpinner,
-  CAccordionBody,
-  CAccordion,
-  CAccordionItem,
-  CAccordionHeader,
-  CProgress,
-  CProgressBar,
+  CAccordion, CAccordionBody, CAccordionHeader, CAccordionItem, CSpinner
 } from "@coreui/react";
-import React, { useEffect, useState } from "react";
-import { Card, Col, Media, Row, Tab, Tabs, ProgressBar } from "react-bootstrap";
+import React, { useState } from "react";
+import { Card, Col, Media, Row, Tab, Tabs } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { withRouter } from "react-router-dom";
-import ProgressBBar from "../../_components/progressbar/ProgressBar";
 import Donut from "../../_components/progressbar/Chart1";
+import ProgressBBar from "../../_components/progressbar/ProgressBar";
 const IMAGES = [
   {
     image: "01",
@@ -30,7 +24,6 @@ export const Board = (props) => {
   const [isOpen, setisOpen] = useState(false);
   const [tab, settab] = useState(0);
   const [activeItemkey, setactiveItemkey] = useState(1);
-
 
   let card_name = props.history.location.state.card_name;
   return (
@@ -295,7 +288,7 @@ export const Board = (props) => {
                                         <br />
 
                                         <a>
-                                          <ProgressBBar/>
+                                          <ProgressBBar />
                                         </a>
                                       </span>
                                       <p>
@@ -350,7 +343,7 @@ export const Board = (props) => {
                 </div>
               </Tab>
               <Tab eventKey="statestic" title="Statestic">
-              <Donut/>
+                <Donut />
               </Tab>
             </Tabs>
           </Row>
@@ -359,5 +352,4 @@ export const Board = (props) => {
     </div>
   );
 };
-
 withRouter(Board);
