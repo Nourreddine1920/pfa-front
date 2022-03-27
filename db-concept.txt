@@ -46,6 +46,7 @@ student (TimeModel):
 board (TimeModel):
     id_board (integer): PK
     name (string): STM32.....
+    in_use (boolean) : `FALSE`
     family (string) : [F4,L5 ....]
     serial_number (string) : XXXXXXXXXXXXXXXXX
     gallery (list[image]) :ManyToManyField ( image)

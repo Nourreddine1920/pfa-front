@@ -13,6 +13,7 @@ import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { withRouter } from "react-router-dom";
 import ProgressBBar from "../../_components/progressbar/ProgressBar";
+import Donut from "../../_components/progressbar/Chart1";
 const IMAGES = [
   {
     image: "01",
@@ -349,7 +350,7 @@ export const Board = (props) => {
                 </div>
               </Tab>
               <Tab eventKey="statestic" title="Statestic">
-                PIE Shart ici
+              <Donut/>
               </Tab>
             </Tabs>
           </Row>
