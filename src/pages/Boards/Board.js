@@ -4,6 +4,7 @@ import {
   CAccordionHeader,
   CAccordionItem,
   CAlert,
+  CAlertHeading,
   CButton,
   CSpinner,
 } from "@coreui/react";
@@ -15,6 +16,7 @@ import { withRouter } from "react-router-dom";
 import Donut from "../../_components/progressbar/Chart1";
 import ProgressBBar from "../../_components/progressbar/ProgressBar";
 import $ from "jquery";
+// import { useForm } from "react-hook-form";
 const IMAGES = [
   {
     image: "01",
@@ -51,10 +53,50 @@ const Allert = () => {
     </div>
   );
 };
+const Alerts = () => {
+  return (
+    <CAlert color="success">
+      <CAlertHeading tag="h4">Well done!</CAlertHeading>
+      <p>
+        Aww yeah, you successfully read this important alert message. This
+        example text is going to run a bit longer so that you can see how
+        spacing within an alert works with this kind of content.
+      </p>
+      <hr />
+      <p className="mb-0">
+        Whenever you need to, be sure to use margin utilities to keep things
+        nice and tidy.
+      </p>
+    </CAlert>
+  );
+};
+let initialValues = {};
 export const Board = (props) => {
   const [isOpen, setisOpen] = useState(false);
   const [tab, settab] = useState(0);
   const [activeItemkey, setactiveItemkey] = useState(1);
+  const [selectedBoard, setselectedBoard] = useState(1);
+  const [selectedTypeFile, setselectedTypeFile] = useState(1);
+  const [selectedFile, setselectedFile] = useState(null);
+  initialValues = {
+    selected_board: selectedBoard,
+    selected_type_file: selectedTypeFile,
+    selected_file: selectedFile,
+  };
+  // const { control, handleSubmit, formState, errors } = useForm({
+  //   defaultValues: { ...initialValues },
+  //   mode: "onSubmit",
+  // });
+
+  const [form, setForm] = useState(initialValues);
+  function handelSubmit(e) {
+    e.preventDefault();
+    console.log("values", form);
+
+    // $("#ACC1 > div.accordion-collpase.collapse").addClass("exit-done").removeClass("show");
+    // $("#ACC2 > div.accordion-collpase.collapse").addClass("enter-done").addClass("show")
+    // $("#ACC1").removeClass("show enter-done");
+  }
 
   let card_name = props.history.location.state.card_name;
   return (
@@ -152,7 +194,7 @@ export const Board = (props) => {
               <Tab eventKey="makeexam" title="Make Exam">
                 <div className="row">
                   <CAccordion activeItemKey={activeItemkey}>
-                    <CAccordionItem itemKey={1}>
+                    <CAccordionItem itemKey={1} id="ACC1">
                       <CAccordionHeader>Submitting file code</CAccordionHeader>
                       <CAccordionBody>
                         <div className="col-sm-12">
@@ -173,7 +215,10 @@ export const Board = (props) => {
                             <div className="card-body">
                               <div className="row">
                                 <div className="col-sm">
-                                  <form className="was-validated">
+                                  <form
+                                    className="was-validated"
+                                    onSubmit={(e) => handelSubmit(e)}
+                                  >
                                     <div className="form-group">
                                       <label
                                         className="custom-file-label"
@@ -181,13 +226,29 @@ export const Board = (props) => {
                                       >
                                         Select board
                                       </label>
-                                      <select className="form-select" required>
-                                        <option defaultValue="1">
-                                          STM32F4.....1
+                                      <select
+                                        className="form-select"
+                                        required
+                                        defaultValue={form.selected_board}
+                                        onChange={(e) => {
+                                          if (e.target.value !== 0) {
+                                            console.log(
+                                              "value card",
+                                              e.target.value
+                                            );
+                                            // setselectedBoard(e.target.value);
+                                            setForm((form) => ({
+                                              ...form,
+                                              selected_board: e.target.value,
+                                            }));
+                                          }
+                                        }}
+                                      >
+                                        <option value={0} defaultChecked>
+                                          ---------------
                                         </option>
-                                        <option defaultValue="2">
-                                          STM32F4.....2
-                                        </option>
+                                        <option value={1}>STM32F4.....1</option>
+                                        <option value={2}>STM32F4.....2</option>
                                       </select>
                                     </div>
                                     <div className="form-group">
@@ -197,9 +258,26 @@ export const Board = (props) => {
                                       >
                                         Choose file (.hex/.bin)
                                       </label>
-                                      <select className="form-select" required>
-                                        <option defaultValue="1">.hex</option>
-                                        <option defaultValue="2">.bin</option>
+                                      <select
+                                        className="form-select"
+                                        required
+                                        value={form.selected_type_file}
+                                        onChange={(e) => {
+                                          if (e.target.value != 0) {
+                                            // setselectedTypeFile(e.target.value);
+                                            setForm((form) => ({
+                                              ...form,
+                                              selected_type_file:
+                                                e.target.value,
+                                            }));
+                                          }
+                                        }}
+                                      >
+                                        <option value={0} defaultChecked>
+                                          ---------------
+                                        </option>
+                                        <option value={1}>.hex</option>
+                                        <option value={2}>.bin</option>
                                       </select>
                                     </div>
                                     <div className="custom-file">
@@ -211,12 +289,22 @@ export const Board = (props) => {
                                       </label>
                                       <input
                                         type="file"
+                                        accept='image/jpg'
+                                        value={selectedFile}
                                         className="form-control"
                                         id="validatedCustomFile"
+                                        onChange={(e) => {
+                                          // setselectedFile(e.target.files[0])
+                                          setForm((form) => ({
+                                            ...form,
+                                            selected_file: e.target.files[0],
+                                          }));
+                                        }}
                                         required
                                       />
                                       <div className="invalid-feedback">
-                                        Example invalid custom file feedback
+                                        Please select a file with selected type
+                                        file
                                       </div>
                                     </div>
                                     <div className="form-group">
@@ -252,10 +340,6 @@ export const Board = (props) => {
                                       <button
                                         className="btn btn-info"
                                         type="submit"
-                                        onClick={() => {
-                                          console.log("...", activeItemkey);
-                                          setactiveItemkey(2);
-                                        }}
                                       >
                                         Make Exam
                                       </button>
@@ -268,7 +352,7 @@ export const Board = (props) => {
                         </div>
                       </CAccordionBody>
                     </CAccordionItem>
-                    <CAccordionItem itemKey={2}>
+                    <CAccordionItem itemKey={2} id="ACC2">
                       <CAccordionHeader>
                         Results and feedback &nbsp;
                         <CSpinner size="sm" color="success" variant="grow" />
@@ -367,7 +451,8 @@ export const Board = (props) => {
                             </div>
                             <div className="card-body">
                               <div>
-                                <Allert />
+                                {/* <Allert /> */}
+                                <Alerts />
                               </div>
                             </div>
                           </div>
