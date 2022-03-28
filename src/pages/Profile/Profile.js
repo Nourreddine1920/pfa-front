@@ -35,7 +35,7 @@ const Profile = (props) => {
                   <img
                     className="rounded-circle"
                     alt="User Image"
-                    src={"assets/img/profiles/avatar-02.jpg"}
+                    src={"assets/img/profiles/avatar-13.jpg"}
                   />
                 </a>
               </div>

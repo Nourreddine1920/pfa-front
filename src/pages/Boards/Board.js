@@ -16,15 +16,15 @@ import { withRouter } from "react-router-dom";
 import Donut from "../../_components/progressbar/Chart1";
 import ProgressBBar from "../../_components/progressbar/ProgressBar";
 import $ from "jquery";
+import MyPdf from "../../_components/PdfLoader";
+import SimpleImageSlider from "react-simple-image-slider";
 // import { useForm } from "react-hook-form";
 const IMAGES = [
   {
-    image: "01",
-    bigImage: "/assets/img/boards/stm32f429i-discovery.png",
+    url: "/assets/img/boards/stm32f429i-discovery.png",
   },
   {
-    image: "02",
-    bigImage: "/assets/img/boards/nucleo.jpg",
+    url: "/assets/img/boards/nucleo.jpg",
   },
 ];
 const Allert = () => {
@@ -104,7 +104,7 @@ export const Board = (props) => {
       {isOpen && (
         <div className="col-6 mb-1 p-1">
           <Lightbox
-            mainSrc={IMAGES[tab].bigImage}
+            mainSrc={IMAGES[tab].url}
             onCloseRequest={() => setisOpen(false)}
             onMovePrevRequest={() =>
               settab((tab) => (tab + IMAGES.length - 1) % IMAGES.length)
@@ -127,7 +127,7 @@ export const Board = (props) => {
         </Row>
       </div>
       <Row>
-        <section className="comp-section comp-dropdowns">
+        <div className="comp-section comp-dropdowns">
           {/* <div className="section-header">
             <h4 className="section-title"> Tabs </h4>
             <div className="line"> </div>
@@ -148,6 +148,7 @@ export const Board = (props) => {
                       className="me-3 d-flex"
                     >
                       <img
+                      style={{margin:"44px"}}
                         src="/assets/img/boards/stm32f429i-discovery.png"
                         alt="STM32"
                         onClick={() => {
@@ -189,6 +190,47 @@ export const Board = (props) => {
                       </Media.Body>
                     </Media>
                   </Card>
+                  <Row>
+                    <Col md={12} lg={6}>
+                      <Card className="card-chart">
+                        <Card.Header>
+                          <Row className="align-items-center">
+                            <Col>
+                              <h5 className="card-title"> DataSheet </h5>
+                            </Col>
+                            
+                          </Row>
+                        </Card.Header>
+                        <Card.Body id="">
+                          <MyPdf />
+                        </Card.Body>
+                      </Card>
+                    </Col>
+
+                    <Col md={12} lg={6}>
+                      <Card className="card-chart">
+                        <Card.Header>
+                          <Row className="align-items-center">
+                            <Col>
+                              <h5 className="card-title"> Board Galery </h5>
+                            </Col>
+                            
+                          </Row>
+                        </Card.Header>
+                        <Card.Body id="">
+                          <div>
+                            <SimpleImageSlider
+                              width={400}
+                              height={600}
+                              images={IMAGES}
+                              showBullets={true}
+                              showNavs={true}
+                            />
+                          </div>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
                 </div>
               </Tab>
               <Tab eventKey="makeexam" title="Make Exam">
@@ -289,7 +331,7 @@ export const Board = (props) => {
                                       </label>
                                       <input
                                         type="file"
-                                        accept='image/jpg'
+                                        accept="image/jpg"
                                         value={selectedFile}
                                         className="form-control"
                                         id="validatedCustomFile"
@@ -464,10 +506,13 @@ export const Board = (props) => {
               </Tab>
               <Tab eventKey="statestic" title="Statestic">
                 <Donut />
+                here we can load more information about this card ..for example all exams 
               </Tab>
             </Tabs>
           </Row>
-        </section>
+        </div>
+        {/* <div className="row">
+        </div> */}
       </Row>
     </div>
   );

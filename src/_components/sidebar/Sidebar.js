@@ -306,13 +306,13 @@ class Sidebar extends React.Component {
                     <span>Editor</span>
                   </Link>
                 </li>
-                <li
+                {/* <li
                   className={pathnames.includes("time-table") ? "active" : ""}
                 >
                   <Link to="/time-table">
                     <FontAwesomeIcon icon={faTable} /> <span>Time Table</span>
                   </Link>
-                </li>
+                </li> */}
 
                 {/* <li className="menu-title">
                   <span> Pages </span>
@@ -345,7 +345,7 @@ class Sidebar extends React.Component {
                     <FontAwesomeIcon icon={faFile} /> <span>Blank Page</span>
                   </Link>
                 </li> */}
-                <li className="menu-title">
+                {/* <li className="menu-title">
                   <span> Others </span>
                 </li>
                 <li
@@ -354,7 +354,7 @@ class Sidebar extends React.Component {
                   <Link to="/blank-page">
                     <FontAwesomeIcon icon={faFile} /> <span>Blank Page</span>
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

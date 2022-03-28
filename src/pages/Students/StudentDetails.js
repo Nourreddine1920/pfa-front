@@ -75,13 +75,13 @@ const StudentDetails = (props) => {
                 <Row className="mt-2">
                   <Col md={12}>
                     <h5> Permanent Address </h5>
-                    <p> 480, Estern Avenue, Courtage area, New York </p>
+                    <p> {address}</p>
                   </Col>
                 </Row>
                 <Row className="mt-2">
                   <Col md={12}>
                     <h5> Present Address </h5>
-                    <p> 480, Estern Avenue, Courtage area, New York </p>
+                    <p> {address}</p>
                   </Col>
                 </Row>
               </div>

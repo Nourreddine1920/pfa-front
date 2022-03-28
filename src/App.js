@@ -24,6 +24,9 @@ function App() {
         <PublicRoute path={"/login"} isAuthenticated={auth}>
           <Login />
         </PublicRoute>
+        {/* <PublicRoute path={"/"} isAuthenticated={auth}>
+          <Login />
+        </PublicRoute> */}
         <PublicRoute path={"/register"} isAuthenticated={auth}>
           <Register />
         </PublicRoute>
