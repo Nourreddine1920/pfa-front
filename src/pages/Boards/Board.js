@@ -18,7 +18,7 @@ import ProgressBBar from "../../_components/progressbar/ProgressBar";
 import $ from "jquery";
 import MyPdf from "../../_components/PdfLoader";
 import SimpleImageSlider from "react-simple-image-slider";
-// import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 const IMAGES = [
   {
     url: "/assets/img/boards/stm32f429i-discovery.png",
@@ -87,15 +87,18 @@ export const Board = (props) => {
   //   defaultValues: { ...initialValues },
   //   mode: "onSubmit",
   // });
-
+  // useEffect(()=>{
+  //   $("#ACC1 > div.accordion-collpase.collapse").on
+  // },[])
   const [form, setForm] = useState(initialValues);
   function handelSubmit(e) {
     e.preventDefault();
     console.log("values", form);
-
-    // $("#ACC1 > div.accordion-collpase.collapse").addClass("exit-done").removeClass("show");
-    // $("#ACC2 > div.accordion-collpase.collapse").addClass("enter-done").addClass("show")
-    // $("#ACC1").removeClass("show enter-done");
+    // hide first accor
+    $("#ACC1 > div.accordion-header > button").click();
+    // show second accor
+    $("#ACC2 > div.accordion-header > button").click();
+    window.scrollTo(0,20);
   }
 
   let card_name = props.history.location.state.card_name;
@@ -148,7 +151,7 @@ export const Board = (props) => {
                       className="me-3 d-flex"
                     >
                       <img
-                      style={{margin:"44px"}}
+                        style={{ margin: "44px" }}
                         src="/assets/img/boards/stm32f429i-discovery.png"
                         alt="STM32"
                         onClick={() => {
@@ -198,7 +201,6 @@ export const Board = (props) => {
                             <Col>
                               <h5 className="card-title"> DataSheet </h5>
                             </Col>
-                            
                           </Row>
                         </Card.Header>
                         <Card.Body id="">
@@ -214,7 +216,6 @@ export const Board = (props) => {
                             <Col>
                               <h5 className="card-title"> Board Galery </h5>
                             </Col>
-                            
                           </Row>
                         </Card.Header>
                         <Card.Body id="">
@@ -331,7 +332,7 @@ export const Board = (props) => {
                                       </label>
                                       <input
                                         type="file"
-                                        accept="image/jpg"
+                                        // accept=".bin,.hex"
                                         value={selectedFile}
                                         className="form-control"
                                         id="validatedCustomFile"
@@ -506,7 +507,8 @@ export const Board = (props) => {
               </Tab>
               <Tab eventKey="statestic" title="Statestic">
                 <Donut />
-                here we can load more information about this card ..for example all exams 
+                here we can load more information about this card ..for example
+                all exams
               </Tab>
             </Tabs>
           </Row>
