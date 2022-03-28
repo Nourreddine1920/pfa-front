@@ -134,7 +134,7 @@ class Sidebar extends React.Component {
                 <li className={pathnames.includes("students") ? "active" : ""}>
                   <Link to="/students">
                     <FontAwesomeIcon icon={faUserGraduate} />
-                    <span>Students list</span>
+                    <span>Students</span>
                   </Link>
                 </li>
                 <li

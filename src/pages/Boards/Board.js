@@ -19,6 +19,7 @@ import $ from "jquery";
 import MyPdf from "../../_components/PdfLoader";
 import SimpleImageSlider from "react-simple-image-slider";
 import { useForm } from "react-hook-form";
+import Uploading from "./Uploading";
 const IMAGES = [
   {
     url: "/assets/img/boards/stm32f429i-discovery.png",
@@ -71,10 +72,11 @@ const Alerts = () => {
   );
 };
 let initialValues = {};
+const eventsList = ["sending", "uploading", "runing", "writing"]; // remove waiting event from list
 export const Board = (props) => {
   const [isOpen, setisOpen] = useState(false);
   const [tab, settab] = useState(0);
-  const [activeItemkey, setactiveItemkey] = useState(1);
+
   const [selectedBoard, setselectedBoard] = useState(1);
   const [selectedTypeFile, setselectedTypeFile] = useState(1);
   const [selectedFile, setselectedFile] = useState(null);
@@ -98,8 +100,22 @@ export const Board = (props) => {
     $("#ACC1 > div.accordion-header > button").click();
     // show second accor
     $("#ACC2 > div.accordion-header > button").click();
-    window.scrollTo(0,20);
+    window.scrollTo(0, 20);
   }
+
+  // *************** just for demo *********************
+  const [indexx, setindexx] = useState(0);
+  const changeToNextEvent = (indexx) => {
+    return eventsList[indexx % 4];
+  };
+  const [currentEvent, setcurrentEvent] = useState(changeToNextEvent(indexx)); // come from ws
+  useEffect(() => {
+    setTimeout(() => {
+      setindexx(indexx + 1);
+      setcurrentEvent(changeToNextEvent(indexx));
+    }, 8800);
+  });
+  // *************** just for demo *********************
 
   let card_name = props.history.location.state.card_name;
   return (
@@ -186,6 +202,14 @@ export const Board = (props) => {
                             <span className="info-span">Tuesday ...</span>
                           </li>
                           <li>
+                            <span className="title-span">Flash Memeory:</span>
+                            <span className="info-span">2MO</span>
+                          </li>
+                          <li>
+                            <span className="title-span">In Use :</span>
+                            <span className="info-span">By you </span>
+                          </li>
+                          <li>
                             <span className="title-span"> DataSheet: </span>
                             <span className="info-span"> Available </span>
                           </li>
@@ -236,7 +260,7 @@ export const Board = (props) => {
               </Tab>
               <Tab eventKey="makeexam" title="Make Exam">
                 <div className="row">
-                  <CAccordion activeItemKey={activeItemkey}>
+                  <CAccordion activeItemKey={2}>
                     <CAccordionItem itemKey={1} id="ACC1">
                       <CAccordionHeader>Submitting file code</CAccordionHeader>
                       <CAccordionBody>
@@ -408,82 +432,16 @@ export const Board = (props) => {
                                 Waiting for results
                               </h5>
                               <p className="card-text">
-                                Uploading file in server 🤞
+                                {currentEvent === "sending"
+                                  ? "Uploading file in server "
+                                  : currentEvent === "uploading"
+                                  ? "Uploading file to board 🤞"
+                                  : currentEvent === "runing"
+                                  ? "Runing file code in board 🕖 "
+                                  : "Writing your report (video|text|pdf) file"}
                               </p>
                             </div>
-                            <div className="card-body">
-                              <div>
-                                {/* <CProgress height={1} className="mb-3">
-                                  <CProgressBar value={25}></CProgressBar>
-                                </CProgress> */}
-
-                                {/* <CProgress height={20} className="mb-3">
-                                  <CProgressBar
-                                    variant="striped"
-                                    animated={true}
-                                    value={25}
-                                  ></CProgressBar>
-                                </CProgress> */}
-                                <div className="teaching-card">
-                                  <ul className="activity-feed">
-                                    <li className="feed-item">
-                                      <div className="feed-date1">
-                                        Sep 04, 2 pm - 3 pm
-                                      </div>
-                                      <span className="feed-text1">
-                                        <a> Uploading file in server </a>
-                                      </span>
-
-                                      <p>
-                                        <span id="completed"> Completed </span>
-                                      </p>
-                                    </li>
-                                    <li className="feed-item">
-                                      <div className="feed-date1">
-                                        Sep 05, 9 am - 10 am
-                                      </div>
-                                      <span className="feed-text1">
-                                        <a> Uploading file to board </a>
-                                        <br />
-                                        <br />
-
-                                        <a>
-                                          <ProgressBBar />
-                                        </a>
-                                      </span>
-                                      <p>
-                                        <span id="inprogress">In Progress</span>
-                                      </p>
-                                    </li>
-                                    <li className="feed-item">
-                                      <div className="feed-date1">
-                                        Sep 02, 1 pm - 2 am
-                                      </div>
-                                      <span className="feed-text1">
-                                        <a> Runing file code in board </a>
-                                      </span>
-                                      <p>
-                                        <span id="inprogress">In Progress</span>
-                                      </p>
-                                    </li>
-                                    <li className="feed-item">
-                                      <div className="feed-date1">
-                                        Sep 02, 1 pm - 2 am
-                                      </div>
-                                      <span className="feed-text1">
-                                        <a>
-                                          Writing your report (video|text|pdf)
-                                          file
-                                        </a>
-                                      </span>
-                                      <p>
-                                        <span id="failed"> Failed </span>
-                                      </p>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
+                            <Uploading currentEvent={currentEvent} />
                           </div>
                           <div className="shadow-card">
                             <div className="card-header">
