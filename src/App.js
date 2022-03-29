@@ -15,15 +15,23 @@ import Sidebar from "./_components/sidebar/Sidebar";
 import PrivateRoute from "./_components/_routes/PrivateRoute";
 import ProtectedRoutes from "./_components/_routes/ProtectedRoute";
 import PublicRoute from "./_components/_routes/PublicRoute";
-
 function App() {
   let auth = true;
+  if (auth) {
+    console.log(window.location.pathname);
+    if (window.location.pathname === "/") {
+      window.location.replace("/profile");
+    }
+  }
   return (
     <Router>
       <Switch>
         <PublicRoute path={"/login"} isAuthenticated={auth}>
           <Login />
         </PublicRoute>
+        {/* <PublicRoute path={"/"} isAuthenticated={auth}>
+          <Login />
+        </PublicRoute> */}
         <PublicRoute path={"/register"} isAuthenticated={auth}>
           <Register />
         </PublicRoute>

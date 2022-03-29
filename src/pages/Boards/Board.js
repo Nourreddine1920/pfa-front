@@ -1,29 +1,121 @@
 import {
-  CAccordion, CAccordionBody, CAccordionHeader, CAccordionItem, CSpinner
+  CAccordion,
+  CAccordionBody,
+  CAccordionHeader,
+  CAccordionItem,
+  CAlert,
+  CAlertHeading,
+  CButton,
+  CSpinner,
 } from "@coreui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Col, Media, Row, Tab, Tabs } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { withRouter } from "react-router-dom";
 import Donut from "../../_components/progressbar/Chart1";
 import ProgressBBar from "../../_components/progressbar/ProgressBar";
+import $ from "jquery";
+import MyPdf from "../../_components/PdfLoader";
+import SimpleImageSlider from "react-simple-image-slider";
+import { useForm } from "react-hook-form";
+import Uploading from "./Uploading";
 const IMAGES = [
   {
-    image: "01",
-    bigImage: "/assets/img/boards/stm32f429i-discovery.png",
+    url: "/assets/img/boards/stm32f429i-discovery.png",
   },
   {
-    image: "02",
-    bigImage: "/assets/img/boards/nucleo.jpg",
+    url: "/assets/img/boards/nucleo.jpg",
   },
 ];
-
+const Allert = () => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    if (visible) {
+      $("#alert-box")
+        .addClass("show")
+        .delay(3500)
+        .queue(function () {
+          $(this).removeClass("show").dequeue();
+          // setVisible(!visible)
+        });
+    }
+  }, [visible]);
+  return (
+    <div>
+      <div id="alert-box">
+        <CAlert color="primary" visible={visible}>
+          A simple primary alert—check it out!
+        </CAlert>
+      </div>
+      <CButton color="primary" onClick={() => setVisible(!visible)}>
+        Show live alert
+      </CButton>
+    </div>
+  );
+};
+const Alerts = () => {
+  return (
+    <CAlert color="success">
+      <CAlertHeading tag="h4">Well done!</CAlertHeading>
+      <p>
+        Aww yeah, you successfully read this important alert message. This
+        example text is going to run a bit longer so that you can see how
+        spacing within an alert works with this kind of content.
+      </p>
+      <hr />
+      <p className="mb-0">
+        Whenever you need to, be sure to use margin utilities to keep things
+        nice and tidy.
+      </p>
+    </CAlert>
+  );
+};
+let initialValues = {};
+const eventsList = ["sending", "uploading", "runing", "writing"]; // remove waiting event from list
 export const Board = (props) => {
-  console.log("props...", props);
   const [isOpen, setisOpen] = useState(false);
   const [tab, settab] = useState(0);
-  const [activeItemkey, setactiveItemkey] = useState(1);
+
+  const [selectedBoard, setselectedBoard] = useState(1);
+  const [selectedTypeFile, setselectedTypeFile] = useState(1);
+  const [selectedFile, setselectedFile] = useState(null);
+  initialValues = {
+    selected_board: selectedBoard,
+    selected_type_file: selectedTypeFile,
+    selected_file: selectedFile,
+  };
+  // const { control, handleSubmit, formState, errors } = useForm({
+  //   defaultValues: { ...initialValues },
+  //   mode: "onSubmit",
+  // });
+  // useEffect(()=>{
+  //   $("#ACC1 > div.accordion-collpase.collapse").on
+  // },[])
+  const [form, setForm] = useState(initialValues);
+  function handelSubmit(e) {
+    e.preventDefault();
+    console.log("values", form);
+    // hide first accor
+    $("#ACC1 > div.accordion-header > button").click();
+    // show second accor
+    $("#ACC2 > div.accordion-header > button").click();
+    window.scrollTo(0, 20);
+  }
+
+  // *************** just for demo *********************
+  const [indexx, setindexx] = useState(0);
+  const changeToNextEvent = (indexx) => {
+    return eventsList[indexx % 4];
+  };
+  const [currentEvent, setcurrentEvent] = useState(changeToNextEvent(indexx)); // come from ws
+  useEffect(() => {
+    setTimeout(() => {
+      setindexx(indexx + 1);
+      setcurrentEvent(changeToNextEvent(indexx));
+    }, 8800);
+  });
+  // *************** just for demo *********************
 
   let card_name = props.history.location.state.card_name;
   return (
@@ -31,7 +123,7 @@ export const Board = (props) => {
       {isOpen && (
         <div className="col-6 mb-1 p-1">
           <Lightbox
-            mainSrc={IMAGES[tab].bigImage}
+            mainSrc={IMAGES[tab].url}
             onCloseRequest={() => setisOpen(false)}
             onMovePrevRequest={() =>
               settab((tab) => (tab + IMAGES.length - 1) % IMAGES.length)
@@ -54,7 +146,7 @@ export const Board = (props) => {
         </Row>
       </div>
       <Row>
-        <section className="comp-section comp-dropdowns">
+        <div className="comp-section comp-dropdowns">
           {/* <div className="section-header">
             <h4 className="section-title"> Tabs </h4>
             <div className="line"> </div>
@@ -75,6 +167,7 @@ export const Board = (props) => {
                       className="me-3 d-flex"
                     >
                       <img
+                        style={{ margin: "44px" }}
                         src="/assets/img/boards/stm32f429i-discovery.png"
                         alt="STM32"
                         onClick={() => {
@@ -100,11 +193,21 @@ export const Board = (props) => {
                           </li>
                           <li>
                             <span className="title-span"> State: </span>
-                            <span className="info-span">Available</span>
+                            <span className="info-span">
+                              Available(NOT IN USE)
+                            </span>
                           </li>
                           <li>
                             <span className="title-span"> Last Use: </span>
                             <span className="info-span">Tuesday ...</span>
+                          </li>
+                          <li>
+                            <span className="title-span">Flash Memeory:</span>
+                            <span className="info-span">2MO</span>
+                          </li>
+                          <li>
+                            <span className="title-span">In Use :</span>
+                            <span className="info-span">By you </span>
                           </li>
                           <li>
                             <span className="title-span"> DataSheet: </span>
@@ -114,12 +217,51 @@ export const Board = (props) => {
                       </Media.Body>
                     </Media>
                   </Card>
+                  <Row>
+                    <Col md={12} lg={6}>
+                      <Card className="card-chart">
+                        <Card.Header>
+                          <Row className="align-items-center">
+                            <Col>
+                              <h5 className="card-title"> DataSheet </h5>
+                            </Col>
+                          </Row>
+                        </Card.Header>
+                        <Card.Body id="">
+                          <MyPdf />
+                        </Card.Body>
+                      </Card>
+                    </Col>
+
+                    <Col md={12} lg={6}>
+                      <Card className="card-chart">
+                        <Card.Header>
+                          <Row className="align-items-center">
+                            <Col>
+                              <h5 className="card-title"> Board Galery </h5>
+                            </Col>
+                          </Row>
+                        </Card.Header>
+                        <Card.Body id="">
+                          <div>
+                            <SimpleImageSlider
+                              width={400}
+                              height={600}
+                              images={IMAGES}
+                              showBullets={true}
+                              showNavs={true}
+                            />
+                          </div>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
                 </div>
               </Tab>
               <Tab eventKey="makeexam" title="Make Exam">
                 <div className="row">
-                  <CAccordion activeItemKey={activeItemkey}>
-                    <CAccordionItem itemKey={1}>
+                  <CAccordion activeItemKey={2}>
+                    <CAccordionItem itemKey={1} id="ACC1">
                       <CAccordionHeader>Submitting file code</CAccordionHeader>
                       <CAccordionBody>
                         <div className="col-sm-12">
@@ -140,7 +282,10 @@ export const Board = (props) => {
                             <div className="card-body">
                               <div className="row">
                                 <div className="col-sm">
-                                  <form className="was-validated">
+                                  <form
+                                    className="was-validated"
+                                    onSubmit={(e) => handelSubmit(e)}
+                                  >
                                     <div className="form-group">
                                       <label
                                         className="custom-file-label"
@@ -148,13 +293,29 @@ export const Board = (props) => {
                                       >
                                         Select board
                                       </label>
-                                      <select className="form-select" required>
-                                        <option defaultValue="1">
-                                          STM32F4.....1
+                                      <select
+                                        className="form-select"
+                                        required
+                                        defaultValue={form.selected_board}
+                                        onChange={(e) => {
+                                          if (e.target.value !== 0) {
+                                            console.log(
+                                              "value card",
+                                              e.target.value
+                                            );
+                                            // setselectedBoard(e.target.value);
+                                            setForm((form) => ({
+                                              ...form,
+                                              selected_board: e.target.value,
+                                            }));
+                                          }
+                                        }}
+                                      >
+                                        <option value={0} defaultChecked>
+                                          ---------------
                                         </option>
-                                        <option defaultValue="2">
-                                          STM32F4.....2
-                                        </option>
+                                        <option value={1}>STM32F4.....1</option>
+                                        <option value={2}>STM32F4.....2</option>
                                       </select>
                                     </div>
                                     <div className="form-group">
@@ -164,9 +325,26 @@ export const Board = (props) => {
                                       >
                                         Choose file (.hex/.bin)
                                       </label>
-                                      <select className="form-select" required>
-                                        <option defaultValue="1">.hex</option>
-                                        <option defaultValue="2">.bin</option>
+                                      <select
+                                        className="form-select"
+                                        required
+                                        value={form.selected_type_file}
+                                        onChange={(e) => {
+                                          if (e.target.value != 0) {
+                                            // setselectedTypeFile(e.target.value);
+                                            setForm((form) => ({
+                                              ...form,
+                                              selected_type_file:
+                                                e.target.value,
+                                            }));
+                                          }
+                                        }}
+                                      >
+                                        <option value={0} defaultChecked>
+                                          ---------------
+                                        </option>
+                                        <option value={1}>.hex</option>
+                                        <option value={2}>.bin</option>
                                       </select>
                                     </div>
                                     <div className="custom-file">
@@ -178,12 +356,22 @@ export const Board = (props) => {
                                       </label>
                                       <input
                                         type="file"
+                                        // accept=".bin,.hex"
+                                        value={selectedFile}
                                         className="form-control"
                                         id="validatedCustomFile"
+                                        onChange={(e) => {
+                                          // setselectedFile(e.target.files[0])
+                                          setForm((form) => ({
+                                            ...form,
+                                            selected_file: e.target.files[0],
+                                          }));
+                                        }}
                                         required
                                       />
                                       <div className="invalid-feedback">
-                                        Example invalid custom file feedback
+                                        Please select a file with selected type
+                                        file
                                       </div>
                                     </div>
                                     <div className="form-group">
@@ -219,10 +407,6 @@ export const Board = (props) => {
                                       <button
                                         className="btn btn-info"
                                         type="submit"
-                                        onClick={() => {
-                                          console.log("...", activeItemkey);
-                                          setactiveItemkey(2);
-                                        }}
                                       >
                                         Make Exam
                                       </button>
@@ -235,7 +419,7 @@ export const Board = (props) => {
                         </div>
                       </CAccordionBody>
                     </CAccordionItem>
-                    <CAccordionItem itemKey={2}>
+                    <CAccordionItem itemKey={2} id="ACC2">
                       <CAccordionHeader>
                         Results and feedback &nbsp;
                         <CSpinner size="sm" color="success" variant="grow" />
@@ -248,82 +432,16 @@ export const Board = (props) => {
                                 Waiting for results
                               </h5>
                               <p className="card-text">
-                                Uploading file in server 🤞
+                                {currentEvent === "sending"
+                                  ? "Uploading file in server "
+                                  : currentEvent === "uploading"
+                                  ? "Uploading file to board 🤞"
+                                  : currentEvent === "runing"
+                                  ? "Runing file code in board 🕖 "
+                                  : "Writing your report (video|text|pdf) file"}
                               </p>
                             </div>
-                            <div className="card-body">
-                              <div>
-                                {/* <CProgress height={1} className="mb-3">
-                                  <CProgressBar value={25}></CProgressBar>
-                                </CProgress> */}
-
-                                {/* <CProgress height={20} className="mb-3">
-                                  <CProgressBar
-                                    variant="striped"
-                                    animated={true}
-                                    value={25}
-                                  ></CProgressBar>
-                                </CProgress> */}
-                                <div className="teaching-card">
-                                  <ul className="activity-feed">
-                                    <li className="feed-item">
-                                      <div className="feed-date1">
-                                        Sep 04, 2 pm - 3 pm
-                                      </div>
-                                      <span className="feed-text1">
-                                        <a> Uploading file in server </a>
-                                      </span>
-
-                                      <p>
-                                        <span id="completed"> Completed </span>
-                                      </p>
-                                    </li>
-                                    <li className="feed-item">
-                                      <div className="feed-date1">
-                                        Sep 05, 9 am - 10 am
-                                      </div>
-                                      <span className="feed-text1">
-                                        <a> Uploading file to board </a>
-                                        <br />
-                                        <br />
-
-                                        <a>
-                                          <ProgressBBar />
-                                        </a>
-                                      </span>
-                                      <p>
-                                        <span id="inprogress">In Progress</span>
-                                      </p>
-                                    </li>
-                                    <li className="feed-item">
-                                      <div className="feed-date1">
-                                        Sep 02, 1 pm - 2 am
-                                      </div>
-                                      <span className="feed-text1">
-                                        <a> Runing file code in board </a>
-                                      </span>
-                                      <p>
-                                        <span id="inprogress">In Progress</span>
-                                      </p>
-                                    </li>
-                                    <li className="feed-item">
-                                      <div className="feed-date1">
-                                        Sep 02, 1 pm - 2 am
-                                      </div>
-                                      <span className="feed-text1">
-                                        <a>
-                                          Writing your report (video|text|pdf)
-                                          file
-                                        </a>
-                                      </span>
-                                      <p>
-                                        <span id="failed"> Failed </span>
-                                      </p>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
+                            <Uploading currentEvent={currentEvent} />
                           </div>
                           <div className="shadow-card">
                             <div className="card-header">
@@ -333,7 +451,10 @@ export const Board = (props) => {
                               </p>
                             </div>
                             <div className="card-body">
-                              <div></div>
+                              <div>
+                                {/* <Allert /> */}
+                                <Alerts />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -344,10 +465,14 @@ export const Board = (props) => {
               </Tab>
               <Tab eventKey="statestic" title="Statestic">
                 <Donut />
+                here we can load more information about this card ..for example
+                all exams
               </Tab>
             </Tabs>
           </Row>
-        </section>
+        </div>
+        {/* <div className="row">
+        </div> */}
       </Row>
     </div>
   );

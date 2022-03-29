@@ -53,6 +53,7 @@ board (TimeModel):
     state (string) : [`AVAILABLE`,`NOTAVAILABLE`,`INWORK`,`OTHER`]
     datasheet (file) : pdf file
     exams (list(exam)) :ManyToManyField (exam)
+    flash_memory_size (integer) :
     ___`uniquetogether`( id_board,serial_number)__
 
 notification (TimeModel):

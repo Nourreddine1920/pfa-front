@@ -1,7 +1,6 @@
 import {
-  faAlignLeft, faMagic, faSearch
+  faAlignLeft, faSearch
 } from "@fortawesome/fontawesome-free-solid";
-import { faFonticons } from "@fortawesome/free-brands-svg-icons";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import $ from "jquery";
@@ -37,7 +36,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const exclusionArray = ["/", "/register", "/forgot-password", "/error"];
+    const exclusionArray = ["/","/login", "/register", "/forgot-password", "/error"];
     if (exclusionArray.indexOf(this.props.location.pathname) >= 0) {
       return "";
     }
@@ -243,7 +242,7 @@ class Header extends React.Component {
               <a className="dropdown-item" href="/inbox">
                 Inbox
               </a>
-              <a className="dropdown-item" href="/">
+              <a className="dropdown-item" href="/login">
                 Logout
               </a>
             </div>
