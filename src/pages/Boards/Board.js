@@ -74,6 +74,7 @@ const Alerts = () => {
 let initialValues = {};
 const eventsList = ["sending", "uploading", "runing", "writing"]; // remove waiting event from list
 export const Board = (props) => {
+  console.log("...",props)
   const [isOpen, setisOpen] = useState(false);
   const [tab, settab] = useState(0);
 
@@ -452,8 +453,8 @@ export const Board = (props) => {
                             </div>
                             <div className="card-body">
                               <div>
-                                {/* <Allert /> */}
-                                <Alerts />
+                                <Allert />
+                                {/* <Alerts /> */}
                               </div>
                             </div>
                           </div>

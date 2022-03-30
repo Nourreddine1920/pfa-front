@@ -19,7 +19,7 @@ const Profile = (props) => {
             <h3 className="page-title"> Profile </h3>
             <ul className="breadcrumb">
               <li className="breadcrumb-item">
-                <a href="/dashboard"> Dashboard </a>
+                <a href="/activity"> Activitys </a>
               </li>
               <li className="breadcrumb-item active"> Profile </li>
             </ul>

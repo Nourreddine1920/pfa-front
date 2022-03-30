@@ -15,7 +15,8 @@ const data = [
     parentName: "Jeffrey Wong",
     mobileNumber: "097 3584 5870",
     address: "911 Deer Ridge Drive,USA",
-    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
+    about:
+      "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-01.jpg",
   },
   {
@@ -25,7 +26,8 @@ const data = [
     parentName: "Fields Malynne",
     mobileNumber: "242 362 3100",
     address: "Bacardi Rd P.O. Box N-4880, New Providence",
-    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
+    about:
+      "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-03.jpg",
   },
   {
@@ -35,7 +37,8 @@ const data = [
     parentName: "Jeffrey Scott",
     mobileNumber: "026 7318 4366",
     address: "P.O. Box: 41, Gaborone",
-    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
+    about:
+      "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-02.jpg",
   },
   {
@@ -45,7 +48,8 @@ const data = [
     parentName: "J Shaffer",
     mobileNumber: "952 512 4909",
     address: "4771  Oral Lake Road, Golden Valley",
-    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
+    about:
+      "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-03.jpg",
   },
   {
@@ -55,7 +59,8 @@ const data = [
     parentName: "Cleary Wong",
     mobileNumber: "413 289 1314",
     address: "2844 Leverton Cove Road, Palmer",
-    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
+    about:
+      "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-04.jpg",
   },
   {
@@ -65,7 +70,8 @@ const data = [
     parentName: "Minnie J Shaffer",
     mobileNumber: "701 753 3810",
     address: "1900  Hidden Meadow Drive, Crete",
-    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
+    about:
+      "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-05.jpg",
   },
   {
@@ -75,7 +81,8 @@ const data = [
     parentName: "Vincent Howard",
     mobileNumber: "402 221 7523",
     address: "3979  Ashwood Drive, Omaha",
-    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
+    about:
+      "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-06.jpg",
   },
   {
@@ -85,7 +92,8 @@ const data = [
     parentName: "Kelley Joe",
     mobileNumber: "402 221 7523",
     address: "3979  Ashwood Drive, Omaha",
-    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
+    about:
+      "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-07.jpg",
   },
   {
@@ -95,7 +103,8 @@ const data = [
     parentName: "Lombardi",
     mobileNumber: "04 2239 968",
     address: "Rruga E Kavajes, Condor Center, Tirana",
-    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
+    about:
+      "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-08.jpg",
   },
   {
@@ -105,7 +114,8 @@ const data = [
     parentName: "Wong Jeffrey",
     mobileNumber: "870 663 2334",
     address: "4667 Sunset Drive, Pine Bluff",
-    about: "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
+    about:
+      "Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.",
     img_url: "assets/img/profiles/avatar-09.jpg",
   },
 ];
