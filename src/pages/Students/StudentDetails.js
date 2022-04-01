@@ -1,16 +1,23 @@
 import React from "react";
-// Import Components
-import {
-  Button,
-  Card,
-  Col,
-  Form,
-  Media,
-  ProgressBar,
-  Row,
-} from "react-bootstrap";
+import { Card, Col, Media, ProgressBar, Row } from "react-bootstrap";
 
-const StudentDetails = () => {
+const StudentDetails = (props) => {
+  console.log("propssss", props);
+  // props.location.state.student
+  const { id, name, dob, parentName, mobileNumber, address, img_url, about } =
+    props.location.state
+      ? props.location.state.student
+      : {
+          // static data ................
+          id: "PRE2209",
+          name: "Aaliyah",
+          dob: "2 Feb 2002",
+          parentName: "Jeffrey Wong",
+          mobileNumber: "097 3584 5870",
+          address: "911 Deer Ridge Drive,USA",
+          about: "Lorem ipsum dolor sit amet.",
+          img_url: "assets/img/profiles/avatar-01.jpg",
+        };
   return (
     <div>
       <div className="page-header">
@@ -32,22 +39,18 @@ const StudentDetails = () => {
           <Row>
             <Col xs={12}>
               <div className="about-info">
-                <h4> About Me </h4>
+                <h4> About {name} </h4>
                 <Media className="me-3 d-flex">
-                  <img src={"assets/img/user.jpg"} className="me-3" alt="..." />
+                  <img src={img_url} className="me-3" alt="..." />
                   <Media.Body>
                     <ul>
                       <li>
                         <span className="title-span"> Full Name: </span>
-                        <span className="info-span"> Daisy Parks </span>
-                      </li>
-                      <li>
-                        <span className="title-span"> Department: </span>
-                        <span className="info-span"> Computer Science </span>
+                        <span className="info-span">{name} </span>
                       </li>
                       <li>
                         <span className="title-span"> Mobile: </span>
-                        <span className="info-span"> +91 89657 48512 </span>
+                        <span className="info-span"> {mobileNumber} </span>
                       </li>
                       <li>
                         <span className="title-span"> Email: </span>
@@ -59,47 +62,26 @@ const StudentDetails = () => {
                       </li>
                       <li>
                         <span className="title-span"> DOB: </span>
-                        <span className="info-span"> 22 Apr 1995 </span>
+                        <span className="info-span"> {dob} </span>
                       </li>
                     </ul>
                   </Media.Body>
                 </Media>
                 <Row className="mt-3">
                   <Col md={12}>
-                    <p>
-                      Hello I am Daisy Parks.Lorem Ipsum is simply dummy text of
-                      the printing and typesetting industry, simply dummy text
-                      of the printing and typesetting industry.
-                    </p>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={4} className="mb-3">
-                    <div className="blue-box">
-                      <h3> 2850 </h3> <p className="mb-0"> Followers </p>
-                    </div>
-                  </Col>
-                  <Col md={4} className="mb-3">
-                    <div className="blue-box">
-                      <h3> 2050 </h3> <p className="mb-0"> Following </p>
-                    </div>
-                  </Col>
-                  <Col md={4} className="mb-3">
-                    <div className="blue-box">
-                      <h3> 2950 </h3> <p className="mb-0"> Friends </p>
-                    </div>
+                    <p>{about}</p>
                   </Col>
                 </Row>
                 <Row className="mt-2">
                   <Col md={12}>
                     <h5> Permanent Address </h5>
-                    <p> 480, Estern Avenue, Courtage area, New York </p>
+                    <p> {address}</p>
                   </Col>
                 </Row>
                 <Row className="mt-2">
                   <Col md={12}>
                     <h5> Present Address </h5>
-                    <p> 480, Estern Avenue, Courtage area, New York </p>
+                    <p> {address}</p>
                   </Col>
                 </Row>
               </div>
@@ -108,30 +90,6 @@ const StudentDetails = () => {
           <Row className="mt-2">
             <Col md={12}>
               <div className="skill-info">
-                <h4> Skills </h4>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry, simply dummy text of the printing and
-                  typesetting industry
-                </p>
-                <ul>
-                  <li>
-                    <label> Lorem Ipsum is simply </label>
-                    <ProgressBar animated striped variant="info" now={75} />
-                  </li>
-                  <li>
-                    <label> Lorem Ipsum is simply </label>
-                    <ProgressBar animated striped variant="success" now={69} />
-                  </li>
-                  <li>
-                    <label> Lorem Ipsum is simply </label>
-                    <ProgressBar animated striped variant="info" now={86} />
-                  </li>
-                  <li>
-                    <label> Lorem Ipsum is simply </label>
-                    <ProgressBar animated striped variant="warning" now={65} />
-                  </li>
-                </ul>
                 <Row className="mt-3">
                   <Col md={12}>
                     <h5> Education </h5>
@@ -153,21 +111,10 @@ const StudentDetails = () => {
                     </p>
                   </Col>
                 </Row>
-                <Row className="mt-3">
-                  <Col md={12}>
-                    <h5> Certificates </h5>
-                    <p className="mt-3">1 st Prise in Running Competition.</p>
-                    <p> Lorem Ipsum is simply dummy text. </p>
-                    <p>
-                      Won overall star student in higher secondary education.
-                    </p>
-                    <p> Lorem Ipsum is simply dummy text. </p>
-                  </Col>
-                </Row>
               </div>
             </Col>
           </Row>
-          <Row className="mt-2">
+          {/* <Row className="mt-2">
             <Col md={12}>
               <div className="skill-info">
                 <h4> Settings </h4>
@@ -200,7 +147,7 @@ const StudentDetails = () => {
                 </Form>
               </div>
             </Col>
-          </Row>
+          </Row> */}
         </Card.Body>
       </Card>
     </div>

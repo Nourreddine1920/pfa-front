@@ -1,29 +1,19 @@
-import React from "react";
-import { Scrollbars } from "react-custom-scrollbars";
-import $ from "jquery";
-import { history } from "../_helpers/history";
-import { Link } from "react-router-dom";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBookmark,
+  faChalkboardTeacher,
+  faClipboard,
+  faCode,
+  faFile,
+  faTable,
   faThLarge,
   faUserGraduate,
-  faChalkboardTeacher,
-  faBuilding,
-  faBook,
-  faFile,
-  faHockeyPuck,
-  faDollarSign,
-  faClipboard,
-  faCalendar,
-  faTable,
-  faShieldAlt,
-  faBaseballBall,
-  faBus,
-  faColumns,
-  faCode,
 } from "@fortawesome/fontawesome-free-solid";
-import { faSquarespace } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import $ from "jquery";
+import React from "react";
+import { Scrollbars } from "react-custom-scrollbars";
+import { Link } from "react-router-dom";
+import { history } from "../_helpers/history";
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -140,59 +130,18 @@ class Sidebar extends React.Component {
                     </li>
                   </ul>
                 </li>
-                <li
-                  className={`submenu ${
-                    pathnames.includes("students")
-                      ? "active"
-                      : pathnames.includes("student-details")
-                      ? "active"
-                      : pathnames.includes("add-student")
-                      ? "active"
-                      : pathnames.includes("edit-student")
-                      ? "active"
-                      : ""
-                  }`}
-                >
-                  <a href="#">
+                
+                <li className={pathnames.includes("students") ? "active" : ""}>
+                  <Link to="/students">
                     <FontAwesomeIcon icon={faUserGraduate} />
-                    <span> Students</span> <span className="menu-arrow"> </span>
-                  </a>
-                  <ul>
-                    <li
-                      className={pathnames.includes("students") ? "active" : ""}
-                    >
-                      <Link to="/students"> Student List </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("student-details") ? "active" : ""
-                      }
-                    >
-                      <Link to="/student-details"> Student View </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("add-student") ? "active" : ""
-                      }
-                    >
-                      <Link to="/add-student"> Student Add </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("edit-student") ? "active" : ""
-                      }
-                    >
-                      <Link to="/edit-student"> Student Edit </Link>
-                    </li>
-                  </ul>
+                    <span>Students</span>
+                  </Link>
                 </li>
                 <li
                   className={`submenu ${
                     pathnames.includes("teachers")
                       ? "active"
                       : pathnames.includes("teacher-details")
-                      ? "active"
-                      : pathnames.includes("add-teacher")
                       ? "active"
                       : pathnames.includes("edit-teacher")
                       ? "active"
@@ -216,13 +165,7 @@ class Sidebar extends React.Component {
                     >
                       <Link to="/teacher-details"> Teacher View </Link>
                     </li>
-                    <li
-                      className={
-                        pathnames.includes("add-teacher") ? "active" : ""
-                      }
-                    >
-                      <Link to="/add-teacher"> Teacher Add </Link>
-                    </li>
+
                     <li
                       className={
                         pathnames.includes("edit-teacher") ? "active" : ""
@@ -232,7 +175,7 @@ class Sidebar extends React.Component {
                     </li>
                   </ul>
                 </li>
-                
+
                 {/* <li
                   className={`submenu ${
                     pathnames.includes("subjects")
@@ -337,21 +280,39 @@ class Sidebar extends React.Component {
                     </li>
                   </ul>
                 </li> */}
-
+                <li className={pathnames.includes("activity") ? "active" : ""}>
+                  <Link to="/activity">
+                    <FontAwesomeIcon icon={faBookmark} />
+                    <span>Activity list</span>
+                  </Link>
+                </li>
+                <li
+                  className={pathnames.includes("boardslist") ? "active" : ""}
+                >
+                  <Link to="/boardslist">
+                    <FontAwesomeIcon icon="fa-solid fa-microchip" />
+                    <span>Board list</span>
+                  </Link>
+                </li>
                 <li className={pathnames.includes("exam") ? "active" : ""}>
                   <Link to="/exam">
                     <FontAwesomeIcon icon={faClipboard} />
                     <span>Exam list</span>
                   </Link>
                 </li>
-
-                <li
+                <li className={pathnames.includes("editor") ? "active" : ""}>
+                  <Link to="/editor">
+                    <FontAwesomeIcon icon={faCode} />
+                    <span>Editor</span>
+                  </Link>
+                </li>
+                {/* <li
                   className={pathnames.includes("time-table") ? "active" : ""}
                 >
                   <Link to="/time-table">
                     <FontAwesomeIcon icon={faTable} /> <span>Time Table</span>
                   </Link>
-                </li>
+                </li> */}
 
                 {/* <li className="menu-title">
                   <span> Pages </span>
@@ -384,7 +345,7 @@ class Sidebar extends React.Component {
                     <FontAwesomeIcon icon={faFile} /> <span>Blank Page</span>
                   </Link>
                 </li> */}
-                <li className="menu-title">
+                {/* <li className="menu-title">
                   <span> Others </span>
                 </li>
                 <li
@@ -393,7 +354,7 @@ class Sidebar extends React.Component {
                   <Link to="/blank-page">
                     <FontAwesomeIcon icon={faFile} /> <span>Blank Page</span>
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

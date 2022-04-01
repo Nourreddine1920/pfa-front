@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-
-// Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import AuthContext from "../../_context/authContext.tsx";
 let initialValues = {};
 const Login = () => {
+  const { login, logout } = React.useContext(AuthContext);
   const [emailError, setemailError] = useState("");
   const [PasswordError, setPasswordError] = useState("");
   const [loginError, setLoginError] = useState(false);
@@ -17,13 +17,26 @@ const Login = () => {
     email: "",
     password: "",
   });
-  function handleSubmit() {
+  const handleSubmit = async () => {
     setLoading(true);
-    setTimeout(() => {
-      console.log("form data", form);
-      setLoading(false);
-    }, 1200);
-  }
+    setLoginError('')
+    console.log("form", form);
+    await login(form)
+      .then((res) => {
+        setLoading(false);
+        window.location.replace("/profile");
+      })
+      .catch((err) => {
+        if (err === "Network Error") {
+          setLoading(false);
+        } else {
+          console.log("error", err);
+          setLoginError(err);
+          setLoading(false);
+        }
+      });
+    setLoading(false);
+  };
   return (
     <div className="main-wrapper login-body">
       <div className="login-wrapper">
@@ -39,13 +52,16 @@ const Login = () => {
             <div className="login-right">
               <div className="login-right-wrap">
                 <h1> Login </h1>
-                <p className="account-subtitle"> Access to our dashboard </p>
+                <p className="account-subtitle">
+                  {" "}
+                  Remote access to HW testing Boards
+                </p>
                 <form onSubmit={handleSubmit}>
                   <div className="form-group">
                     <input
                       className="form-control"
                       type="email"
-                      placeholder="Your Email Address"
+                      placeholder="Email Address"
                       onChange={(e) => {
                         setForm((form) => ({ ...form, email: e.target.value }));
                         let reg = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -121,6 +137,19 @@ const Login = () => {
                       </small>
                     ) : null}
                   </div>
+                  <div style={{ textAlign: "center" }}>
+                    {loginError != "" ? (
+                      <p
+                        style={{
+                          color: "red",
+                          fontWeight: "revert",
+                          display: "contents",
+                        }}
+                      >
+                        {loginError}
+                      </p>
+                    ) : null}
+                  </div>
                   <div className="form-group">
                     <button
                       disabled={
@@ -131,7 +160,7 @@ const Login = () => {
                       }
                       onClick={() => handleSubmit()}
                       type="button"
-                      className="btn btn-primary btn-block"
+                      className="btn btn-info btn-block"
                     >
                       {Loading && (
                         <span className="spinner-border spinner-border-sm mr-1"></span>

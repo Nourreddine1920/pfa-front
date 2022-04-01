@@ -245,16 +245,16 @@ Version      : 1.0
       var animate = $(this).data("animate");
       if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
         $(this).data("animate", true);
-        $(this)
-          .find(".circle-graph2")
-          .circleProgress({
-            value: percent / 100,
-            size: 400,
-            thickness: 30,
-            fill: {
-              color: "#6e6bfa",
-            },
-          });
+        // $(this)
+        //   .find(".circle-graph2")
+        //   .circleProgress({
+        //     value: percent / 100,
+        //     size: 400,
+        //     thickness: 30,
+        //     fill: {
+        //       color: "#6e6bfa",
+        //     },
+        //   });
       }
     });
     $(".circle-bar3").each(function () {

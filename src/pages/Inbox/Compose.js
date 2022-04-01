@@ -63,7 +63,7 @@ const Compose = () => {
         <Col lg={9} md={8}>
           <Card>
             <Card.Body>
-              <form action="inbox.html">
+              <form >
                 <div className="form-group">
                   <input
                     type="email"
