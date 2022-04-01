@@ -15,8 +15,30 @@ import Sidebar from "./_components/sidebar/Sidebar";
 import PrivateRoute from "./_components/_routes/PrivateRoute";
 import ProtectedRoutes from "./_components/_routes/ProtectedRoute";
 import PublicRoute from "./_components/_routes/PublicRoute";
+import API_URL from "./env";
+import AuthContext from "./_context/authContext.tsx";
+import axios from "axios";
 function App() {
-  let auth = true;
+  const { authenticated } = React.useContext(AuthContext);
+  let auth = authenticated;
+
+  let storage = localStorage.getItem("login");
+  let user = JSON.parse(storage || JSON.stringify({}));
+  async function getTokenStatus() {
+    await axios
+      .post(API_URL + "auth/token/verify/", {
+        token: user.token,
+      })
+      .then((res) => {})
+      .catch((e) => {
+        localStorage.removeItem("login");
+        window.location.replace("/login");
+      });
+  }
+  if (localStorage.getItem("login")) {
+    auth = true;
+    getTokenStatus();
+  }
   if (auth) {
     console.log(window.location.pathname);
     if (window.location.pathname === "/") {

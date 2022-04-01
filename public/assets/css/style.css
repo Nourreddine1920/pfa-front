@@ -3646,7 +3646,7 @@ table.table-inbox tbody tr.checked {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-right: 1px solid #eaeaea;
+    /* border-right: 1px solid #eaeaea; */
 }
 
 .dash-widget2 {

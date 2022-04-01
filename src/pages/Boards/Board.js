@@ -6,19 +6,18 @@ import {
   CAlert,
   CAlertHeading,
   CButton,
-  CSpinner,
+  CSpinner
 } from "@coreui/react";
+import $ from "jquery";
 import React, { useEffect, useState } from "react";
 import { Card, Col, Media, Row, Tab, Tabs } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import { withRouter } from "react-router-dom";
-import Donut from "../../_components/progressbar/Chart1";
-import ProgressBBar from "../../_components/progressbar/ProgressBar";
-import $ from "jquery";
-import MyPdf from "../../_components/PdfLoader";
 import SimpleImageSlider from "react-simple-image-slider";
-import { useForm } from "react-hook-form";
+import ReactTimeAgo from "react-time-ago";
+import MyPdf from "../../_components/PdfLoader";
+import Donut from "../../_components/progressbar/Chart1";
 import Uploading from "./Uploading";
 const IMAGES = [
   {
@@ -74,6 +73,7 @@ const Alerts = () => {
 let initialValues = {};
 const eventsList = ["sending", "uploading", "runing", "writing"]; // remove waiting event from list
 export const Board = (props) => {
+  console.log("...", props);
   const [isOpen, setisOpen] = useState(false);
   const [tab, settab] = useState(0);
 
@@ -117,7 +117,21 @@ export const Board = (props) => {
   });
   // *************** just for demo *********************
 
-  let card_name = props.history.location.state.card_name;
+  const {
+    id_board,
+    name,
+    in_use,
+    family,
+    serial_number,
+    gallery,
+    state,
+    datasheet,
+    exams,
+    flash_memory_size,
+    succeded_exams,
+    last_use,
+  } = props.history.location.state;
+  let _last_use_date = last_use !== "NEVERUSED" ? new Date(last_use) : last_use;
   return (
     <div className="main-wrapper login-body">
       {isOpen && (
@@ -135,12 +149,12 @@ export const Board = (props) => {
       <div className="page-header">
         <Row>
           <Col sm={12}>
-            <h3 className="page-title"> Board {card_name}</h3>
+            <h3 className="page-title"> Board {name}</h3>
             <ul className="breadcrumb">
               <li className="breadcrumb-item">
                 <a href="/boardslist"> Boards </a>
               </li>
-              <li className="breadcrumb-item active"> {card_name}</li>
+              <li className="breadcrumb-item active"> {name}</li>
             </ul>
           </Col>
         </Row>
@@ -185,25 +199,37 @@ export const Board = (props) => {
                         <ul>
                           <li>
                             <span className="title-span">Card Full Name:</span>
-                            <span className="info-span">STM32F4XXXXXXXXXX</span>
+                            <span className="info-span">{name}</span>
                           </li>
                           <li>
                             <span className="title-span"> Familly: </span>
-                            <span className="info-span">F4</span>
+                            <span className="info-span">{family}</span>
                           </li>
                           <li>
                             <span className="title-span"> State: </span>
-                            <span className="info-span">
-                              Available(NOT IN USE)
-                            </span>
+                            <span className="info-span">{state}</span>
                           </li>
                           <li>
                             <span className="title-span"> Last Use: </span>
-                            <span className="info-span">Tuesday ...</span>
+                            <span className="info-span">
+                              {last_use !== "NEVERUSED" ? (
+                                <>
+                                  <ReactTimeAgo
+                                    date={_last_use_date}
+                                    locale="en-US"
+                                    timeStyle="twitter"
+                                  />
+                                </>
+                              ) : (
+                                last_use
+                              )}
+                            </span>
                           </li>
                           <li>
                             <span className="title-span">Flash Memeory:</span>
-                            <span className="info-span">2MO</span>
+                            <span className="info-span">
+                              {flash_memory_size}MO
+                            </span>
                           </li>
                           <li>
                             <span className="title-span">In Use :</span>
@@ -211,7 +237,9 @@ export const Board = (props) => {
                           </li>
                           <li>
                             <span className="title-span"> DataSheet: </span>
-                            <span className="info-span"> Available </span>
+                            <span className="info-span">
+                              {datasheet === "" ? "NOTAVAILABlE" : "AVAILABlE"}
+                            </span>
                           </li>
                         </ul>
                       </Media.Body>
@@ -271,8 +299,8 @@ export const Board = (props) => {
                                 Supported elements
                               </h5>
                               <p className="card-text">
-                                before making exam in board {card_name} , you
-                                must agree to terms and conditions 🤞
+                                before making exam in board {name} , you must
+                                agree to terms and conditions 🤞
                                 <li>Condition 1</li>
                                 <li>Condition 2</li>
                                 <li>Condition 3</li>
@@ -286,38 +314,6 @@ export const Board = (props) => {
                                     className="was-validated"
                                     onSubmit={(e) => handelSubmit(e)}
                                   >
-                                    <div className="form-group">
-                                      <label
-                                        className="custom-file-label"
-                                        htmlFor="validatedCustomFile"
-                                      >
-                                        Select board
-                                      </label>
-                                      <select
-                                        className="form-select"
-                                        required
-                                        defaultValue={form.selected_board}
-                                        onChange={(e) => {
-                                          if (e.target.value !== 0) {
-                                            console.log(
-                                              "value card",
-                                              e.target.value
-                                            );
-                                            // setselectedBoard(e.target.value);
-                                            setForm((form) => ({
-                                              ...form,
-                                              selected_board: e.target.value,
-                                            }));
-                                          }
-                                        }}
-                                      >
-                                        <option value={0} defaultChecked>
-                                          ---------------
-                                        </option>
-                                        <option value={1}>STM32F4.....1</option>
-                                        <option value={2}>STM32F4.....2</option>
-                                      </select>
-                                    </div>
                                     <div className="form-group">
                                       <label
                                         className="custom-file-label"
@@ -453,7 +449,7 @@ export const Board = (props) => {
                             <div className="card-body">
                               <div>
                                 {/* <Allert /> */}
-                                <Alerts />
+                                {/* <Alerts /> */}
                               </div>
                             </div>
                           </div>
