@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import { GetBoards } from "../../_services/app-services";
 import BoardComp from "./BoardComp";
 
 const IMAGES = [
@@ -13,54 +14,33 @@ const IMAGES = [
     url: "/assets/img/boards/nucleo.jpg",
   },
 ];
-const boardslist = [
-  {
-    id_board: 1,
-    name: "STM32.....",
-    in_use: false,
-    family: "F4",
-    serial_number: "XXXXXXXXXXXXXXXXX1",
-    gallery: [],
-    state: "AVAILABLE",
-    datasheet: "",
-    exams: 3,
-  },
-  {
-    id_board: 2,
-    name: "STM32.....",
-    in_use: false,
-    family: "L5",
-    serial_number: "XXXXXXXXXXXXXXXXX2",
-    gallery: [],
-    state: "AVAILABLE",
-    datasheet: "",
-    exams: 4,
-  },
-  {
-    id_board: 3,
-    name: "STM32.....",
-    in_use: true,
-    family: "F4",
-    serial_number: "XXXXXXXXXXXXXXXXX3",
-    gallery: [],
-    state: "NOTAVAILABLE",
-    datasheet: "",
-    exams: 44,
-  },
-  {
-    id_board: 4,
-    name: "STM32.....",
-    in_use: true,
-    family: "F4",
-    serial_number: "XXXXXXXXXXXXXXXXX3",
-    gallery: [],
-    state: "NOTAVAILABLE",
-    datasheet: "",
-    exams: 3,
-  },
-];
+
 export const BoardList = (props) => {
   console.log("props...", props);
+  const [boardsList, setboardsList] = useState([]);
+  useEffect(() => {
+    // getting board new state evry  15sec
+    setTimeout(() => {
+      GetBoards()
+        .then((res) => {
+          console.log("resssssss", res);
+          setboardsList(res);
+        })
+        .catch((err) => {
+          console.log("errorrr", err);
+        });
+    }, 15000);
+  });
+  useEffect(() => {
+    GetBoards()
+      .then((res) => {
+        console.log("resssssss", res);
+        setboardsList(res);
+      })
+      .catch((err) => {
+        console.log("errorrr", err);
+      });
+  }, []);
   return (
     <div className="main-wrapper login-body">
       <div className="page-header">
@@ -88,7 +68,7 @@ export const BoardList = (props) => {
             </div>
             <div className="dash-circle">
               <div className="row">
-                {boardslist.map((board, index) => {
+                {boardsList.map((board, index) => {
                   return <BoardComp {...board} key={index} />;
                 })}
               </div>
