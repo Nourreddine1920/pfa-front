@@ -18,6 +18,7 @@ import SimpleImageSlider from "react-simple-image-slider";
 import ReactTimeAgo from "react-time-ago";
 import MyPdf from "../../_components/PdfLoader";
 import Donut from "../../_components/progressbar/Chart1";
+import { MakeExamWithBoard } from "../../_services/app-services";
 import Uploading from "./Uploading";
 const IMAGES = [
   {
@@ -76,8 +77,23 @@ export const Board = (props) => {
   console.log("...", props);
   const [isOpen, setisOpen] = useState(false);
   const [tab, settab] = useState(0);
+  const {
+    id_board,
+    name,
+    in_use,
+    family,
+    serial_number,
+    gallery,
+    state,
+    datasheet,
+    exams,
+    flash_memory_size,
+    succeded_exams,
+    last_use,
+  } = props.history.location.state;
+  let _last_use_date = last_use !== "NEVERUSED" ? new Date(last_use) : last_use;
 
-  const [selectedBoard, setselectedBoard] = useState(1);
+  const [selectedBoard, setselectedBoard] = useState(id_board);
   const [selectedTypeFile, setselectedTypeFile] = useState(1);
   const [selectedFile, setselectedFile] = useState(null);
   initialValues = {
@@ -96,11 +112,19 @@ export const Board = (props) => {
   function handelSubmit(e) {
     e.preventDefault();
     console.log("values", form);
+    let fdata=new FormData()
+    fdata.append('file',selectedFile)
+    fdata.append('typefile',selectedTypeFile)
     // hide first accor
-    $("#ACC1 > div.accordion-header > button").click();
+    MakeExamWithBoard(form.selected_board,fdata).then((res)=>{
+      console.log("ressss",res)
+    }).catch((err)=>{
+      console.log("errr",err)
+    })
+    //$("#ACC1 > div.accordion-header > button").click();
     // show second accor
-    $("#ACC2 > div.accordion-header > button").click();
-    window.scrollTo(0, 20);
+    //$("#ACC2 > div.accordion-header > button").click();
+    //window.scrollTo(0, 20);
   }
 
   // *************** just for demo *********************
@@ -117,21 +141,7 @@ export const Board = (props) => {
   });
   // *************** just for demo *********************
 
-  const {
-    id_board,
-    name,
-    in_use,
-    family,
-    serial_number,
-    gallery,
-    state,
-    datasheet,
-    exams,
-    flash_memory_size,
-    succeded_exams,
-    last_use,
-  } = props.history.location.state;
-  let _last_use_date = last_use !== "NEVERUSED" ? new Date(last_use) : last_use;
+ 
   return (
     <div className="main-wrapper login-body">
       {isOpen && (
@@ -288,7 +298,7 @@ export const Board = (props) => {
               </Tab>
               <Tab eventKey="makeexam" title="Make Exam">
                 <div className="row">
-                  <CAccordion activeItemKey={2}>
+                  <CAccordion activeItemKey={1}>
                     <CAccordionItem itemKey={1} id="ACC1">
                       <CAccordionHeader>Submitting file code</CAccordionHeader>
                       <CAccordionBody>
@@ -352,12 +362,12 @@ export const Board = (props) => {
                                       </label>
                                       <input
                                         type="file"
-                                        // accept=".bin,.hex"
-                                        value={selectedFile}
+                                        accept=".bin,.hex"
+                                        //value={selectedFile}
                                         className="form-control"
                                         id="validatedCustomFile"
                                         onChange={(e) => {
-                                          // setselectedFile(e.target.files[0])
+                                          setselectedFile(e.target.files[0])
                                           setForm((form) => ({
                                             ...form,
                                             selected_file: e.target.files[0],
