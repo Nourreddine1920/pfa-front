@@ -82,7 +82,7 @@ export async function MakeExamWithBoard(id_board, data) {
   let id = user.user.user;
   return new Promise(async (resolve, reject) => {
     await axios
-      .get(API_URL + "make_exam_with_baord/", {
+      .post(API_URL + "make_exam_with_baord/"+id_board+"/",data, {
         headers: authHeader(),
       })
       .then((res) => {
