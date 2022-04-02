@@ -31,7 +31,7 @@ const BoardComp = (props) => {
           <ProgressBar
             width={15}
             radius={40}
-            progress={exams === 0 ? 0 : (succeded_exams / exams) * 100}
+            progress={exams === 0 ? 0 : (Math.round(succeded_exams / exams) * 100)}
             rotate={-210}
             strokeWidth={8}
             strokeColor="#6e6bfa"
@@ -45,7 +45,7 @@ const BoardComp = (props) => {
             trackTransition="0s ease"
           >
             <div className="indicator-volume">
-              <b> {exams === 0 ? 0 : (succeded_exams / exams) * 100}% </b>
+              <b> {exams === 0 ? 0 : (Math.round(succeded_exams / exams) * 100)}% </b>
             </div>
           </ProgressBar>
           <h6>Test Passed</h6>

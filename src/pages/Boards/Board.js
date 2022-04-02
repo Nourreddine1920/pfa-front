@@ -18,7 +18,7 @@ import SimpleImageSlider from "react-simple-image-slider";
 import ReactTimeAgo from "react-time-ago";
 import MyPdf from "../../_components/PdfLoader";
 import Donut from "../../_components/progressbar/Chart1";
-import { MakeExamWithBoard } from "../../_services/app-services";
+import { GetLogFile, MakeExamWithBoard } from "../../_services/app-services";
 import Uploading from "./Uploading";
 const IMAGES = [
   {
@@ -78,6 +78,7 @@ export const Board = (props) => {
   const webSocket = useRef(null);
   token = JSON.parse(localStorage.getItem("login"));
   const [isOpen, setisOpen] = useState(false);
+  const [logfileurl, setlogfileurl] = useState("");
   const [tab, settab] = useState(0);
   const {
     id_board,
@@ -130,12 +131,11 @@ export const Board = (props) => {
               webSocket.current.send(
                 JSON.stringify({
                   msg_type: 3,
-                  data_uploaded: data,
                   id_board: id_board,
                   serial_number: serial_number,
                 })
               );
-            }else{
+            } else {
               console.log("file not recived 😞");
             }
             break;
@@ -143,6 +143,26 @@ export const Board = (props) => {
             console.log("if file uploaded !!", data);
             if (data["is_file_uploaded"]) {
               console.log("file uploaded ok");
+              // send that user went see log file as results
+              webSocket.current.send(
+                JSON.stringify({
+                  msg_type: 5,
+                  id_board: id_board,
+                  serial_number: serial_number,
+                })
+              );
+            }
+            break;
+          case 6:
+            // here show the log file to the user
+            console.log("is log file recived !!", data);
+            if (data['is_file_log_exist']) {
+              GetLogFile(data['log_file']).then((res) => {
+                console.log('log_file', res)
+                setlogfileurl(res.file)
+              }).catch((err) => {
+                console.log('error', err)
+              })
             }
             break;
           default:
@@ -183,10 +203,10 @@ export const Board = (props) => {
     //     console.log("errr", err);
     //   });
     // hide first accor
-    //$("#ACC1 > div.accordion-header > button").click();
+    $("#ACC1 > div.accordion-header > button").click();
     // show second accor
-    //$("#ACC2 > div.accordion-header > button").click();
-    //window.scrollTo(0, 20);
+    $("#ACC2 > div.accordion-header > button").click();
+    window.scrollTo(0, 20);
   }
 
   // *************** just for demo *********************
@@ -502,10 +522,10 @@ export const Board = (props) => {
                                 {currentEvent === "sending"
                                   ? "Uploading file in server "
                                   : currentEvent === "uploading"
-                                  ? "Uploading file to board 🤞"
-                                  : currentEvent === "runing"
-                                  ? "Runing file code in board 🕖 "
-                                  : "Writing your report (video|text|pdf) file"}
+                                    ? "Uploading file to board 🤞"
+                                    : currentEvent === "runing"
+                                      ? "Runing file code in board 🕖 "
+                                      : "Writing your report (video|text|pdf) file"}
                               </p>
                             </div>
                             <Uploading currentEvent={currentEvent} />
@@ -519,6 +539,7 @@ export const Board = (props) => {
                             </div>
                             <div className="card-body">
                               <div>
+                                {logfileurl !== "" && <a href={logfileurl}>Download log file</a>}
                                 {/* <Allert /> */}
                                 {/* <Alerts /> */}
                               </div>
