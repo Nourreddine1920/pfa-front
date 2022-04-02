@@ -6,10 +6,10 @@ import {
   CAlert,
   CAlertHeading,
   CButton,
-  CSpinner
+  CSpinner,
 } from "@coreui/react";
 import $ from "jquery";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Card, Col, Media, Row, Tab, Tabs } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
@@ -72,9 +72,11 @@ const Alerts = () => {
   );
 };
 let initialValues = {};
+let token;
 const eventsList = ["sending", "uploading", "runing", "writing"]; // remove waiting event from list
 export const Board = (props) => {
-  console.log("...", props);
+  const webSocket = useRef(null);
+  token = JSON.parse(localStorage.getItem("login"));
   const [isOpen, setisOpen] = useState(false);
   const [tab, settab] = useState(0);
   const {
@@ -109,18 +111,78 @@ export const Board = (props) => {
   //   $("#ACC1 > div.accordion-collpase.collapse").on
   // },[])
   const [form, setForm] = useState(initialValues);
+  useEffect(() => {
+    if (token) {
+      webSocket.current = new WebSocket(
+        "ws://127.0.0.1:8000/runexam_ws/" + token["user"].user + "/"
+      );
+      webSocket.current.onopen = () => {
+        console.log("hello from server");
+      };
+      webSocket.current.onmessage = function (e) {
+        let data = JSON.parse(e.data);
+        switch (data["msg_type"]) {
+          case 2:
+            console.log("is file recived", data);
+            // send that user went upload code in board
+            if (data["is_file_recived"]) {
+              console.log("file recived");
+              webSocket.current.send(
+                JSON.stringify({
+                  msg_type: 3,
+                  data_uploaded: data,
+                  id_board: id_board,
+                  serial_number: serial_number,
+                })
+              );
+            }else{
+              console.log("file not recived 😞");
+            }
+            break;
+          case 4:
+            console.log("if file uploaded !!", data);
+            if (data["is_file_uploaded"]) {
+              console.log("file uploaded ok");
+            }
+            break;
+          default:
+            break;
+        }
+      };
+    }
+  }, []);
+  function uploadingFile(file, callback) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var fileuploaded = reader.result;
+      callback(fileuploaded);
+    };
+    reader.readAsDataURL(file);
+  }
   function handelSubmit(e) {
     e.preventDefault();
     console.log("values", form);
-    let fdata=new FormData()
-    fdata.append('file',selectedFile)
-    fdata.append('typefile',selectedTypeFile)
+    //*******************************
+    // here we use websocket to send data t server
+    uploadingFile(selectedFile, function (data) {
+      webSocket.current.send(
+        JSON.stringify({
+          msg_type: 1,
+          data_uploaded: data,
+          id_board: id_board,
+          serial_number: serial_number
+        })
+      );
+    });
+
+    // MakeExamWithBoard(form.selected_board, fdata)
+    //   .then((res) => {
+    //     console.log("ressss", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log("errr", err);
+    //   });
     // hide first accor
-    MakeExamWithBoard(form.selected_board,fdata).then((res)=>{
-      console.log("ressss",res)
-    }).catch((err)=>{
-      console.log("errr",err)
-    })
     //$("#ACC1 > div.accordion-header > button").click();
     // show second accor
     //$("#ACC2 > div.accordion-header > button").click();
@@ -141,7 +203,6 @@ export const Board = (props) => {
   });
   // *************** just for demo *********************
 
- 
   return (
     <div className="main-wrapper login-body">
       {isOpen && (
@@ -362,12 +423,12 @@ export const Board = (props) => {
                                       </label>
                                       <input
                                         type="file"
-                                        accept=".bin,.hex"
+                                        // accept=".bin,.hex"
                                         //value={selectedFile}
                                         className="form-control"
                                         id="validatedCustomFile"
                                         onChange={(e) => {
-                                          setselectedFile(e.target.files[0])
+                                          setselectedFile(e.target.files[0]);
                                           setForm((form) => ({
                                             ...form,
                                             selected_file: e.target.files[0],
