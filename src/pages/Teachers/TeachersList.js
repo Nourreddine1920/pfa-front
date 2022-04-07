@@ -6,13 +6,13 @@ import {
 } from "@fortawesome/fontawesome-free-solid";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React ,  { useEffect, useState } from "react";
 // Import Components
-import { Card, Col, Media, Row } from "react-bootstrap";
+import { Card, Col, Pagination, Row } from "react-bootstrap";
 //Import Data Table
-import DataTable from "react-data-table-component";
-import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
+import Load from "../../_components/progressbar/Load";
+import ProfileCard from "../Profile/ProfileCard";
 
 const data = [
   {
@@ -136,81 +136,16 @@ const data = [
     img_url: "assets/img/profiles/avatar-10.jpg",
   },
 ];
-const columns = [
-  {
-    name: "ID",
-    selector: (row) => row.id,
-    sortable: true,
-  },
-  {
-    name: "Name",
-    sortable: true,
-    cell: (row) => (
-      <Media className="user-dt">
-        <a href="/teacher-details">
-          <img
-            src={row.img_url}
-            className="avatar-img rounded-circle avatar avatar-sm me-2"
-          />
-        </a>
-        <Media.Body>
-          <a href="/student-details ">{row.name}</a>
-        </Media.Body>
-      </Media>
-    ),
-  },
-  {
-    name: "Class",
-    selector: (row) => row.class,
-    sortable: true,
-  },
-  {
-    name: "Gender",
-    selector: (row) => row.gender,
-    sortable: true,
-  },
-  {
-    name: "Subject",
-    selector: (row) => row.subject,
-    sortable: true,
-  },
-  {
-    name: "Section",
-    selector: (row) => row.section,
-    sortable: true,
-  },
-  {
-    name: "Mobile Number",
-    selector: (row) => row.mobileNumber,
-    sortable: true,
-  },
-  {
-    name: "Address",
-    selector: (row) => row.address,
-    sortable: true,
-  },
-  {
-    name: "Action",
-    selector: (row) => row.action,
-    sortable: true,
-    cell: () => (
-      <div>
-        <a href="/edit-teacher" className="btn btn-sm bg-success-light me-2">
-          <FontAwesomeIcon icon={faPencilAlt} />
-        </a>
-        <a href="#" className="btn btn-sm bg-danger-light">
-          <FontAwesomeIcon icon={faTrash} />
-        </a>
-      </div>
-    ),
-  },
-];
 
-const TeachersList = () => {
-  const tableData = {
-    columns,
-    data,
-  };
+const TeachersList = (props) => {
+  console.log("props", props);
+  const [loading, setloading] = useState(false);
+  useEffect(() => {
+    setloading(true);
+    setTimeout(() => {
+      setloading(false);
+    }, 1200);
+  }, []);
 
   return (
     <div>
@@ -237,17 +172,48 @@ const TeachersList = () => {
           </Row>
         </div>
       </div>
-      <Card>
-        <DataTableExtensions {...tableData}>
-          <DataTable
-            noHeader
-            defaultSortField="id"
-            defaultSortAsc={false}
-            pagination
-            highlightOnHover
-          />
-        </DataTableExtensions>
-      </Card>
+      {loading ? (
+        <Load title={"loading ..."} />
+      ) : (
+        <Card>
+          <Card.Body>
+            {data.map((teacher, index) => {
+              return (
+                <div className="profile-header" style={{ margin: "4px" }}>
+                  <div className="row align-items-center">
+                    <ProfileCard {...teacher} key={index} />
+                    <div className="col-auto profile-btn">
+                      <a
+                        onClick={() => {
+                          props.history.push("/teacher-details", {
+                            teacher: teacher,
+                          });
+                        }}
+                        type="button"
+                        className="btn btn-primary"
+                      >
+                        View Profile
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <Pagination
+              size="sm"
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              <Pagination.First />
+              <Pagination.Prev />
+              <Pagination.Item active> {1} </Pagination.Item>
+              <Pagination.Item> {2} </Pagination.Item>
+              <Pagination.Item> {3} </Pagination.Item> <Pagination.Next />
+              <Pagination.Last />
+            </Pagination>
+          </Card.Body>
+        </Card>
+      )}
+      
     </div>
   );
 };

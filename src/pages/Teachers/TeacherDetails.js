@@ -10,7 +10,23 @@ import {
   Row,
 } from "react-bootstrap";
 
-const TeacherDetails = () => {
+const TeacherDetails = (props) => {
+  console.log("props" , props) ; 
+  const { id, name, dob, parentName, mobileNumber, address, img_url, about } =
+    props.location.state
+      ? props.location.state.teacher
+      : {
+          // static data ................
+          id: "PRE2209",
+          name: "Aaliyah",
+          dob: "2 Feb 2002",
+          parentName: "Jeffrey Wong",
+          mobileNumber: "097 3584 5870",
+          address: "911 Deer Ridge Drive,USA",
+          about: "Lorem ipsum dolor sit amet.",
+          img_url: "assets/img/profiles/avatar-01.jpg",
+        };
+
   return (
     <div>
       <div className="page-header">
@@ -167,7 +183,7 @@ const TeacherDetails = () => {
               </div>
             </Col>
           </Row>
-          <Row className="mt-2">
+           {/* <Row className="mt-2">
             <Col md={12}>
               <div className="skill-info">
                 <h4> Settings </h4>
@@ -200,7 +216,7 @@ const TeacherDetails = () => {
                 </Form>
               </div>
             </Col>
-          </Row>
+  </Row>*/}
         </Card.Body>
       </Card>
     </div>
