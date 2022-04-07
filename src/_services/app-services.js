@@ -99,3 +99,23 @@ export async function MakeExamWithBoard(id_board, data) {
 }
 
 // *******************************for boards*************************
+// *******************************for files*************************
+export async function GetLogFile(id_log_file) {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .get(API_URL + "files/"+id_log_file+"/", {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        console.log('log_file', res)
+        resolve(res.data);
+      })
+      .catch((e) => {
+        if (e.message === "Network Error") {
+          reject(e.message);
+        } else {
+          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+        }
+      });
+  });
+}

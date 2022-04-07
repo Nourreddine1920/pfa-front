@@ -137,44 +137,13 @@ class Sidebar extends React.Component {
                     <span>Students</span>
                   </Link>
                 </li>
-                <li
-                  className={`submenu ${
-                    pathnames.includes("teachers")
-                      ? "active"
-                      : pathnames.includes("teacher-details")
-                      ? "active"
-                      : pathnames.includes("edit-teacher")
-                      ? "active"
-                      : ""
-                  }`}
-                >
-                  <a href="#">
-                    <FontAwesomeIcon icon={faChalkboardTeacher} />
-                    <span> Teachers</span> <span className="menu-arrow"> </span>
-                  </a>
-                  <ul>
-                    <li
-                      className={pathnames.includes("teachers") ? "active" : ""}
-                    >
-                      <Link to="/teachers"> Teacher List </Link>
-                    </li>
-                    <li
-                      className={
-                        pathnames.includes("teacher-details") ? "active" : ""
-                      }
-                    >
-                      <Link to="/teacher-details"> Teacher View </Link>
-                    </li>
-
-                    <li
-                      className={
-                        pathnames.includes("edit-teacher") ? "active" : ""
-                      }
-                    >
-                      <Link to="/edit-teacher"> Teacher Edit </Link>
-                    </li>
-                  </ul>
+                <li className={pathnames.includes("teachers") ? "active" : ""}>
+                  <Link to="/teachers">
+                    <FontAwesomeIcon icon={faChalkboardTeacher}  />
+                    <span>Teachers</span>
+                  </Link>
                 </li>
+                
 
                 {/* <li
                   className={`submenu ${
