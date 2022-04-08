@@ -2,15 +2,160 @@ import {
   faCheck,
   faEdit,
   faMapMarkerAlt,
+  faDownload,
 } from "@fortawesome/fontawesome-free-solid";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Import Components
-import { Card, Col, Row, Tab, Tabs } from "react-bootstrap";
+import { Card, Col, Row, Tab, Tabs , Pagination } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
+import Load from "../../_components/progressbar/Load";
+import ProfileCard from "../Profile/ProfileCard";
+
+/* import Uploading from "./Uploading";
+import MyPdf from "../../_components/PdfLoader";
+ */
 
 const Profile = (props) => {
+  /* function uploadingFile(file, callback) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var fileuploaded = reader.result;
+      callback(fileuploaded);
+    };
+    reader.readAsDataURL(file);
+  }
+  function handelSubmit(e) {
+    e.preventDefault();
+    console.log("values", form);
+    //*******************************
+    // here we use websocket to send data t server
+    uploadingFile(selectedFile, function (data) {
+      webSocket.current.send(
+        JSON.stringify({
+          msg_type: 1,
+          data_uploaded: data,
+          id_board: id_board,
+          serial_number: serial_number
+        })
+      );
+    }); */
+  const data = [
+    {
+      id: "PRE2209",
+      name: "Aaliyah",
+      dob: "2 Feb 2002",
+      parentName: "Jeffrey Wong",
+      mobileNumber: "097 3584 5870",
+      address: "911 Deer Ridge Drive,USA",
+       about:
+        "Hello SIR  , here you find the TP is completed !",
+      
+      img_url: "assets/img/profiles/avatar-03.jpg",
+    },
+    {
+      id: "PRE2143",
+      name: "Levell Scott",
+      dob: "12 Apr 2002",
+      parentName: "Jeffrey Scott",
+      mobileNumber: "026 7318 4366",
+      address: "P.O. Box: 41, Gaborone",
+       about:
+        "Hello SIR  , here you find the TP is completed !",
+      img_url: "assets/img/profiles/avatar-02.jpg",
+    },
+    {
+      id: "PRE2431",
+      name: "Minnie",
+      dob: "24 Feb 2000",
+      parentName: "J Shaffer",
+      mobileNumber: "952 512 4909",
+      address: "4771  Oral Lake Road, Golden Valley",
+       about:
+        "Hello SIR  , here you find the TP is completed !",
+      img_url: "assets/img/profiles/avatar-03.jpg",
+    },
+    {
+      id: "PRE1534",
+      name: "Lois A",
+      dob: "22 Jul 2006",
+      parentName: "Cleary Wong",
+      mobileNumber: "413 289 1314",
+      address: "2844 Leverton Cove Road, Palmer",
+       about:
+        "Hello SIR  , here you find the TP is completed !",
+      img_url: "assets/img/profiles/avatar-04.jpg",
+    },
+    {
+      id: "PRE2153",
+      name: "Calvin",
+      dob: "8 Dec 2003",
+      parentName: "Minnie J Shaffer",
+      mobileNumber: "701 753 3810",
+      address: "1900  Hidden Meadow Drive, Crete",
+       about:
+        "Hello SIR  , here you find the TP is completed !",
+      img_url: "assets/img/profiles/avatar-05.jpg",
+    },
+    {
+      id: "PRE1252",
+      name: "Joe Kelley",
+      dob: "7 Oct 2000",
+      parentName: "Vincent Howard",
+      mobileNumber: "402 221 7523",
+      address: "3979  Ashwood Drive, Omaha",
+       about:
+        "Hello SIR  , here you find the TP is completed !",
+      img_url: "assets/img/profiles/avatar-06.jpg",
+    },
+    {
+      id: "PRE1434",
+      name: "Vincent",
+      dob: "4 Jan 2002",
+      parentName: "Kelley Joe",
+      mobileNumber: "402 221 7523",
+      address: "3979  Ashwood Drive, Omaha",
+       about:
+        "Hello SIR  , here you find the TP is completed !",
+      img_url: "assets/img/profiles/avatar-07.jpg",
+    },
+    {
+      id: "PRE2345",
+      name: "Kozma  Tatari",
+      dob: "1 Feb 2006",
+      parentName: "Lombardi",
+      mobileNumber: "04 2239 968",
+      address: "Rruga E Kavajes, Condor Center, Tirana",
+       about:
+        "Hello SIR  , here you find the TP is completed !",
+      img_url: "assets/img/profiles/avatar-08.jpg",
+    },
+    {
+      id: "PRE2365",
+      name: "John Chambers",
+      dob: "13 Sept 2003",
+      parentName: "Wong Jeffrey",
+      mobileNumber: "870 663 2334",
+      address: "4667 Sunset Drive, Pine Bluff",
+       about:
+        "Hello SIR  , here you find the TP is completed !",
+      img_url: "assets/img/profiles/avatar-09.jpg",
+    },
+
+  ];
+  console.log("props", props);
+  const [loading, setloading] = useState(false);
+  useEffect(() => {
+    setloading(true);
+    setTimeout(() => {
+      setloading(false);
+    }, 1200);
+  }, []);
+
+
+
+
   return (
     <div>
       <div className="page-header">
@@ -171,9 +316,144 @@ const Profile = (props) => {
                 <Card.Body>
                   <Card.Title> Uploaded files </Card.Title>
                   <Row>
-                    <Col md={10} lg={6}>
-                      Table can goes here
-                    </Col>
+                    <div>
+                      
+                      {loading ? (
+                        <Load title={"loading ..."} />
+                      ) : (
+                        <Card>
+                          <Card.Body>
+                            {data.map((student, index) => {
+                              return (
+                                <div className="profile-header" style={{ margin: "4px" }}>
+                                  <div className="row align-items-center">
+                                    <ProfileCard {...student} key={index} />
+                                    <div className="col-auto profile-btn">
+                                      <a
+                                        onClick={() => {
+                                          props.history.push("/student-details", {
+                                            student: student,
+                                          });
+                                        }}
+                                        type="button"
+                                        className="btn btn-primary"
+                                      >
+                                        View FILE
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                            <Pagination
+                              size="sm"
+                              style={{ display: "flex", justifyContent: "center" }}
+                            >
+                              <Pagination.First />
+                              <Pagination.Prev />
+                              <Pagination.Item active> {1} </Pagination.Item>
+                              <Pagination.Item> {2} </Pagination.Item>
+                              <Pagination.Item> {3} </Pagination.Item> <Pagination.Next />
+                              <Pagination.Last />
+                            </Pagination>
+                          </Card.Body>
+                        </Card>
+                      )}
+                    </div>
+                  </Row>
+                </Card.Body>
+              </Card>
+            </Tab>
+            <Tab eventKey="upload files" title=" Upload Files">
+              <Card>
+                <Card.Body>
+                  <Card.Title> Upload files </Card.Title>
+                  <Row>
+
+                    <form
+                      className="was-validated"
+                    /* onSubmit={(e) => handelSubmit(e)} */
+                    >
+                      <div className="form-group">
+                        <label
+                          className="custom-file-label"
+                          htmlFor="validatedCustomFile"
+                        >
+                          Titre Du TP
+                        </label>
+                        <input
+                          type="text"
+                          // accept=".bin,.hex"
+                          //value={selectedFile}
+                          className="form-control"
+                          id="validatedCustomFile"
+                          /* onChange={(e) => {
+                            setselectedFile(e.target.files[0]);
+                            setForm((form) => ({
+                              ...form,
+                              selected_file: e.target.files[0],
+                            }));
+                          }} */
+                          required
+                        />
+
+                      </div>
+                      <div className="custom-file">
+                        <label
+                          className="custom-file-label"
+                          htmlFor="validatedCustomFile"
+                        >
+                          Choose File
+                        </label>
+                        <input
+                          type="file"
+                          // accept=".bin,.hex"
+                          //value={selectedFile}
+                          className="form-control"
+                          id="validatedCustomFile"
+                          /* onChange={(e) => {
+                            setselectedFile(e.target.files[0]);
+                            setForm((form) => ({
+                              ...form,
+                              selected_file: e.target.files[0],
+                            }));
+                          }} */
+                          required
+                        />
+                        <div className="invalid-feedback">
+                          Please select a file
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <div className="form-check">
+                          <br />
+
+                          {/* <input
+                            className="form-check-input is-invalid"
+                            type="checkbox"
+                            defaultValue=""
+                            id="invalidCheck3"
+                            required
+                          /> */}
+
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          justifyContent: "end",
+                          display: "flex",
+                        }}
+                      >
+                        <button
+                          className="btn btn-info"
+                          type="submit"
+                        >
+                          UPLOAD FILE
+                        </button>
+                      </div>
+                    </form>
+
                   </Row>
                 </Card.Body>
               </Card>
@@ -213,3 +493,5 @@ const Profile = (props) => {
   );
 };
 export default withRouter(Profile);
+ //* export { Profile };
+
