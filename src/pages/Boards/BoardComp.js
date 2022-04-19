@@ -2,7 +2,7 @@ import { CSpinner } from "@coreui/react";
 import {
   faBookOpen,
   faClipboardCheck,
-  faClock
+  faClock,
 } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProgressBar from "react-customizable-progressbar";
@@ -31,7 +31,9 @@ const BoardComp = (props) => {
           <ProgressBar
             width={15}
             radius={40}
-            progress={exams === 0 ? 0 : (Math.round(succeded_exams / exams) * 100)}
+            progress={
+              exams === 0 ? 0 : Math.round(succeded_exams / exams) * 100
+            }
             rotate={-210}
             strokeWidth={8}
             strokeColor="#6e6bfa"
@@ -45,7 +47,12 @@ const BoardComp = (props) => {
             trackTransition="0s ease"
           >
             <div className="indicator-volume">
-              <b> {exams === 0 ? 0 : (Math.round(succeded_exams / exams) * 100)}% </b>
+              <b>
+                {" "}
+                {exams === 0
+                  ? 0
+                  : Math.round(succeded_exams / exams) * 100}%{" "}
+              </b>
             </div>
           </ProgressBar>
           <h6>Test Passed</h6>
@@ -72,11 +79,11 @@ const BoardComp = (props) => {
                 last_use
               )}
             </li>
-            <br/>
+            <br />
             <li>
               <FontAwesomeIcon icon={faBookOpen} /> {exams} Test
             </li>
-            <br/>
+            <br />
             <li>
               {state}&nbsp;
               <CSpinner
@@ -91,7 +98,7 @@ const BoardComp = (props) => {
                 variant="grow"
               />
             </li>
-            <br/>
+            <br />
             <li>
               <FontAwesomeIcon icon={faClipboardCheck} /> {family}
             </li>
@@ -102,25 +109,31 @@ const BoardComp = (props) => {
             </button>
             <button
               onClick={() => {
-                props.history.push("/board", {
-                  id_board: id_board,
-                  name: name,
-                  in_use: in_use,
-                  family: family,
-                  serial_number: serial_number,
-                  gallery: gallery,
-                  state: state,
-                  datasheet: datasheet,
-                  exams: exams,
-                  flash_memory_size: flash_memory_size,
-                  succeded_exams: succeded_exams,
-                  last_use: last_use,
-                });
+                if (!in_use) {
+                  props.history.push("/board", {
+                    id_board: id_board,
+                    name: name,
+                    in_use: in_use,
+                    family: family,
+                    serial_number: serial_number,
+                    gallery: gallery,
+                    state: state,
+                    datasheet: datasheet,
+                    exams: exams,
+                    flash_memory_size: flash_memory_size,
+                    succeded_exams: succeded_exams,
+                    last_use: last_use,
+                  });
+                } else {
+                  // here if board in use w create a request with current user and after that we disable button
+                  // show popup indicate that user request is enqueued
+                  
+                }
               }}
               type="button"
               className="btn btn-info"
             >
-              Make Exam
+              {in_use ? "Request" : "Make Exam"}
             </button>
           </div>
         </div>

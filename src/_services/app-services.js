@@ -37,9 +37,19 @@ export async function GetBoards() {
               return exam.state === "COMPLETED";
             }).length,
             gallery: board.gallery, // TODO access to image url
-            last_use: board.exams.length
-              ? board.exams[0].created_at
-              : "NEVERUSED",
+            last_use: board.exams.length ? board.exams[0].created_at : "NEVERUSED",
+            boardqueue: board.boardqueue
+              ? {
+                  id_queue: board.boardqueue.id_queue,
+                  users_request: board.boardqueue.users_request.map((ru) => {
+                    return {
+                      id_request: ru.id_request,
+                      is_from_me: ru.created_by.id === 1,
+                      is_handled: ru.is_handled,
+                    };
+                  }),
+                }
+              : {},
           };
         });
         resolve(boardsList);
