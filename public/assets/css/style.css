@@ -3828,7 +3828,7 @@ table.table-inbox tbody tr.checked {
     .mini-sidebar .header-left .logo img {
         height: auto;
         max-height: 40px;
-        width: auto;
+        width: 50px;
     }
 
     .mini-sidebar .header .header-left .logo {
@@ -3837,6 +3837,7 @@ table.table-inbox tbody tr.checked {
 
     .mini-sidebar .header-left .logo.logo-small {
         display: block;
+        
     }
 
     .mini-sidebar .header .header-left {
