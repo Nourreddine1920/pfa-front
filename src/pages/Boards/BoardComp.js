@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProgressBar from "react-customizable-progressbar";
 import { withRouter } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
+import { EnqueUserRequest } from "../../_services/app-services";
 const BoardComp = (props) => {
   const {
     id_board,
@@ -128,6 +129,7 @@ const BoardComp = (props) => {
                   // here if board in use w create a request with current user and after that we disable button
                   // show popup indicate that user request is enqueued
                   
+
                 }
               }}
               type="button"

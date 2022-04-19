@@ -6,10 +6,10 @@ import {
   CAlert,
   CAlertHeading,
   CButton,
-  CSpinner,
+  CSpinner
 } from "@coreui/react";
 import $ from "jquery";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card, Col, Media, Row, Tab, Tabs } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
@@ -19,7 +19,7 @@ import ReactTimeAgo from "react-time-ago";
 import MyPdf from "../../_components/PdfLoader";
 import Donut from "../../_components/progressbar/Chart1";
 import CountDownTimer from "../../_components/_countdown/CountDownTimer";
-import { GetLogFile, MakeExamWithBoard } from "../../_services/app-services";
+import { GetLogFile } from "../../_services/app-services";
 import Uploading from "./Uploading";
 const IMAGES = [
   {
@@ -198,13 +198,7 @@ export const Board = (props) => {
       );
     });
 
-    // MakeExamWithBoard(form.selected_board, fdata)
-    //   .then((res) => {
-    //     console.log("ressss", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log("errr", err);
-    //   });
+
     // hide first accor
     $("#ACC1 > div.accordion-header > button").click();
     // show second accor

@@ -37,7 +37,9 @@ export async function GetBoards() {
               return exam.state === "COMPLETED";
             }).length,
             gallery: board.gallery, // TODO access to image url
-            last_use: board.exams.length ? board.exams[0].created_at : "NEVERUSED",
+            last_use: board.exams.length
+              ? board.exams[0].created_at
+              : "NEVERUSED",
             boardqueue: board.boardqueue
               ? {
                   id_queue: board.boardqueue.id_queue,
@@ -85,18 +87,18 @@ export async function MakeBoardInUse(id_board) {
       });
   });
 }
-// make an exam with board ...
-export async function MakeExamWithBoard(id_board, data) {
-  let storage = localStorage.getItem("login");
-  let user = JSON.parse(storage || JSON.stringify({}));
-  let id = user.user.user;
+
+// *******************************for boards*************************
+// *******************************for files*************************
+export async function GetLogFile(id_log_file) {
   return new Promise(async (resolve, reject) => {
     await axios
-      .post(API_URL + "make_exam_with_baord/"+id_board+"/",data, {
+      .get(API_URL + "files/" + id_log_file + "/", {
         headers: authHeader(),
       })
       .then((res) => {
-        resolve(res);
+        console.log("log_file", res);
+        resolve(res.data);
       })
       .catch((e) => {
         if (e.message === "Network Error") {
@@ -107,17 +109,14 @@ export async function MakeExamWithBoard(id_board, data) {
       });
   });
 }
-
-// *******************************for boards*************************
-// *******************************for files*************************
-export async function GetLogFile(id_log_file) {
+// *************************** Make user request(enque)  ******************************
+export async function EnqueUserRequest(board_id) {
   return new Promise(async (resolve, reject) => {
     await axios
-      .get(API_URL + "files/"+id_log_file+"/", {
+      .post(API_URL + "enque_user_request/" + board_id + "/", {
         headers: authHeader(),
       })
       .then((res) => {
-        console.log('log_file', res)
         resolve(res.data);
       })
       .catch((e) => {
