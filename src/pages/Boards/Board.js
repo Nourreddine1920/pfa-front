@@ -6,10 +6,10 @@ import {
   CAlert,
   CAlertHeading,
   CButton,
-  CSpinner,
+  CSpinner
 } from "@coreui/react";
 import $ from "jquery";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Card, Col, Media, Row, Tab, Tabs } from "react-bootstrap";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
@@ -18,7 +18,8 @@ import SimpleImageSlider from "react-simple-image-slider";
 import ReactTimeAgo from "react-time-ago";
 import MyPdf from "../../_components/PdfLoader";
 import Donut from "../../_components/progressbar/Chart1";
-import { GetLogFile, MakeExamWithBoard } from "../../_services/app-services";
+import CountDownTimer from "../../_components/_countdown/CountDownTimer";
+import { GetLogFile } from "../../_services/app-services";
 import Uploading from "./Uploading";
 const IMAGES = [
   {
@@ -156,13 +157,15 @@ export const Board = (props) => {
           case 6:
             // here show the log file to the user
             console.log("is log file recived !!", data);
-            if (data['is_file_log_exist']) {
-              GetLogFile(data['log_file']).then((res) => {
-                console.log('log_file', res)
-                setlogfileurl(res.file)
-              }).catch((err) => {
-                console.log('error', err)
-              })
+            if (data["is_file_log_exist"]) {
+              GetLogFile(data["log_file"])
+                .then((res) => {
+                  console.log("log_file", res);
+                  setlogfileurl(res.file);
+                })
+                .catch((err) => {
+                  console.log("error", err);
+                });
             }
             break;
           default:
@@ -190,18 +193,12 @@ export const Board = (props) => {
           msg_type: 1,
           data_uploaded: data,
           id_board: id_board,
-          serial_number: serial_number
+          serial_number: serial_number,
         })
       );
     });
 
-    // MakeExamWithBoard(form.selected_board, fdata)
-    //   .then((res) => {
-    //     console.log("ressss", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log("errr", err);
-    //   });
+
     // hide first accor
     $("#ACC1 > div.accordion-header > button").click();
     // show second accor
@@ -249,6 +246,15 @@ export const Board = (props) => {
             </ul>
           </Col>
         </Row>
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
+          you have :
+          <CountDownTimer fromDate={"Fri Apr 25 2022 18:27:25"} />, before your
+          request is expired
+        </div>
       </div>
       <Row>
         <div className="comp-section comp-dropdowns">
@@ -257,7 +263,187 @@ export const Board = (props) => {
             <div className="line"> </div>
           </div> */}
           <Row>
-            <Tabs defaultActiveKey="overview" id="uncontrolled-tab-example">
+            <Tabs defaultActiveKey="makeexam" id="uncontrolled-tab-example">
+              <Tab eventKey="makeexam" title="Make Exam">
+                <div className="row">
+                  <CAccordion activeItemKey={1}>
+                    <CAccordionItem itemKey={1} id="ACC1">
+                      <CAccordionHeader>Submitting file code</CAccordionHeader>
+                      <CAccordionBody>
+                        <div className="col-sm-12">
+                          <div className="shadow-card">
+                            <div className="card-header">
+                              <h5 className="card-title mb-2">
+                                Supported elements
+                              </h5>
+                              <p className="card-text">
+                                before making exam in board {name} , you must
+                                agree to terms and conditions 🤞
+                                <li>Condition 1</li>
+                                <li>Condition 2</li>
+                                <li>Condition 3</li>
+                                <li>....</li>
+                              </p>
+                            </div>
+                            <div className="card-body">
+                              <div className="row">
+                                <div className="col-sm">
+                                  <form
+                                    className="was-validated"
+                                    onSubmit={(e) => handelSubmit(e)}
+                                  >
+                                    <div className="form-group">
+                                      <label
+                                        className="custom-file-label"
+                                        htmlFor="validatedCustomFile"
+                                      >
+                                        Choose file type (.hex/.bin)
+                                      </label>
+                                      <select
+                                        className="form-select"
+                                        required
+                                        value={form.selected_type_file}
+                                        onChange={(e) => {
+                                          if (e.target.value != 0) {
+                                            // setselectedTypeFile(e.target.value);
+                                            setForm((form) => ({
+                                              ...form,
+                                              selected_type_file:
+                                                e.target.value,
+                                            }));
+                                          }
+                                        }}
+                                      >
+                                        <option value={0} defaultChecked>
+                                          ---------------
+                                        </option>
+                                        <option value={1}>.hex</option>
+                                        <option value={2}>.bin</option>
+                                      </select>
+                                    </div>
+                                    <div className="custom-file">
+                                      <label
+                                        className="custom-file-label"
+                                        htmlFor="validatedCustomFile"
+                                      >
+                                        Choose file (.hex/.bin)
+                                      </label>
+                                      <input
+                                        type="file"
+                                        // accept=".bin,.hex"
+                                        //value={selectedFile}
+                                        className="form-control"
+                                        id="validatedCustomFile"
+                                        onChange={(e) => {
+                                          setselectedFile(e.target.files[0]);
+                                          setForm((form) => ({
+                                            ...form,
+                                            selected_file: e.target.files[0],
+                                          }));
+                                        }}
+                                        required
+                                      />
+                                      <div className="invalid-feedback">
+                                        Please select a file with selected type
+                                        file
+                                      </div>
+                                    </div>
+                                    <div className="form-group">
+                                      <div className="form-check">
+                                        <br />
+                                        <label
+                                          className="form-check-label"
+                                          htmlFor="invalidCheck3"
+                                        >
+                                          Agree to terms and conditions
+                                        </label>
+                                        <input
+                                          className="form-check-input is-invalid"
+                                          type="checkbox"
+                                          defaultValue=""
+                                          id="invalidCheck3"
+                                          required
+                                        />
+                                        <div className="invalid-feedback">
+                                          You must agree before submitting.
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="invalid-feedback">
+                                      Example invalid custom happened
+                                    </div>
+                                    <div className="card-body">
+                                      <div className="row">
+                                        <div
+                                          style={{
+                                            justifyContent: "end",
+                                            display: "flex",
+                                          }}
+                                        >
+                                          <button
+                                            className="btn btn-info"
+                                            type="submit"
+                                          >
+                                            Make Exam
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </CAccordionBody>
+                    </CAccordionItem>
+                    <CAccordionItem itemKey={2} id="ACC2">
+                      <CAccordionHeader>
+                        Results and feedback &nbsp;
+                        <CSpinner size="sm" color="success" variant="grow" />
+                      </CAccordionHeader>
+                      <CAccordionBody>
+                        <div className="col-sm-12">
+                          <div className="shadow-card">
+                            <div className="card-header">
+                              <h5 className="card-title mb-2">
+                                Waiting for results
+                              </h5>
+                              <p className="card-text">
+                                {currentEvent === "sending"
+                                  ? "Uploading file in server "
+                                  : currentEvent === "uploading"
+                                  ? "Uploading file to board 🤞"
+                                  : currentEvent === "runing"
+                                  ? "Runing file code in board 🕖 "
+                                  : "Writing your report (video|text|pdf) file"}
+                              </p>
+                            </div>
+                            <Uploading currentEvent={currentEvent} />
+                          </div>
+                          <div className="shadow-card">
+                            <div className="card-header">
+                              <h5 className="card-title mb-2">REPPORT</h5>
+                              <p className="card-text">
+                                Repport (video|text|pdf) file here
+                              </p>
+                            </div>
+                            <div className="card-body">
+                              <div>
+                                {logfileurl !== "" && (
+                                  <a href={logfileurl}>Download log file</a>
+                                )}
+                                {/* <Allert /> */}
+                                {/* <Alerts /> */}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </CAccordionBody>
+                    </CAccordionItem>
+                  </CAccordion>
+                </div>
+              </Tab>
               <Tab eventKey="overview" title="Overview">
                 <div className="about-info">
                   <h5> Card OverView </h5>
@@ -375,180 +561,6 @@ export const Board = (props) => {
                       </Card>
                     </Col>
                   </Row>
-                </div>
-              </Tab>
-              <Tab eventKey="makeexam" title="Make Exam">
-                <div className="row">
-                  <CAccordion activeItemKey={1}>
-                    <CAccordionItem itemKey={1} id="ACC1">
-                      <CAccordionHeader>Submitting file code</CAccordionHeader>
-                      <CAccordionBody>
-                        <div className="col-sm-12">
-                          <div className="shadow-card">
-                            <div className="card-header">
-                              <h5 className="card-title mb-2">
-                                Supported elements
-                              </h5>
-                              <p className="card-text">
-                                before making exam in board {name} , you must
-                                agree to terms and conditions 🤞
-                                <li>Condition 1</li>
-                                <li>Condition 2</li>
-                                <li>Condition 3</li>
-                                <li>....</li>
-                              </p>
-                            </div>
-                            <div className="card-body">
-                              <div className="row">
-                                <div className="col-sm">
-                                  <form
-                                    className="was-validated"
-                                    onSubmit={(e) => handelSubmit(e)}
-                                  >
-                                    <div className="form-group">
-                                      <label
-                                        className="custom-file-label"
-                                        htmlFor="validatedCustomFile"
-                                      >
-                                        Choose file (.hex/.bin)
-                                      </label>
-                                      <select
-                                        className="form-select"
-                                        required
-                                        value={form.selected_type_file}
-                                        onChange={(e) => {
-                                          if (e.target.value != 0) {
-                                            // setselectedTypeFile(e.target.value);
-                                            setForm((form) => ({
-                                              ...form,
-                                              selected_type_file:
-                                                e.target.value,
-                                            }));
-                                          }
-                                        }}
-                                      >
-                                        <option value={0} defaultChecked>
-                                          ---------------
-                                        </option>
-                                        <option value={1}>.hex</option>
-                                        <option value={2}>.bin</option>
-                                      </select>
-                                    </div>
-                                    <div className="custom-file">
-                                      <label
-                                        className="custom-file-label"
-                                        htmlFor="validatedCustomFile"
-                                      >
-                                        Choose file (.hex/.bin)
-                                      </label>
-                                      <input
-                                        type="file"
-                                        // accept=".bin,.hex"
-                                        //value={selectedFile}
-                                        className="form-control"
-                                        id="validatedCustomFile"
-                                        onChange={(e) => {
-                                          setselectedFile(e.target.files[0]);
-                                          setForm((form) => ({
-                                            ...form,
-                                            selected_file: e.target.files[0],
-                                          }));
-                                        }}
-                                        required
-                                      />
-                                      <div className="invalid-feedback">
-                                        Please select a file with selected type
-                                        file
-                                      </div>
-                                    </div>
-                                    <div className="form-group">
-                                      <div className="form-check">
-                                        <br />
-                                        <label
-                                          className="form-check-label"
-                                          htmlFor="invalidCheck3"
-                                        >
-                                          Agree to terms and conditions
-                                        </label>
-                                        <input
-                                          className="form-check-input is-invalid"
-                                          type="checkbox"
-                                          defaultValue=""
-                                          id="invalidCheck3"
-                                          required
-                                        />
-                                        <div className="invalid-feedback">
-                                          You must agree before submitting.
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="invalid-feedback">
-                                      Example invalid custom happened
-                                    </div>
-                                    <div
-                                      style={{
-                                        justifyContent: "end",
-                                        display: "flex",
-                                      }}
-                                    >
-                                      <button
-                                        className="btn btn-info"
-                                        type="submit"
-                                      >
-                                        Make Exam
-                                      </button>
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </CAccordionBody>
-                    </CAccordionItem>
-                    <CAccordionItem itemKey={2} id="ACC2">
-                      <CAccordionHeader>
-                        Results and feedback &nbsp;
-                        <CSpinner size="sm" color="success" variant="grow" />
-                      </CAccordionHeader>
-                      <CAccordionBody>
-                        <div className="col-sm-12">
-                          <div className="shadow-card">
-                            <div className="card-header">
-                              <h5 className="card-title mb-2">
-                                Waiting for results
-                              </h5>
-                              <p className="card-text">
-                                {currentEvent === "sending"
-                                  ? "Uploading file in server "
-                                  : currentEvent === "uploading"
-                                    ? "Uploading file to board 🤞"
-                                    : currentEvent === "runing"
-                                      ? "Runing file code in board 🕖 "
-                                      : "Writing your report (video|text|pdf) file"}
-                              </p>
-                            </div>
-                            <Uploading currentEvent={currentEvent} />
-                          </div>
-                          <div className="shadow-card">
-                            <div className="card-header">
-                              <h5 className="card-title mb-2">REPPORT</h5>
-                              <p className="card-text">
-                                Repport (video|text|pdf) file here
-                              </p>
-                            </div>
-                            <div className="card-body">
-                              <div>
-                                {logfileurl !== "" && <a href={logfileurl}>Download log file</a>}
-                                {/* <Allert /> */}
-                                {/* <Alerts /> */}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </CAccordionBody>
-                    </CAccordionItem>
-                  </CAccordion>
                 </div>
               </Tab>
               <Tab eventKey="statestic" title="Statestic">
