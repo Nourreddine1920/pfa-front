@@ -33,7 +33,7 @@ const BoardComp = (props) => {
             width={15}
             radius={40}
             progress={
-              exams === 0 ? 0 : Math.round(succeded_exams / exams) * 100
+              exams === 0 ? 0 : Math.round((succeded_exams / exams)*100)
             }
             rotate={-210}
             strokeWidth={8}
@@ -49,10 +49,10 @@ const BoardComp = (props) => {
           >
             <div className="indicator-volume">
               <b>
-                {" "}
+                
                 {exams === 0
                   ? 0
-                  : Math.round(succeded_exams / exams) * 100}%{" "}
+                  :  Math.round((succeded_exams / exams)*100)} %
               </b>
             </div>
           </ProgressBar>
