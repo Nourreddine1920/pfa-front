@@ -3,40 +3,24 @@ let a = [
     user: 1,
     uploaded_file: [
       {
-        id_file: 314,
-        created_at: "2022-04-21T21:30:10.325259Z",
-        updated_at: "2022-04-21T21:30:10.325962Z",
-        file: "http://127.0.0.1:8000/media/_Robotic_Workshop_by_Slidesgo_KshA5Ua.pdf",
-      },
-      {
-        id_file: 281,
-        created_at: "2022-04-21T21:28:50.442879Z",
-        updated_at: "2022-04-21T21:28:50.443728Z",
-        file: "http://127.0.0.1:8000/media/_Robotic_Workshop_by_Slidesgo_7Ql1LUs.pdf",
-      },
-      {
-        id_file: 280,
-        created_at: "2022-04-21T21:21:13.143363Z",
-        updated_at: "2022-04-21T21:21:13.144022Z",
-        file: "http://127.0.0.1:8000/media/_Robotic_Workshop_by_Slidesgo_q54grCC.pdf",
-      },
-      {
-        id_file: 279,
-        created_at: "2022-04-21T21:21:08.045110Z",
-        updated_at: "2022-04-21T21:21:08.045924Z",
-        file: "http://127.0.0.1:8000/media/_Robotic_Workshop_by_Slidesgo_jDmlRbH.pdf",
-      },
-      {
-        id_file: 278,
-        created_at: "2022-04-21T21:21:07.431066Z",
-        updated_at: "2022-04-21T21:21:07.431578Z",
-        file: "http://127.0.0.1:8000/media/_Robotic_Workshop_by_Slidesgo_hmp5IP6.pdf",
-      },
-      {
-        id_file: 277,
-        created_at: "2022-04-21T21:21:06.062073Z",
-        updated_at: "2022-04-21T21:21:06.062676Z",
-        file: "http://127.0.0.1:8000/media/_Robotic_Workshop_by_Slidesgo_zmYN6BC.pdf",
+        id_tp: 1,
+        file_tp: {
+          id_file: 349,
+          created_at: "2022-04-21T22:27:11Z",
+          updated_at: "2022-04-21T22:27:17.894543Z",
+          file: "http://127.0.0.1:8000/media/_Robotic_Workshop_by_Slidesgo_josXfBn.pdf",
+        },
+        user: {
+          id: 1,
+          first_name: "Nourreddine",
+          last_name: "Awled Brahim",
+          username: "Nourreddine",
+          email: "admin@admin.com",
+          kind: "OTHER",
+        },
+        created_at: "2022-04-21T22:27:04Z",
+        updated_at: "2022-04-21T22:27:28.085806Z",
+        title_tp: "tp",
       },
     ],
     created_at: "2022-04-15T21:03:47Z",
@@ -47,17 +31,20 @@ let a = [
     kind: "OTHER",
   },
 ];
-let user=a.map((use)=>{
-    return {
-        name:use.first_name +" "+ use.last_name,
-        kind:use.kind,
-        files:use.uploaded_file.map((file)=>{
-            return{
-                file_id:file.id_file,
-                file_url:file.file,
-                created_at:file.created_at,
-            }
-        })
-    }
-})
-console.log("user" , user) ; 
+let user = a.map((use) => {
+  return {
+    name: use.first_name + " " + use.last_name,
+    kind: use.kind,
+    files: use.uploaded_file.map((file) => {
+      return {
+        file_id: file.file_tp.id_file,
+        file_url: file.file_tp.file,
+        created_at: file.file_tp.created_at,
+        created_by:file.user.first_name+" "+file.user.last_name,
+        kind : file.user.kind,
+        
+      };
+    }),
+  };
+});
+console.log("user", user);

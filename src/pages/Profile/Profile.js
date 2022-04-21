@@ -13,6 +13,7 @@ import { withRouter } from "react-router-dom";
 import Load from "../../_components/progressbar/Load";
 import { GetElabUser, TeacherUploadFile } from "../../_services/app-services";
 import ProfileCard from "../Profile/ProfileCard";
+import Filecomp from "./Filecomp";
 
 /* import Uploading from "./Uploading";
 import MyPdf from "../../_components/PdfLoader";
@@ -340,34 +341,19 @@ const Profile = (props) => {
                       ) : (
                         <Card>
                           <Card.Body>
-                            {data.map((student, index) => {
-                              return (
-                                <div
-                                  className="profile-header"
-                                  style={{ margin: "4px" }}
-                                >
-                                  <div className="row align-items-center">
-                                    <ProfileCard {...student} key={index} />
-                                    <div className="col-auto profile-btn">
-                                      <a
-                                        onClick={() => {
-                                          props.history.push(
-                                            "/student-details",
-                                            {
-                                              student: student,
-                                            }
-                                          );
-                                        }}
-                                        type="button"
-                                        className="btn btn-primary"
-                                      >
-                                        View FILE
-                                      </a>
+                            {user.files != undefined &&
+                              user.files.map((file, index) => {
+                                return (
+                                  <div
+                                    className="profile-header"
+                                    style={{ margin: "4px" }}
+                                  >
+                                    <div className="row align-items-center">
+                                      <Filecomp {...file} key={index} />
                                     </div>
                                   </div>
-                                </div>
-                              );
-                            })}
+                                );
+                              })}
                             <Pagination
                               size="sm"
                               style={{

@@ -158,19 +158,23 @@ export async function GetElabUser() {
       })
       .then((res) => {
         let data = res.data.results
-        data = data.map((use)=>{
+        data = data.map((use) => {
           return {
-              name:use.first_name +" "+ use.last_name,
-              kind:use.kind,
-              files:use.uploaded_file.map((file)=>{
-                  return{
-                      file_id:file.id_file,
-                      file_url:file.file,
-                      created_at:file.created_at,
-                  }
-              })
-          }
-      })        
+            name: use.first_name + " " + use.last_name,
+            kind: use.kind,
+            files: use.uploaded_file.map((file) => {
+              return {
+                file_id: file.file_tp.id_file,
+                file_url: file.file_tp.file,
+                created_at: file.file_tp.created_at,
+                created_by:file.user.first_name+" "+file.user.last_name,
+                kind : file.user.kind,
+                photo: "assets/img/profiles/avatar-03.jpg"
+                
+              };
+            }),
+          };
+        });
         resolve(data);
       })
       .catch((e) => {
