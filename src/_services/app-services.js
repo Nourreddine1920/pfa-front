@@ -128,3 +128,57 @@ export async function EnqueUserRequest(board_id) {
       });
   });
 }
+
+
+export async function TeacherUploadFile(data) {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .post(API_URL + "upload_file/" ,data, {
+        "Content-Type": "multipart/form-data",
+        headers: authHeader(),
+      })
+      .then((res) => {
+        console.log(res) ;
+        resolve(res.data);
+      })
+      .catch((e) => {
+        if (e.message === "Network Error") {
+          reject(e.message);
+        } else {
+          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+        }
+      });
+  });
+}
+export async function GetElabUser() {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .get(API_URL + "elabuser/" , {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        let data = res.data.results
+        data = data.map((use)=>{
+          return {
+              name:use.first_name +" "+ use.last_name,
+              kind:use.kind,
+              files:use.uploaded_file.map((file)=>{
+                  return{
+                      file_id:file.id_file,
+                      file_url:file.file,
+                      created_at:file.created_at,
+                  }
+              })
+          }
+      })        
+        resolve(data);
+      })
+      .catch((e) => {
+        if (e.message === "Network Error") {
+          reject(e.message);
+        } else {
+          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+        }
+      });
+  });
+}
