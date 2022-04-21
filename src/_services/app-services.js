@@ -1,6 +1,5 @@
 import axios from "axios";
 import API_URL from "../env";
-import { MEDIA_URL } from "../env";
 
 // return authorization header with jwt token
 export function authHeader() {
@@ -48,35 +47,16 @@ export async function GetBoards() {
                       id_request: ru.id_request,
                       is_from_me: ru.created_by.id === 1,
                       is_handled: ru.is_handled,
+                      expiration_date: ru.expiration_date,
+                      created_at: ru.created_at,
                     };
                   }),
                 }
               : {},
           };
         });
+
         resolve(boardsList);
-      })
-      .catch((e) => {
-        if (e.message === "Network Error") {
-          reject(e.message);
-        } else {
-          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
-        }
-      });
-  });
-}
-// set a board in use by user ...
-export async function MakeBoardInUse(id_board) {
-  let storage = localStorage.getItem("login");
-  let user = JSON.parse(storage || JSON.stringify({}));
-  let id = user.user.user;
-  return new Promise(async (resolve, reject) => {
-    await axios
-      .get(API_URL + "make_baord_in_use/", {
-        headers: authHeader(),
-      })
-      .then((res) => {
-        resolve(res);
       })
       .catch((e) => {
         if (e.message === "Network Error") {
