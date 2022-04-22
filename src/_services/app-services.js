@@ -137,6 +137,7 @@ export async function GetElabUser() {
     await axios
       .get(API_URL + "elabuser/", {
         headers: authHeader(),
+        params: { user: id },
       })
       .then((res) => {
         let data = res.data.results;
@@ -148,13 +149,13 @@ export async function GetElabUser() {
             photo: use.photo,
             files: use.uploaded_file.map((file) => {
               return {
-                id_tp:file.id_tp,
+                id_tp: file.id_tp,
                 file_id: file.file_tp.id_file,
                 file_url: file.file_tp.file,
                 created_at: file.file_tp.created_at,
                 created_by: file.user.first_name + " " + file.user.last_name,
                 is_from_me: file.user.id === id,
-                title_tp:file.title_tp
+                title_tp: file.title_tp,
               };
             }),
           };
@@ -179,7 +180,6 @@ export async function RegisterApi(data) {
       .then((res) => {
         console.log(res);
         resolve(res);
-        
       })
       .catch((e) => {
         if (e.message === "Network Error") {
@@ -193,13 +193,41 @@ export async function RegisterApi(data) {
 export async function DeleteTP(id_tp) {
   return new Promise(async (resolve, reject) => {
     await axios
-      .delete(API_URL + "elabusertp/"+id_tp+"/",  {
+      .delete(API_URL + "elabusertp/" + id_tp + "/", {
         headers: authHeader(),
       })
       .then((res) => {
         console.log(res);
         resolve(res);
-        
+      })
+      .catch((e) => {
+        if (e.message === "Network Error") {
+          reject(e.message);
+        } else {
+          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+        }
+      });
+  });
+}
+export async function GetTeacherStudent(kind) {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .get(API_URL + "elabuser/", {
+        headers: authHeader(),
+        params: { kind: kind },
+      })
+      .then((res) => {
+        let data = res.data.results;
+        data = data.map((user) => {
+          return {
+            id: user.user,
+            name: user.first_name + " " + user.last_name,
+            email: user.email,
+            img_url: user.photo,
+          };
+        });
+        console.log(data);
+        resolve(data);
       })
       .catch((e) => {
         if (e.message === "Network Error") {
