@@ -7,10 +7,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 // Import Components
-import { Card, Col, Pagination, Row, Tab, Tabs } from "react-bootstrap";
+import { Card, Col, Row, Tab, Tabs, Pagination } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import Load from "../../_components/progressbar/Load";
+import { GetElabUser, TeacherUploadFile } from "../../_services/app-services";
 import ProfileCard from "../Profile/ProfileCard";
+import Filecomp from "./Filecomp";
 
 /* import Uploading from "./Uploading";
 import MyPdf from "../../_components/PdfLoader";
@@ -109,9 +111,16 @@ const data = [
     img_url: "assets/img/profiles/avatar-09.jpg",
   },
 ];
-
+let initialValues = {};
 const Profile = (props) => {
-  const [loading, setloading] = useState(false);
+  const [servererror, setservererror] = useState("");
+
+  const [form, setForm] = useState(initialValues);
+  const [selectedFile, setselectedFile] = useState(null);
+  initialValues = {
+    tp_file: selectedFile,
+    name_tp: "",
+  };
   function uploadingFile(file, callback) {
     var reader = new FileReader();
     reader.onload = function () {
@@ -123,13 +132,41 @@ const Profile = (props) => {
   function handelSubmit(e) {
     e.preventDefault();
     console.log("values", form);
+    const _form = new FormData();
+    _form.append("uploaded_file", form.tp_file);
+    _form.append("name_tp", form.name_tp);
+    TeacherUploadFile(_form)
+      .then((res) => {
+        console.log("res", res);
+        setservererror(res);
+      })
+      .catch((e) => {
+        console.log("error", e);
+        setservererror(e);
+      });
+    //*******************************
+    // here we use websocket to send data t server
+    // uploadingFile(selectedFile, function (data) {
+
+    // });
   }
+
+  console.log("props", props);
+  const [loading, setloading] = useState(false);
+  const [user, setuser] = useState([]);
 
   useEffect(() => {
     setloading(true);
-    setTimeout(() => {
-      setloading(false);
-    }, 1200);
+    GetElabUser()
+      .then((res) => {
+        console.log("res", res);
+        setuser(res[0]);
+        setloading(false);
+      })
+      .catch((e) => {
+        console.log("error", e);
+        setloading(false);
+      });
   }, []);
 
   return (
@@ -160,15 +197,20 @@ const Profile = (props) => {
                   />
                 </a>
               </div>
-              <div className="col ml-md-n2 profile-user-info">
-                <h4 className="user-name mb-0"> John Doe </h4>
-                <h6 className="text-muted"> UI / UX Design Team </h6>
-                <div className="user-Location">
+              {loading ? (
+                <div>Loading User Profile</div>
+              ) : (
+                <div className="col ml-md-n2 profile-user-info">
+                  <h4 className="user-name mb-0"> {user.name} </h4>
+                  <h6 className="text-muted"> {user.kind} </h6>
+                  {/* <div className="user-Location">
                   <FontAwesomeIcon icon={faMapMarkerAlt} /> Florida, United
                   States
                 </div>
-                <div className="about-text">Lorem ipsum dolor sit amet.</div>
-              </div>
+                <div className="about-text">Lorem ipsum dolor sit amet.</div> */}
+                </div>
+              )}
+
               <div className="col-auto profile-btn">
                 <a
                   type="button"
@@ -298,34 +340,19 @@ const Profile = (props) => {
                       ) : (
                         <Card>
                           <Card.Body>
-                            {data.map((student, index) => {
-                              return (
-                                <div
-                                  className="profile-header"
-                                  style={{ margin: "4px" }}
-                                >
-                                  <div className="row align-items-center">
-                                    <ProfileCard {...student} key={index} />
-                                    <div className="col-auto profile-btn">
-                                      <a
-                                        onClick={() => {
-                                          props.history.push(
-                                            "/student-details",
-                                            {
-                                              student: student,
-                                            }
-                                          );
-                                        }}
-                                        type="button"
-                                        className="btn btn-primary"
-                                      >
-                                        View FILE
-                                      </a>
+                            {user.files != undefined &&
+                              user.files.map((file, index) => {
+                                return (
+                                  <div
+                                    className="profile-header"
+                                    style={{ margin: "4px" }}
+                                  >
+                                    <div className="row align-items-center">
+                                      <Filecomp {...file} key={index} />
                                     </div>
                                   </div>
-                                </div>
-                              );
-                            })}
+                                );
+                              })}
                             <Pagination
                               size="sm"
                               style={{
@@ -367,17 +394,14 @@ const Profile = (props) => {
                         </label>
                         <input
                           type="text"
-                          accept=".pdf"
-                          //value={selectedFile}
                           className="form-control"
                           id="validatedCustomFile"
-                          /* onChange={(e) => {
-                            setselectedFile(e.target.files[0]);
+                          onChange={(e) => {
                             setForm((form) => ({
                               ...form,
-                              selected_file: e.target.files[0],
+                              name_tp: e.target.value,
                             }));
-                          }} */
+                          }}
                           required
                         />
                       </div>
@@ -390,37 +414,25 @@ const Profile = (props) => {
                         </label>
                         <input
                           type="file"
-                          // accept=".bin,.hex"
+                          accept=".pdf"
                           //value={selectedFile}
                           className="form-control"
                           id="validatedCustomFile"
-                          /* onChange={(e) => {
+                          onChange={(e) => {
                             setselectedFile(e.target.files[0]);
                             setForm((form) => ({
                               ...form,
-                              selected_file: e.target.files[0],
+                              tp_file: e.target.files[0],
                             }));
-                          }} */
+                          }}
                           required
                         />
+
                         <div className="invalid-feedback">
                           Please select a file
                         </div>
                       </div>
-                      <div className="form-group">
-                        <div className="form-check">
-                          <br />
-
-                          {/* <input
-                            className="form-check-input is-invalid"
-                            type="checkbox"
-                            defaultValue=""
-                            id="invalidCheck3"
-                            required
-                          /> */}
-                        </div>
-                      </div>
-
+                      {servererror != "" && <p>{servererror}</p>}
                       <div
                         style={{
                           justifyContent: "end",

@@ -45,7 +45,7 @@ const Login = () => {
             <div className="login-left">
               <img
                 className="img-fluid"
-                src="/assets/img/logo-white.png"
+                src="/assets/img/elab.png"
                 alt="Logo"
               />
             </div>

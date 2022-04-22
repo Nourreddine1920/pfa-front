@@ -53,7 +53,7 @@ const Header = (props) => {
       {/* Logo */}
       <div className="header-left">
         <a href="" to="index" className="logo">
-          <img src="assets/img/elab.png" alt="Logo" />
+          <img src="assets/img/elab.png" alt="Logo"/>
         </a>
         <a href="" className="logo logo-small">
           <img src={"assets/img/elab.png"} alt="Logo" />
