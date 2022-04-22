@@ -169,3 +169,23 @@ export async function GetElabUser() {
       });
   });
 }
+export async function RegisterApi(data) {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .post(API_URL + "auth/registration/", data, {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        console.log(res);
+        resolve(res);
+        
+      })
+      .catch((e) => {
+        if (e.message === "Network Error") {
+          reject(e.message);
+        } else {
+          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+        }
+      });
+  });
+}
