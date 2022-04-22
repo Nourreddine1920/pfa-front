@@ -142,6 +142,7 @@ const Exam = () => {
     columns,
     data,
   };
+  console.log('xxxx',tableData)
 
   return (
     <div>

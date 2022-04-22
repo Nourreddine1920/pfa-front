@@ -109,16 +109,15 @@ export async function EnqueUserRequest(board_id) {
   });
 }
 
-
 export async function TeacherUploadFile(data) {
   return new Promise(async (resolve, reject) => {
     await axios
-      .post(API_URL + "upload_file/" ,data, {
+      .post(API_URL + "upload_file/", data, {
         "Content-Type": "multipart/form-data",
         headers: authHeader(),
       })
       .then((res) => {
-        console.log(res) ;
+        console.log(res);
         resolve(res.data);
       })
       .catch((e) => {
@@ -131,26 +130,30 @@ export async function TeacherUploadFile(data) {
   });
 }
 export async function GetElabUser() {
+  let storage = localStorage.getItem("login");
+  let user = JSON.parse(storage || JSON.stringify({}));
+  let id = user.user.user;
   return new Promise(async (resolve, reject) => {
     await axios
-      .get(API_URL + "elabuser/" , {
+      .get(API_URL + "elabuser/", {
         headers: authHeader(),
       })
       .then((res) => {
-        let data = res.data.results
+        let data = res.data.results;
         data = data.map((use) => {
           return {
-            name: use.first_name + " " + use.last_name,
+            name: use.first_name,
             kind: use.kind,
+            email: use.email,
+            photo: use.photo,
             files: use.uploaded_file.map((file) => {
               return {
                 file_id: file.file_tp.id_file,
                 file_url: file.file_tp.file,
                 created_at: file.file_tp.created_at,
-                created_by:file.user.first_name+" "+file.user.last_name,
-                kind : file.user.kind,
-                photo: "assets/img/profiles/avatar-03.jpg"
-                
+                created_by: file.user.first_name + " " + file.user.last_name,
+                is_from_me: file.user.id === id,
+                title_tp:file.title_tp
               };
             }),
           };

@@ -1,52 +1,61 @@
-import { faMapMarkerAlt, faPhone } from "@fortawesome/fontawesome-free-solid";
+import { faPencilAlt, faTrash } from "@fortawesome/fontawesome-free-solid";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-const Filecomp = (props) => {
-  // id: "PRE2209",
-  // name: "Aaliyah",
-  // dob: "2 Feb 2002",
-  // parentName: "Jeffrey Wong",
-  // mobileNumber: "097 3584 5870",
-  // address: "911 Deer Ridge Drive,USA",
-  // action: "",
-  // img_url: "assets/img/profiles/avatar-01.jpg",
-  const { id, created_by, photo, kind } = props;
+const FileComp = (props) => {
+  const {
+    created_at,
+    id,
+    created_by,
+    photo,
+    is_from_me,
+    file_url,
+    kind,
+    title_tp,
+  } = props;
+  let date = new Date(created_at);
   return (
     <>
-      <div className="col-auto profile-image">
-        <a type="button">
-          <img className="rounded-circle" alt="User Image" src={photo} />
-        </a>
-      </div>
-      <div className="col ml-md-n2 profile-user-info">
-        <h4 className="user-name mb-0"> {created_by} </h4>
-        <br />
-        {/* <h6 className="text-muted">
-          <FontAwesomeIcon icon={faPhone} /> &nbsp; {mobileNumber}
-        </h6> */}
-        {/* <div className="user-Location">
-          <FontAwesomeIcon icon={faMapMarkerAlt} /> &nbsp;
-          {address}
-        </div> */}
-        <div className="about-text">{kind}</div>
-        <div className="col-auto profile-btn">
-          <a
-            // onClick={() => {
-            //   props.history.push("/student-details", {
-            //     student: student,
-            //   });
-            // }}
-            type="button"
-            className="btn btn-primary"
+      <tr scope="row">
+        <td>
+          <a href="#">{created_by}</a>
+        </td>
+        <td>
+          {title_tp}
+          <small class="d-block">
+            <a href={file_url}>joined file</a>
+          </small>
+        </td>
+        
+        <td>{date.toDateString()}</td>
+        <td>
+          <div
+            style={{
+              display: "flex",
+              
+            }}
           >
-            View FILE
-          </a>
-        </div>
-      </div>
+            {is_from_me ? (
+              <>
+                <a
+                  href="/edit-exam"
+                  className="btn btn-sm bg-success-light me-2"
+                >
+                  <FontAwesomeIcon icon={faPencilAlt} />
+                </a>
+                <a type="button" className="btn btn-sm bg-danger-light">
+                  <FontAwesomeIcon icon={faTrash} />
+                </a>
+              </>
+            ) : (
+              <a href="#">details</a>
+            )}
+          </div>
+        </td>
+      </tr>
     </>
   );
 };
-export default withRouter(Filecomp);
+export default withRouter(FileComp);
