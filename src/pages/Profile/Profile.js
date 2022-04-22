@@ -210,7 +210,7 @@ const Profile = (props) => {
                               <thead>
                                 <tr>
                                   <th scope="col">Created By</th>
-                                  <th scope="col">Contact</th>
+                                  <th scope="col">Content</th>
 
                                   <th scope="col">Created At</th>
                                   <th scope="col">actions</th>
