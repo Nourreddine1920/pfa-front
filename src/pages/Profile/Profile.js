@@ -12,7 +12,6 @@ import FileComp from "./Filecomp";
 let initialValues = {};
 const Profile = (props) => {
   const [servererror, setservererror] = useState("");
-  let tableData;
   const [form, setForm] = useState(initialValues);
   const [selectedFile, setselectedFile] = useState(null);
   const [loading, setloading] = useState(false);
@@ -30,6 +29,8 @@ const Profile = (props) => {
     TeacherUploadFile(_form)
       .then((res) => {
         setservererror(res);
+        setForm(initialValues)
+        setselectedFile(null)
       })
       .catch((e) => {
         console.log("error", e);
@@ -103,7 +104,7 @@ const Profile = (props) => {
                   }}
                   className="btn btn-primary"
                 >
-                  Edit
+                  Edit Profile
                 </a>
               </div>
             </div>
