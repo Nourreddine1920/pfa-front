@@ -148,6 +148,7 @@ export async function GetElabUser() {
             photo: use.photo,
             files: use.uploaded_file.map((file) => {
               return {
+                id_tp:file.id_tp,
                 file_id: file.file_tp.id_file,
                 file_url: file.file_tp.file,
                 created_at: file.file_tp.created_at,
@@ -173,6 +174,26 @@ export async function RegisterApi(data) {
   return new Promise(async (resolve, reject) => {
     await axios
       .post(API_URL + "auth/registration/", data, {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        console.log(res);
+        resolve(res);
+        
+      })
+      .catch((e) => {
+        if (e.message === "Network Error") {
+          reject(e.message);
+        } else {
+          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+        }
+      });
+  });
+}
+export async function DeleteTP(id_tp) {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .delete(API_URL + "elabusertp/"+id_tp+"/",  {
         headers: authHeader(),
       })
       .then((res) => {

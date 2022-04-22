@@ -3,12 +3,13 @@ import { faPencilAlt, faTrash } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { withRouter } from "react-router-dom";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
+import { DeleteTP } from "../../_services/app-services";
 
 const FileComp = (props) => {
   const {
     created_at,
-    id,
+    id_tp,
     created_by,
     photo,
     is_from_me,
@@ -58,11 +59,29 @@ const FileComp = (props) => {
                       confirmButtonText: "Yes, delete it!",
                     }).then((result) => {
                       if (result.isConfirmed) {
-                        Swal.fire(
-                          "Deleted!",
-                          "Your file has been deleted.",
-                          "success"
-                        );
+                        DeleteTP(id_tp)
+                          .then((res) => {
+                            console.log("res", res);
+                            if (res.status === 204) {
+                              Swal.fire(
+                                "Deleted!",
+                                "Your TP has been deleted.",
+                                "success"
+                              ).then((res) => {
+                                if (res.isConfirmed) {
+                                  window.location.reload();
+                                }
+                              });
+                            }
+                          })
+                          .catch((err) => {
+                            console.log("err", err);
+                            Swal.fire(
+                              "TP not Deleted!",
+                              "Your TP has not been deleted.",
+                              "error"
+                            );
+                          });
                       }
                     });
                   }}

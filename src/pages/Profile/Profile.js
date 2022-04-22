@@ -30,6 +30,9 @@ const Profile = (props) => {
     TeacherUploadFile(_form)
       .then((res) => {
         setservererror(res);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       })
       .catch((e) => {
         console.log("error", e);
