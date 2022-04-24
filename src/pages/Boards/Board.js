@@ -330,7 +330,7 @@ export const Board = (props) => {
                                       </label>
                                       <input
                                         type="file"
-                                        // accept=".bin,.hex"
+                                        accept=".bin,.hex"
                                         //value={selectedFile}
                                         className="form-control"
                                         id="validatedCustomFile"
