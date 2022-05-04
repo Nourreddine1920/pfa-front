@@ -93,17 +93,22 @@ export async function GetLogFile(id_log_file) {
 export async function EnqueUserRequest(board_id) {
   return new Promise(async (resolve, reject) => {
     await axios
-      .post(API_URL + "enque_user_request/" + board_id + "/", {
-        headers: authHeader(),
-      })
+      .post(
+        API_URL + "enque_user_request/" + board_id + "/",
+        {},
+        {
+          headers: authHeader(),
+        }
+      )
       .then((res) => {
-        resolve(res.data);
+        resolve(res);
       })
       .catch((e) => {
         if (e.message === "Network Error") {
           reject(e.message);
         } else {
-          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+          console.log("errr", e.response.data);
+          reject(e.response.data);
         }
       });
   });
@@ -228,6 +233,27 @@ export async function GetTeacherStudent(kind) {
         });
         console.log(data);
         resolve(data);
+      })
+      .catch((e) => {
+        if (e.message === "Network Error") {
+          reject(e.message);
+        } else {
+          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+        }
+      });
+  });
+}
+
+export async function EXTRACT_USER_REQUEST(data) {
+  // data ={"id_board":id}
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .post(API_URL + "extract_user_request/", data, {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        console.log(res.data[0]);
+        resolve(res.data[0]);
       })
       .catch((e) => {
         if (e.message === "Network Error") {
