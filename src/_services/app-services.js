@@ -287,7 +287,7 @@ export async function GetUserActivity() {
                 state: activity.exams_activity[0].state,
                 file: activity.exams_activity[0].file_uploaded.file,
                 type_activity: activity.type_activity,
-                created_at : activity.created_at,
+                created_at: activity.created_at,
               }
               break;
             case 0:
@@ -295,9 +295,9 @@ export async function GetUserActivity() {
 
                 name: activity.created_by.username,
                 user_id: activity.created_by.id,
-                tp_activity:activity.tp_activity.file_tp.file,
+                tp_activity: activity.tp_activity.file_tp.file,
                 type_activity: activity.type_activity,
-                created_at : activity.created_at,
+                created_at: activity.created_at,
 
 
               }
@@ -310,6 +310,41 @@ export async function GetUserActivity() {
         })
 
         console.log(data);
+        resolve(data);
+      })
+      .catch((e) => {
+        if (e.message === "Network Error") {
+          reject(e.message);
+        } else {
+          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+        }
+      });
+  });
+}
+
+
+export async function GetUserExam() {
+  let storage = localStorage.getItem("login");
+  let user = JSON.parse(storage || JSON.stringify({}));
+  let id = user.user.user;
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .get(API_URL + "exams/", {
+        headers: authHeader(),
+        params: { created_by: id },
+      })
+      .then((res) => {
+        let data = res.data.results;
+        data = data.map((exam) => {
+          return {
+            name: exam.created_by.username,
+            state: exam.state,
+            file: exam.file_uploaded.file,
+            created_at: exam.file_uploaded.created_at,
+
+          };
+        })
+
         resolve(data);
       })
       .catch((e) => {
