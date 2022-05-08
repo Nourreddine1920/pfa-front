@@ -24,6 +24,7 @@ const BoardComp = (props) => {
     flash_memory_size,
     succeded_exams,
     last_use,
+    boardqueue
   } = props;
   let _last_use_date = last_use !== "NEVERUSED" ? new Date(last_use) : last_use;
   const Toast = Swal.mixin({
@@ -103,8 +104,8 @@ const BoardComp = (props) => {
                   state === "AVAILABLE"
                     ? "success"
                     : state === "NOTAVAILABLE"
-                    ? "danger"
-                    : "warning"
+                      ? "danger"
+                      : "warning"
                 }
                 variant="grow"
               />
@@ -172,7 +173,7 @@ const BoardComp = (props) => {
               type="button"
               className="btn btn-info"
             >
-              {in_use ? "Request" : "Make Exam"}
+              {boardqueue===null ? "Make Exam" : boardqueue.last_user_request.is_from_me ? "Make exam" : "request"}
             </button>
           </div>
         </div>

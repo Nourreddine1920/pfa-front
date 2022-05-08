@@ -83,7 +83,7 @@ const Profile = (props) => {
                     src={
                       !loading && user
                         ? user.photo
-                        : "assets/img/profiles/avatar-13.jpg"
+                        : "assets/img/user.png"
                     }
                   />
                 </a>
@@ -103,7 +103,7 @@ const Profile = (props) => {
                 <a
                   type="button"
                   onClick={() => {
-                    props.history.push("/edit-student", {});
+                    props.history.push("/edit-profile", {});
                   }}
                   className="btn btn-primary"
                 >
@@ -119,7 +119,7 @@ const Profile = (props) => {
           >
             <Tab eventKey="about" title="About">
               <Row>
-                <Col lg={9}>
+                <Col sm={12}>
                   <Card>
                     <Card.Body>
                       <Card.Title className="d-flex justify-content-between">
@@ -129,35 +129,40 @@ const Profile = (props) => {
                           data-toggle="modal"
                           type="button"
                           onClick={() => {
-                            props.history.push("/edit-student", {});
+                            props.history.push("/edit-profile", {});
                           }}
                         >
                           <FontAwesomeIcon icon={faEdit} className="mr-1" />
                           Edit
                         </a>
                       </Card.Title>
-                      <div className="row">
-                        <p className="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">
-                          Name
-                        </p>
-                        <p className="col-sm-9"> John Doe </p>
-                      </div>
-                      {/* <div className="row">
-                        <p className="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">
-                          Date of Birth
-                        </p>
-                        <p className="col-sm-9"> 24 Jul 1983 </p>
-                      </div> */}
-                      <div className="row">
-                        <p className="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">
-                          Email
-                        </p>
-                        <p className="col-sm-9">johndoe @example.com</p>
-                      </div>
+                      {loading ? (
+                        <div className="row">
+                          <p className="col-sm-9">
+                            laoding user Personal Details
+                          </p>
+
+                        </div>
+                      ) : (
+                        <>
+                          <div className="row">
+                            <p className="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">
+                              Name
+                            </p>
+                            <p className="col-sm-9"> {user.name} </p>
+                          </div>
+
+                          <div className="row">
+                            <p className="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">
+                              Email
+                            </p>
+                            <p className="col-sm-9">{user.email}</p>
+                          </div>
+                        </>)}
                     </Card.Body>
                   </Card>
                 </Col>
-                <Col lg={3}>
+                {/* <Col lg={3}>
                   <Card>
                     <Card.Body>
                       <Card.Title className="d-flex justify-content-between">
@@ -180,24 +185,8 @@ const Profile = (props) => {
                     </Card.Body>
                   </Card>
 
-                  {/* <Card>
-                    <Card.Body>
-                      <Card.Title className="d-flex justify-content-between">
-                        <span> Skills </span>
-                        <a className="edit-link" type="button">
-                          <FontAwesomeIcon icon={faEdit} className="mr-1" />
-                          Edit
-                        </a>
-                      </Card.Title>
-                      <div className="skill-tags">
-                        <span> Html5 </span> <span> CSS3 </span>
-                        <span> WordPress </span> <span> Javascript </span>
-                        <span> Android </span> <span> iOS </span>
-                        <span> Angular </span> <span> PHP </span>
-                      </div>
-                    </Card.Body>
-                  </Card> */}
-                </Col>
+                  
+                </Col> */}
               </Row>
             </Tab>
             <Tab eventKey="files" title="Files">
@@ -255,9 +244,10 @@ const Profile = (props) => {
                           className="custom-file-label"
                           htmlFor="validatedCustomFile"
                         >
-                          Titre Du TP
+                          Titre of TP
                         </label>
                         <input
+                          placeholder="Stm32 tp.."
                           type="text"
                           className="form-control"
                           id="validatedCustomFile"
@@ -275,7 +265,7 @@ const Profile = (props) => {
                           className="custom-file-label"
                           htmlFor="validatedCustomFile"
                         >
-                          Choose File
+                          Choose File to attach
                         </label>
                         <input
                           type="file"
@@ -305,7 +295,7 @@ const Profile = (props) => {
                         }}
                       >
                         <button className="btn btn-info" type="submit">
-                          UPLOAD FILE
+                          UPLOAD TP
                         </button>
                       </div>
                     </form>

@@ -90,7 +90,7 @@ export const ActivityList = (props) => {
                         timeStyle="twitter"
                       /> </div>
                       <span className="feed-text">
-                        <a href="/profile"> {activity.name}</a>  make test in board (upload(.hex/bin)) &nbsp;
+                        <a href="/profile"> {activity.name}</a>  make exam in board (upload(.hex/bin)) &nbsp;
                         <a href={activity.tp_activity}>file</a>
                       </span>
                     </li>}
