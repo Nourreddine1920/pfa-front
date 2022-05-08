@@ -41,17 +41,17 @@ export async function GetBoards() {
               : "NEVERUSED",
             boardqueue: board.boardqueue
               ? {
-                  id_queue: board.boardqueue.id_queue,
-                  users_request: board.boardqueue.users_request.map((ru) => {
-                    return {
-                      id_request: ru.id_request,
-                      is_from_me: ru.created_by.id === 1,
-                      is_handled: ru.is_handled,
-                      expiration_date: ru.expiration_date,
-                      created_at: ru.created_at,
-                    };
-                  }),
-                }
+                id_queue: board.boardqueue.id_queue,
+                users_request: board.boardqueue.users_request.map((ru) => {
+                  return {
+                    id_request: ru.id_request,
+                    is_from_me: ru.created_by.id === 1,
+                    is_handled: ru.is_handled,
+                    expiration_date: ru.expiration_date,
+                    created_at: ru.created_at,
+                  };
+                }),
+              }
               : {},
           };
         });
@@ -254,6 +254,63 @@ export async function EXTRACT_USER_REQUEST(data) {
       .then((res) => {
         console.log(res.data[0]);
         resolve(res.data[0]);
+      })
+      .catch((e) => {
+        if (e.message === "Network Error") {
+          reject(e.message);
+        } else {
+          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+        }
+      });
+  });
+}
+
+
+export async function GetUserActivity() {
+  let storage = localStorage.getItem("login");
+  let user = JSON.parse(storage || JSON.stringify({}));
+  let id = user.user.user;
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .get(API_URL + "activity/", {
+        headers: authHeader(),
+        params: { created_by: id },
+      })
+      .then((res) => {
+        let data = res.data.results;
+        data = data.map((activity) => {
+          switch (activity.type_activity) {
+            case 1:
+              return {
+                name: activity.created_by.username,
+                user_id: activity.created_by.id,
+                state: activity.exams_activity[0].state,
+                file: activity.exams_activity[0].file_uploaded.file,
+                type_activity: activity.type_activity,
+                created_at : activity.created_at,
+              }
+              break;
+            case 0:
+              return {
+
+                name: activity.created_by.username,
+                user_id: activity.created_by.id,
+                tp_activity:activity.tp_activity.file_tp.file,
+                type_activity: activity.type_activity,
+                created_at : activity.created_at,
+
+
+              }
+              break;
+            default:
+              break;
+
+
+          }
+        })
+
+        console.log(data);
+        resolve(data);
       })
       .catch((e) => {
         if (e.message === "Network Error") {

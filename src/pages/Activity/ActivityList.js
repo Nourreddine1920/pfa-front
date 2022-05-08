@@ -1,7 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row, Card } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import $ from "jquery";
+import ReactTimeAgo from "react-time-ago";
+import Load from "../../_components/progressbar/Load";
+
+
+import { GetUserActivity } from "../../_services/app-services";
 const timeLineActivitys = [
   {
     date: "Apr 3",
@@ -17,6 +22,9 @@ const timeLineActivitys = [
   },
 ];
 export const ActivityList = (props) => {
+  const [activityitems, setactivityitmes] = useState([]);
+  const [loading, setloading] = useState(false);
+
   useEffect(() => {
     $(".feed-item").animate(
       {
@@ -25,6 +33,21 @@ export const ActivityList = (props) => {
       "slow"
     );
   }, []);
+  useEffect(() => {
+    setloading(true);
+
+    GetUserActivity().then((res) => {
+      console.log("res", res);
+      setactivityitmes(res);
+      setloading(false);
+    }).catch((err) => {
+      console.log("err", err);
+      setloading(false);
+    })
+
+  }, []);
+
+
   console.log("props...", props);
   return (
     <div className="main-wrapper login-body">
@@ -48,7 +71,7 @@ export const ActivityList = (props) => {
               <h5 className="card-title"> Student or Teacher Activity </h5>
             </Card.Header>
             <Card.Body>
-              <ul className="activity-feed">
+              {loading ? (<Load title={"loading ..."} />) : (<>{activityitems.length > 0 ? (<ul className="activity-feed">
                 {/* {timeLineActivitys.map((element) => {
                   return (
                     <li className="feed-item">
@@ -57,44 +80,59 @@ export const ActivityList = (props) => {
                     </li>
                   );
                 })} */}
-                <li className="feed-item">
-                  <div className="feed-date"> Apr 13 </div>
-                  <span className="feed-text">
-                    <a> John Doe (when click go to teacher profile) </a> upload
-                    TP (homework/) <a>test.tp</a>
-                  </span>
-                </li>
-                <li className="feed-item">
+                {activityitems.map((activity, index) => {
+                  let d_activity = new Date(activity.created_at);
+                  return <>
+                    {activity.type_activity === 0 && <li key={activity.created_at} className="feed-item">
+                      <div className="feed-date"> <ReactTimeAgo
+                        date={d_activity}
+                        locale="en-US"
+                        timeStyle="twitter"
+                      /> </div>
+                      <span className="feed-text">
+                        <a href="/profile"> {activity.name}</a>  make test in board (upload(.hex/bin)) &nbsp;
+                        <a href={activity.tp_activity}>file</a>
+                      </span>
+                    </li>}
+                    {activity.type_activity === 1 && <li key={activity.created_at} className="feed-item">
+                      <div className="feed-date"> <ReactTimeAgo
+                        date={d_activity}
+                        locale="en-US"
+                        timeStyle="twitter"
+                      />  </div>
+                      <span className="feed-text">
+                        <a href="/profile"> {activity.name} </a> upload
+                        TP (homework/) <a href={activity.file}>TP</a>
+                      </span>
+                    </li>}</>
+                })}
+
+                {/* <li className="feed-item">
                   <div className="feed-date"> Mar 21 </div>
                   <span className="feed-text">
                     <a> Justin Lee </a> view TP
                     (download/compleet-TP/InProgress...) &nbsp;
                     <a href="/activityitem">download</a>
                   </span>
-                </li>
-                <li className="feed-item">
-                  <div className="feed-date"> Feb 2 </div>
-                  <span className="feed-text">
-                    <a> Justin Lee </a>make test in board (upload(.hex/bin) file
-                    / ...) &nbsp;
-                    <a href="/activityitem">file.hex</a>
-                  </span>
-                </li>
-                <li className="feed-item">
+                </li> */}
+
+                {/* <li className="feed-item">
                   <div className="feed-date"> Apr 13 </div>
                   <span className="feed-text">
                     <a> John Doe </a> Give direct, real-time feedback{" "}
                     <a>feedback</a>
                   </span>
-                </li>
-                <li className="feed-item">
+                </li> */}
+                {/* <li className="feed-item">
                   <div className="feed-date"> Mar 21 </div>
                   <span className="feed-text">
                     <a> Justin Lee </a> participated in &nbsp;
                     <a href="/activityitem">Carrom</a>
                   </span>
-                </li>
-              </ul>
+                </li> */}
+              </ul>) : (<><p>No Activities</p></>)}</>)}
+
+
             </Card.Body>
           </Card>
         </Col>
