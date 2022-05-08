@@ -6,7 +6,7 @@ import {
   CAlert,
   CAlertHeading,
   CButton,
-  CSpinner
+  CSpinner,
 } from "@coreui/react";
 import $ from "jquery";
 import React, { useEffect, useRef, useState } from "react";
@@ -19,8 +19,20 @@ import ReactTimeAgo from "react-time-ago";
 import MyPdf from "../../_components/PdfLoader";
 import Donut from "../../_components/progressbar/Chart1";
 import CountDownTimer from "../../_components/_countdown/CountDownTimer";
-import { GetLogFile } from "../../_services/app-services";
+import { EXTRACT_USER_REQUEST, GetLogFile } from "../../_services/app-services";
 import Uploading from "./Uploading";
+import Swal from "sweetalert2";
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
 const IMAGES = [
   {
     url: "/assets/img/boards/stm32f429i-discovery.png",
@@ -113,6 +125,8 @@ export const Board = (props) => {
   //   $("#ACC1 > div.accordion-collpase.collapse").on
   // },[])
   const [form, setForm] = useState(initialValues);
+  const [date_expiration, setdate_expiration] = useState("");
+  
   useEffect(() => {
     if (token) {
       webSocket.current = new WebSocket(
@@ -120,6 +134,15 @@ export const Board = (props) => {
       );
       webSocket.current.onopen = () => {
         console.log("hello from server");
+        // here we get the user request details
+        EXTRACT_USER_REQUEST({ id_board: id_board })
+          .then((res) => {
+            console.log("user request details", res);
+            setdate_expiration(res.expiration_date)
+          })
+          .catch((error) => {
+            console.log("error ", error);
+          });
       };
       webSocket.current.onmessage = function (e) {
         let data = JSON.parse(e.data);
@@ -138,6 +161,11 @@ export const Board = (props) => {
               );
             } else {
               console.log("file not recived 😞");
+              // TODO show popup indicate that server not recive file
+              Toast.fire({
+                icon: "error",
+                title: "file not recived 😞",
+              });
             }
             break;
           case 4:
@@ -152,6 +180,13 @@ export const Board = (props) => {
                   serial_number: serial_number,
                 })
               );
+            } else {
+              // TODO show popup indicate that binnary file not uploaded in board
+              console.log("binnary file not uploaded in board 😞");
+              Toast.fire({
+                icon: "error",
+                title: "binnary file not uploaded in board 😞",
+              });
             }
             break;
           case 6:
@@ -166,6 +201,13 @@ export const Board = (props) => {
                 .catch((err) => {
                   console.log("error", err);
                 });
+            } else {
+              // TODO show popup indicate that log file not found .. server error was accured
+              console.log("log file not found .. server error was accured");
+              Toast.fire({
+                icon: "error",
+                title: "log file not found .. server error was accured",
+              });
             }
             break;
           default:
@@ -197,7 +239,6 @@ export const Board = (props) => {
         })
       );
     });
-
 
     // hide first accor
     $("#ACC1 > div.accordion-header > button").click();
@@ -252,7 +293,7 @@ export const Board = (props) => {
           }}
         >
           you have :
-          <CountDownTimer fromDate={"Fri Apr 25 2022 18:27:25"} />, before your
+          <CountDownTimer fromDate={date_expiration} />, before your
           request is expired
         </div>
       </div>
@@ -330,7 +371,7 @@ export const Board = (props) => {
                                       </label>
                                       <input
                                         type="file"
-                                        // accept=".bin,.hex"
+                                        accept=".bin,.hex"
                                         //value={selectedFile}
                                         className="form-control"
                                         id="validatedCustomFile"

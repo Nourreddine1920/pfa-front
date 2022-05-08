@@ -16,7 +16,7 @@ const IMAGES = [
 ];
 
 export const BoardList = (props) => {
-  console.log("props...", props);
+  
   const [boardsList, setboardsList] = useState([]);
   useEffect(() => {
     // getting board new state evry  15sec

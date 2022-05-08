@@ -9,6 +9,7 @@ import ProgressBar from "react-customizable-progressbar";
 import { withRouter } from "react-router-dom";
 import ReactTimeAgo from "react-time-ago";
 import { EnqueUserRequest } from "../../_services/app-services";
+import Swal from "sweetalert2";
 const BoardComp = (props) => {
   const {
     id_board,
@@ -25,6 +26,18 @@ const BoardComp = (props) => {
     last_use,
   } = props;
   let _last_use_date = last_use !== "NEVERUSED" ? new Date(last_use) : last_use;
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   return (
     <div className="col-12 col-lg-6 col-xl-6 dash-widget3">
       <div className="card-body dash-widget1">
@@ -33,7 +46,7 @@ const BoardComp = (props) => {
             width={15}
             radius={40}
             progress={
-              exams === 0 ? 0 : Math.round(succeded_exams / exams) * 100
+              exams === 0 ? 0 : Math.round((succeded_exams / exams) * 100)
             }
             rotate={-210}
             strokeWidth={8}
@@ -49,10 +62,7 @@ const BoardComp = (props) => {
           >
             <div className="indicator-volume">
               <b>
-                {" "}
-                {exams === 0
-                  ? 0
-                  : Math.round(succeded_exams / exams) * 100}%{" "}
+                {exams === 0 ? 0 : Math.round((succeded_exams / exams) * 100)} %
               </b>
             </div>
           </ProgressBar>
@@ -111,25 +121,52 @@ const BoardComp = (props) => {
             <button
               onClick={() => {
                 if (!in_use) {
-                  props.history.push("/board", {
-                    id_board: id_board,
-                    name: name,
-                    in_use: in_use,
-                    family: family,
-                    serial_number: serial_number,
-                    gallery: gallery,
-                    state: state,
-                    datasheet: datasheet,
-                    exams: exams,
-                    flash_memory_size: flash_memory_size,
-                    succeded_exams: succeded_exams,
-                    last_use: last_use,
-                  });
+                  // call the api EnqueUserRequest
+                  EnqueUserRequest(id_board)
+                    .then((res) => {
+                      if (res.status === 200) {
+                        props.history.push("/board", {
+                          id_board: id_board,
+                          name: name,
+                          in_use: in_use,
+                          family: family,
+                          serial_number: serial_number,
+                          gallery: gallery,
+                          state: state,
+                          datasheet: datasheet,
+                          exams: exams,
+                          flash_memory_size: flash_memory_size,
+                          succeded_exams: succeded_exams,
+                          last_use: last_use,
+                        });
+                      }
+                    })
+                    .catch((err) => {
+                      console.log("errrorrrr not in use", err);
+                      Toast.fire({
+                        icon: "error",
+                        title: err,
+                      });
+                    });
                 } else {
                   // here if board in use w create a request with current user and after that we disable button
                   // show popup indicate that user request is enqueued
-                  
-
+                  // call the api EnqueUserRequest
+                  EnqueUserRequest(id_board)
+                    .then((res) => {
+                      if (res.status === 200) {
+                        Toast.fire({
+                          icon: "success",
+                          title: res.data,
+                        });
+                      }
+                    })
+                    .catch((err) => {
+                      Toast.fire({
+                        icon: "error",
+                        title: err,
+                      });
+                    });
                 }
               }}
               type="button"

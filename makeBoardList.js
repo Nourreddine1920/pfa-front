@@ -165,11 +165,12 @@ let boardsList = a.map((board) => {
               id_request: ru.id_request,
               is_from_me: ru.created_by.id === 1,
               is_handled: ru.is_handled,
+              expiration_date: ru.expiration_date,
+              created_at: ru.created_at,
             };
           }),
         }
       : {},
   };
 });
-
-console.log(boardsList);
+console.table(boardsList);
