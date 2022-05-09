@@ -90,12 +90,16 @@ let initialValues = {};
 let token;
 const eventsList = ["sending", "uploading", "runing", "writing"]; // remove waiting event from list
 export const Board = (props) => {
+  if (props.location.state === undefined) {
+    window.location.replace('/boardslist')
+  }
   const webSocket = useRef(null);
   token = JSON.parse(localStorage.getItem("login"));
 
   const [isOpen, setisOpen] = useState(false);
   const [logfileurl, setlogfileurl] = useState("");
   const [tab, settab] = useState(0);
+
   const {
     id_board,
     name,
@@ -109,7 +113,7 @@ export const Board = (props) => {
     flash_memory_size,
     succeded_exams,
     last_use,
-  } = props.history.location.state;
+  } = props.location.state;
   let _last_use_date = last_use !== "NEVERUSED" ? new Date(last_use) : last_use;
 
   const [selectedBoard, setselectedBoard] = useState(id_board);
@@ -135,12 +139,18 @@ export const Board = (props) => {
       webSocket.current = new WebSocket(
         "ws://127.0.0.1:8000/runexam_ws/" + token["user"].user + "/"
       );
+
       webSocket.current.onopen = () => {
         console.log("hello from server");
         // here we get the user request details
         EXTRACT_USER_REQUEST({ id_board: id_board })
           .then((res) => {
-            console.log("user request details", res);
+            let _now = new Date()
+            let _expiration = new Date(res.expiration_date)
+
+            console.log("user request details", _expiration - _now);
+            // TODO if date is expired redirect to /boardslist
+
             setdate_expiration(res.expiration_date)
           })
           .catch((error) => {
