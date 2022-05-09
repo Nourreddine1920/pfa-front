@@ -63,39 +63,44 @@ const StudentsList = (props) => {
       ) : (
         <Card>
           <Card.Body>
-            {students.map((student, index) => {
-              return (
-                <div className="profile-header" style={{ margin: "4px" }}>
-                  <div className="row align-items-center">
-                    <ProfileCard {...student} key={index} />
-                    <div className="col-auto profile-btn">
-                      <a
-                        onClick={() => {
-                          props.history.push("/student-details", {
-                            student: student,
-                          });
-                        }}
-                        type="button"
-                        className="btn btn-primary"
-                      >
-                        View Profile
-                      </a>
+            {students.length > 0 ? (
+              <>
+                {students.map((student, index) => {
+                  return (
+                    <div className="profile-header" style={{ margin: "4px" }}>
+                      <div className="row align-items-center">
+                        <ProfileCard {...student} key={index} />
+                        <div className="col-auto profile-btn">
+                          <a
+                            onClick={() => {
+                              props.history.push("/student-details", {
+                                student: student,
+                              });
+                            }}
+                            type="button"
+                            className="btn btn-primary"
+                          >
+                            View Profile
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  );
+                })}
+              </>
+            ) : (
+              <div style={{ textAlign: "center", paddingTop: "5%" }}>
+                  <p
+                    style={{
+                      color: "black",
+                      fontWeight: "revert",
+                      display: "contents",
+                    }}
+                  >
+                    No Students
+                  </p>
                 </div>
-              );
-            })}
-            <Pagination
-              size="sm"
-              style={{ display: "flex", justifyContent: "center" }}
-            >
-              <Pagination.First />
-              <Pagination.Prev />
-              <Pagination.Item active> {1} </Pagination.Item>
-              <Pagination.Item> {2} </Pagination.Item>
-              <Pagination.Item> {3} </Pagination.Item> <Pagination.Next />
-              <Pagination.Last />
-            </Pagination>
+            )}
           </Card.Body>
         </Card>
       )}
