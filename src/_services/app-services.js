@@ -318,6 +318,7 @@ export async function GetUserActivity() {
         resolve(data);
       })
       .catch((e) => {
+        console.log('error',e);
         if (e.message === "Network Error") {
           reject(e.message);
         } else {
@@ -347,6 +348,7 @@ export async function GetUserExam() {
             state: exam.state,
             file: exam.file_uploaded.file,
             created_at: exam.file_uploaded.created_at,
+            examsubject:exam.examsubject
 
           };
         })
