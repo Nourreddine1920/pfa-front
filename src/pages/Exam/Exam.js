@@ -66,55 +66,39 @@ export const Exam = (props) => {
             <Card.Header>
               <h5 className="card-title"> {user != null && user.kind} Exams </h5>
             </Card.Header>
-            <div>
+            <Card.Body>
               {loading ? (
                 <Load title={"loading ..."} />
               ) : (
                 <>
                   {examitems.length > 0 ? (
-                    <div class="content">
-                      <div class="table-responsive custom-table-responsive">
-                        <table class="table custom-table">
-                          <thead>
-                            <tr scope="row">
-                              <th scope="col">Created By</th>
 
-                              <th scope="col">Content</th>
+                    <div className="card-body">
+                      <div className="teaching-card">
+                        <ul className="activity-feed">
 
-                              <th scope="col">Created At</th>
-                              <th scope="col">File</th>
-                              <th scope="col">State</th>
-                            </tr>
-                          </thead>
                           {examitems.map((exam, index) => {
                             let date_exam = new Date(exam.created_at)
-                            return <>
-                              <tbody>
-                                <td>
-                                  <a href="/profile">{exam.name}</a>
-                                </td>
-                                <td>
-                                  <a> make exam </a>
-                                </td>
-                                <td>
-                                  <a>{date_exam.toDateString()}</a>
-
-                                </td>
-
-                                <td>
-                                  <a href={exam.file}>File</a>
-                                </td>
-                                <td>
-                                  <small>{exam.state}</small>
-                                </td>
-
-
-                              </tbody></>
+                            return (
+                              <li className="feed-item" key={index}>
+                                <div className="feed-date1">{date_exam.toDateString()}</div>
+                                <span className="feed-text1">
+                                  <a href="/profile">{exam.name}</a> make exam in <i>{exam.examsubject}</i> with binary file <a href={exam.file}>file</a>
+                                </span>
+                                <p>
+                                  {exam.state === "COMPLETED" && <span id="completed"> Completed </span>}
+                                  {exam.state === "INPROGRESS" && <span id="inprogress"> InProgress </span>}
+                                  {exam.state === "FAILED" && <span id="failed"> Failed </span>}
+                                  {exam.state === "OTHER" && <span id="waiting"> Other </span>}
+                                </p>
+                              </li>
+                            )
                           })}
 
-                        </table>
+                        </ul>
                       </div>
                     </div>
+
                   ) : (
 
                     <div style={{ textAlign: "center", paddingTop: "5%" }}>
@@ -131,12 +115,8 @@ export const Exam = (props) => {
                   )}
                 </>
               )}
-            </div>
-            <Card.Body>
-
-
-
             </Card.Body>
+
           </Card>
         </Col>
       </Row>
