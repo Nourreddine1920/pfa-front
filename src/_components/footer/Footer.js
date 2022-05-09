@@ -11,10 +11,16 @@ const Footer = (props) => {
   if (exclusionArray.indexOf(props.location.pathname) >= 0) {
     return "";
   }
+  const mystyle = {
+    fontFamily : "initial",
+    textAlign : "center",
+  };
   return (
-    <footer>
-      <p> Copyright © 2022 --- PFA </p>
-    </footer>
+    <div className="footer-copyright text-center py-3">
+    <p style={mystyle}>
+      &copy; {new Date().getFullYear()} Copyright: <a href="#"> eLAB.com </a>
+    </p>
+  </div>
   );
 };
 

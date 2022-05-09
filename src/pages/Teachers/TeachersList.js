@@ -2,7 +2,7 @@ import {
   faDownload,
   faPencilAlt,
   faPlus,
-  faTrash
+  faTrash,
 } from "@fortawesome/fontawesome-free-solid";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -28,7 +28,6 @@ const data = [
     action: "",
     img_url: "assets/img/profiles/avatar-01.jpg",
   },
-
 ];
 
 const TeachersList = (props) => {
@@ -79,36 +78,49 @@ const TeachersList = (props) => {
       ) : (
         <Card>
           <Card.Body>
-            {teachers.map((teacher, index) => {
-              return (
-                <div className="profile-header" style={{ margin: "4px" }}>
-                  <div className="row align-items-center">
-                    <ProfileCard {...teacher} key={index} />
-                    <div className="col-auto profile-btn">
-                      <a
-                        onClick={() => {
-                          props.history.push("/teacher-details", {
-                            teacher: teacher,
-                          });
-                        }}
-                        type="button"
-                        className="btn btn-primary"
-                      >
-                        View Profile
-                      </a>
+            {teachers.length > 0 ? (
+              <>
+                {teachers.map((teacher, index) => {
+                  return (
+                    <div className="profile-header" style={{ margin: "4px" }}>
+                      <div className="row align-items-center">
+                        <ProfileCard {...teacher} key={index} />
+                        <div className="col-auto profile-btn">
+                          <a
+                            onClick={() => {
+                              props.history.push("/teacher-details", {
+                                teacher: teacher,
+                              });
+                            }}
+                            type="button"
+                            className="btn btn-primary"
+                          >
+                            View Profile
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
-            
+                  );
+                })}
+              </>
+            ) : (
+              <div style={{ textAlign: "center", paddingTop: "5%" }}>
+                <p
+                  style={{
+                    color: "black",
+                    fontWeight: "revert",
+                    display: "contents",
+                  }}
+                >
+                  No Teachers
+                </p>
+              </div>
+            )}
           </Card.Body>
         </Card>
       )}
-
     </div>
   );
 };
 
 export { TeachersList };
-
