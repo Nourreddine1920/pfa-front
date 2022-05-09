@@ -14,6 +14,9 @@ export function authHeader() {
 
 // *******************************for boards**************************
 export async function GetBoards() {
+  let storage = localStorage.getItem("login");
+  let user = JSON.parse(storage || JSON.stringify({}));
+  let id = user.user.user;
   return new Promise(async (resolve, reject) => {
     await axios
       .get(API_URL + "boards/", {
@@ -36,23 +39,23 @@ export async function GetBoards() {
               return exam.state === "COMPLETED";
             }).length,
             gallery: board.gallery, // TODO access to image url
-            last_use: board.exams.length
-              ? board.exams[0].created_at
-              : "NEVERUSED",
+            last_use: board.exams.length ? board.exams[0].created_at : "NEVERUSED",
             boardqueue: board.boardqueue
               ? {
                 id_queue: board.boardqueue.id_queue,
-                users_request: board.boardqueue.users_request.map((ru) => {
+                last_user_request: board.boardqueue.users_request.filter((ur) => {
+                  return ur.is_handled === false
+                }).map((urr) => {
                   return {
-                    id_request: ru.id_request,
-                    is_from_me: ru.created_by.id === 1,
-                    is_handled: ru.is_handled,
-                    expiration_date: ru.expiration_date,
-                    created_at: ru.created_at,
-                  };
-                }),
+                    id_request: urr.id_request,
+                    is_from_me: urr.created_by.id === id,
+                    is_handled: urr.is_handled,
+                    expiration_date: urr.expiration_date,
+                    created_at: urr.created_at,
+                  }
+                })[0]
               }
-              : {},
+              : null,
           };
         });
 
@@ -146,19 +149,19 @@ export async function GetElabUser() {
       })
       .then((res) => {
         let data = res.data.results;
-        data = data.map((use) => {
+        data = data.map((user) => {
           return {
-            name: use.first_name,
-            kind: use.kind,
-            email: use.email,
-            photo: use.photo,
-            files: use.uploaded_file.map((file) => {
+            name: user.first_name ? user.first_name : user.username,
+            kind: user.kind,
+            email: user.email,
+            photo: user.photo ? user.photo : "assets/img/user.png",
+            files: user.uploaded_file.map((file) => {
               return {
                 id_tp: file.id_tp,
                 file_id: file.file_tp.id_file,
                 file_url: file.file_tp.file,
                 created_at: file.file_tp.created_at,
-                created_by: file.user.first_name + " " + file.user.last_name,
+                created_by: file.user.first_name ? file.user.first_name : file.user.username,
                 is_from_me: file.user.id === id,
                 title_tp: file.title_tp,
               };
@@ -226,9 +229,9 @@ export async function GetTeacherStudent(kind) {
         data = data.map((user) => {
           return {
             id: user.user,
-            name: user.first_name + " " + user.last_name,
+            name: user.first_name ? user.first_name : user.username,
             email: user.email,
-            img_url: user.photo,
+            img_url: user.photo ? user.photo : "assets/img/user.png",
           };
         });
         console.log(data);
@@ -288,6 +291,7 @@ export async function GetUserActivity() {
                 file: activity.exams_activity[0].file_uploaded.file,
                 type_activity: activity.type_activity,
                 created_at: activity.created_at,
+                kind: activity.created_by.kind
               }
               break;
             case 0:
@@ -298,6 +302,7 @@ export async function GetUserActivity() {
                 tp_activity: activity.tp_activity.file_tp.file,
                 type_activity: activity.type_activity,
                 created_at: activity.created_at,
+                kind: activity.created_by.kind
 
 
               }
@@ -338,6 +343,7 @@ export async function GetUserExam() {
         data = data.map((exam) => {
           return {
             name: exam.created_by.username,
+            kind: exam.created_by.kind,
             state: exam.state,
             file: exam.file_uploaded.file,
             created_at: exam.file_uploaded.created_at,

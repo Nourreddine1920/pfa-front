@@ -24,6 +24,7 @@ const BoardComp = (props) => {
     flash_memory_size,
     succeded_exams,
     last_use,
+    boardqueue
   } = props;
   let _last_use_date = last_use !== "NEVERUSED" ? new Date(last_use) : last_use;
   const Toast = Swal.mixin({
@@ -103,8 +104,8 @@ const BoardComp = (props) => {
                   state === "AVAILABLE"
                     ? "success"
                     : state === "NOTAVAILABLE"
-                    ? "danger"
-                    : "warning"
+                      ? "danger"
+                      : "warning"
                 }
                 variant="grow"
               />
@@ -120,7 +121,8 @@ const BoardComp = (props) => {
             </button>
             <button
               onClick={() => {
-                if (!in_use) {
+
+                if (boardqueue === null) {
                   // call the api EnqueUserRequest
                   EnqueUserRequest(id_board)
                     .then((res) => {
@@ -152,27 +154,57 @@ const BoardComp = (props) => {
                   // here if board in use w create a request with current user and after that we disable button
                   // show popup indicate that user request is enqueued
                   // call the api EnqueUserRequest
-                  EnqueUserRequest(id_board)
-                    .then((res) => {
-                      if (res.status === 200) {
+                  if (boardqueue.last_user_request.is_from_me) {
+                    EnqueUserRequest(id_board)
+                      .then((res) => {
+                        if (res.status === 200) {
+                          props.history.push("/board", {
+                            id_board: id_board,
+                            name: name,
+                            in_use: in_use,
+                            family: family,
+                            serial_number: serial_number,
+                            gallery: gallery,
+                            state: state,
+                            datasheet: datasheet,
+                            exams: exams,
+                            flash_memory_size: flash_memory_size,
+                            succeded_exams: succeded_exams,
+                            last_use: last_use,
+                          });
+                        }
+                      })
+                      .catch((err) => {
+                        console.log("errrorrrr not in use", err);
                         Toast.fire({
-                          icon: "success",
-                          title: res.data,
+                          icon: "error",
+                          title: err,
                         });
-                      }
-                    })
-                    .catch((err) => {
-                      Toast.fire({
-                        icon: "error",
-                        title: err,
                       });
-                    });
+                  } else {
+
+                    EnqueUserRequest(id_board)
+                      .then((res) => {
+                        if (res.status === 200) {
+                          Toast.fire({
+                            icon: "success",
+                            title: res.data,
+                          });
+                        }
+                      })
+                      .catch((err) => {
+                        Toast.fire({
+                          icon: "error",
+                          title: err,
+                        });
+                      });
+                  }
                 }
               }}
               type="button"
               className="btn btn-info"
             >
-              {in_use ? "Request" : "Make Exam"}
+              {boardqueue === null ? "Make Exam" : boardqueue.last_user_request.is_from_me ? "Make exam" : "request"}
             </button>
           </div>
         </div>

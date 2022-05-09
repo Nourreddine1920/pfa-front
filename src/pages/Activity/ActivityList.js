@@ -21,10 +21,18 @@ const timeLineActivitys = [
     desc: `<a href="/student"> Justin Lee </a> participated in &nbsp;<a href="/activityitem">Carrom</a>`,
   },
 ];
+let storage;
 export const ActivityList = (props) => {
   const [activityitems, setactivityitmes] = useState([]);
   const [loading, setloading] = useState(false);
-
+  const [user, setuser] = useState(null)
+  useEffect(() => {
+    if (localStorage.getItem("login")) {
+      storage = localStorage.getItem("login");
+      let user = JSON.parse(storage || JSON.stringify({}));
+      setuser(user.user)
+    }
+  }, [])
   useEffect(() => {
     $(".feed-item").animate(
       {
@@ -68,7 +76,7 @@ export const ActivityList = (props) => {
         <Col sm={12} className="mb-5">
           <Card className="flex-fill">
             <Card.Header>
-              <h5 className="card-title"> Student or Teacher Activity </h5>
+              <h5 className="card-title"> {user != null && user.kind} Activity </h5>
             </Card.Header>
             <Card.Body>
               {loading ? (<Load title={"loading ..."} />) : (<>{activityitems.length > 0 ? (<ul className="activity-feed">
@@ -83,18 +91,18 @@ export const ActivityList = (props) => {
                 {activityitems.map((activity, index) => {
                   let d_activity = new Date(activity.created_at);
                   return <>
-                    {activity.type_activity === 0 && <li key={activity.created_at} className="feed-item">
+                    {activity.type_activity === 1 && <li key={activity.created_at} className="feed-item">
                       <div className="feed-date"> <ReactTimeAgo
                         date={d_activity}
                         locale="en-US"
                         timeStyle="twitter"
                       /> </div>
                       <span className="feed-text">
-                        <a href="/profile"> {activity.name}</a>  make test in board (upload(.hex/bin)) &nbsp;
+                        <a href="/profile"> {activity.name}</a>  make exam in board (upload(.hex/bin)) &nbsp;
                         <a href={activity.tp_activity}>file</a>
                       </span>
                     </li>}
-                    {activity.type_activity === 1 && <li key={activity.created_at} className="feed-item">
+                    {activity.type_activity === 0 && <li key={activity.created_at} className="feed-item">
                       <div className="feed-date"> <ReactTimeAgo
                         date={d_activity}
                         locale="en-US"
@@ -130,7 +138,18 @@ export const ActivityList = (props) => {
                     <a href="/activityitem">Carrom</a>
                   </span>
                 </li> */}
-              </ul>) : (<><p>No Activities</p></>)}</>)}
+              </ul>) : (
+                <div style={{ textAlign: "center", paddingTop: "5%" }}>
+                  <p
+                    style={{
+                      color: "black",
+                      fontWeight: "revert",
+                      display: "contents",
+                    }}
+                  >
+                    No Activities
+                  </p>
+                </div>)}</>)}
 
 
             </Card.Body>

@@ -249,18 +249,19 @@ class Sidebar extends React.Component {
                     </li>
                   </ul>
                 </li> */}
-                <li className={pathnames.includes("activity") ? "active" : ""}>
-                  <Link to="/activity">
-                    <FontAwesomeIcon icon={faBookmark} />
-                    <span>Activity list</span>
-                  </Link>
-                </li>
+                
                 <li
                   className={pathnames.includes("boardslist") ? "active" : ""}
                 >
                   <Link to="/boardslist">
                     <FontAwesomeIcon icon="fa-solid fa-microchip" />
                     <span>Board list</span>
+                  </Link>
+                </li>
+                <li className={pathnames.includes("activity") ? "active" : ""}>
+                  <Link to="/activity">
+                    <FontAwesomeIcon icon={faBookmark} />
+                    <span>Activity list</span>
                   </Link>
                 </li>
                 <li className={pathnames.includes("exam") ? "active" : ""}>

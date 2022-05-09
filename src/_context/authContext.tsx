@@ -34,20 +34,17 @@ export const AuthProvider = ({ children }) => {
               })
               .then((res) => {
                 let photo = res.data.photo;
-                if (photo === null) {
-                  photo = "assets/img/profiles/avatar-04.jpg";
-                }
-
                 localStorage.setItem(
                   "login",
                   JSON.stringify({
                     token: response.data.access_token,
                     user: {
-                      photo: photo,
+                      photo: photo?photo:"assets/img/user.png",
                       first_name: res.data.first_name,
                       last_name: res.data.last_name,
                       email: res.data.email,
                       user: res.data.user,
+                      kind: res.data.kind,
                     },
                   })
                 );

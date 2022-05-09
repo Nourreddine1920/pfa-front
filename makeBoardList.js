@@ -1,7 +1,66 @@
 let a = [
   {
     id_board: 1,
-    exams: [],
+    exams: [
+      {
+        id_exam: 35,
+        state: "FAILED",
+        created_by: {
+          id: 1,
+          first_name: "admin",
+          last_name: "admin",
+          username: "admin admin",
+          email: "admin@admin.com",
+          kind: "TEACHER"
+        },
+        file_uploaded: {
+          id_file: 4,
+          created_at: "2022-05-08T15:50:16.973293Z",
+          updated_at: "2022-05-08T15:50:16.973984Z",
+          file: "http://127.0.0.1:8000/media/066DFF545150898367153553_Z588jdC.bin"
+        },
+        examsubject: "admin admin make exam with binary file 066DFF545150898367153553_Z588jdC.bin,this exam is [FAILED].",
+        created_at: "2022-05-08T15:50:16.983396Z",
+        updated_at: "2022-05-08T15:50:16.984319Z"
+      }
+    ],
+    boardqueue: {
+      id_queue: 7,
+      users_request: [
+        {
+          id_request: 20,
+          created_by: {
+            id: 1,
+            first_name: "admin",
+            last_name: "admin",
+            username: "admin admin",
+            email: "admin@admin.com",
+            kind: "TEACHER"
+          },
+          expiration_date: "2022-05-08T16:49:42.064408Z",
+          created_at: "2022-05-08T15:49:42.064471Z",
+          updated_at: "2022-05-08T15:49:42.065011Z",
+          is_handled: false
+        },
+        {
+          id_request: 21,
+          created_by: {
+            id: 2,
+            first_name: "user",
+            last_name: "test",
+            username: "test",
+            email: "user@example.com",
+            kind: "STUDENT"
+          },
+          expiration_date: "2022-05-08T16:57:33.889385Z",
+          created_at: "2022-05-08T15:57:33.889440Z",
+          updated_at: "2022-05-08T15:57:33.889904Z",
+          is_handled: false
+        }
+      ],
+      created_at: "2022-05-08T15:49:42.028846Z",
+      updated_at: "2022-05-08T15:49:42.029278Z"
+    },
     created_at: "2022-03-31T12:41:24Z",
     updated_at: "2022-03-31T12:42:58.424000Z",
     name: "32F429IDISCOVERY",
@@ -11,7 +70,21 @@ let a = [
     serial_number: "066DFF545150898367153553",
     flash_memory_size: 2000000,
     datasheet: 1,
-    gallery: [],
+    gallery: []
+  },
+  {
+    id_board: 2,
+    exams: [],
+    created_at: "2022-03-31T20:08:57Z",
+    updated_at: "2022-03-31T20:10:07.184000Z",
+    name: "NUCLEO-L552ZE-Q",
+    state: "NOTAVAILABLE",
+    family: "L5",
+    in_use: false,
+    serial_number: "0668FF353638425043094242",
+    flash_memory_size: 512000,
+    datasheet: 1,
+    gallery: []
   },
   {
     id_board: 3,
@@ -25,112 +98,8 @@ let a = [
     serial_number: "0668FF353638425043094245",
     flash_memory_size: 512000,
     datasheet: 1,
-    gallery: [],
-  },
-  {
-    id_board: 2,
-    exams: [
-      {
-        id_exam: 3,
-        file_uploaded: {
-          id_file: 38,
-          created_at: "2022-04-18T00:53:33.729585Z",
-          updated_at: "2022-04-18T00:53:33.730091Z",
-          file: "http://127.0.0.1:8000/media/0668FF353638425043094242_o3DOnVg.bin",
-        },
-        created_by: {
-          id: 1,
-          first_name: "Admin",
-          last_name: "Admin",
-          username: "Admin Admin",
-          email: "admin@admin.com",
-          photo: "http://127.0.0.1:8000/media/images/user_map_POgRDrD.png",
-          kind: "TEACHER",
-        },
-        created_at: "2022-04-18T00:53:33.737935Z",
-        updated_at: "2022-04-18T00:53:33.739096Z",
-        state: "COMPLETED",
-        feedback_results: 39,
-      },
-      {
-        id_exam: 2,
-        file_uploaded: {
-          id_file: 36,
-          created_at: "2022-04-18T00:53:04.292209Z",
-          updated_at: "2022-04-18T00:53:04.292784Z",
-          file: "http://127.0.0.1:8000/media/0668FF353638425043094242_JSX8NSb.bin",
-        },
-        created_by: {
-          id: 1,
-          first_name: "Admin",
-          last_name: "Admin",
-          username: "Admin Admin",
-          email: "admin@admin.com",
-          photo: "http://127.0.0.1:8000/media/images/user_map_POgRDrD.png",
-          kind: "TEACHER",
-        },
-        created_at: "2022-04-18T00:53:04.304966Z",
-        updated_at: "2022-04-18T00:53:04.306131Z",
-        state: "COMPLETED",
-        feedback_results: 37,
-      },
-      {
-        id_exam: 1,
-        file_uploaded: {
-          id_file: 34,
-          created_at: "2022-04-17T23:19:46.982476Z",
-          updated_at: "2022-04-17T23:19:46.983420Z",
-          file: "http://127.0.0.1:8000/media/0668FF353638425043094242.bin",
-        },
-        created_by: {
-          id: 1,
-          first_name: "Admin",
-          last_name: "Admin",
-          username: "Admin Admin",
-          email: "admin@admin.com",
-          photo: "http://127.0.0.1:8000/media/images/user_map_POgRDrD.png",
-          kind: "TEACHER",
-        },
-        created_at: "2022-04-17T23:19:46.995062Z",
-        updated_at: "2022-04-17T23:19:46.995723Z",
-        state: "COMPLETED",
-        feedback_results: 35,
-      },
-    ],
-    boardqueue: {
-      id_queue: 1,
-      users_request: [
-        {
-          id_request: 1,
-          created_by: {
-            id: 1,
-            first_name: "Admin",
-            last_name: "Admin",
-            username: "Admin Admin",
-            email: "admin@admin.com",
-            photo: "http://127.0.0.1:8000/media/images/user_map_POgRDrD.png",
-            kind: "TEACHER",
-          },
-          created_at: "2022-04-18T00:14:36Z",
-          updated_at: "2022-04-18T00:14:47.750218Z",
-          is_handled: false,
-          expiration_date: "2022-04-20",
-        },
-      ],
-      created_at: "2022-04-18T00:14:30Z",
-      updated_at: "2022-04-18T00:14:49.523747Z",
-    },
-    created_at: "2022-03-31T20:08:57Z",
-    updated_at: "2022-03-31T20:10:07.184000Z",
-    name: "NUCLEO-L552ZE-Q",
-    state: "NOTAVAILABLE",
-    family: "L5",
-    in_use: false,
-    serial_number: "0668FF353638425043094242",
-    flash_memory_size: 512000,
-    datasheet: 1,
-    gallery: [],
-  },
+    gallery: []
+  }
 ];
 // id_board,
 // name,
@@ -159,18 +128,20 @@ let boardsList = a.map((board) => {
     last_use: board.exams.length ? board.exams[0].created_at : "NEVERUSED",
     boardqueue: board.boardqueue
       ? {
-          id_queue: board.boardqueue.id_queue,
-          users_request: board.boardqueue.users_request.map((ru) => {
-            return {
-              id_request: ru.id_request,
-              is_from_me: ru.created_by.id === 1,
-              is_handled: ru.is_handled,
-              expiration_date: ru.expiration_date,
-              created_at: ru.created_at,
-            };
-          }),
-        }
-      : {},
+        id_queue: board.boardqueue.id_queue,
+        last_user_request: board.boardqueue.users_request.filter((ur) => {
+          return ur.is_handled === false
+        }).map((urr) => {
+          return {
+            id_request: urr.id_request,
+            is_from_me: urr.created_by.id === 1,
+            is_handled: urr.is_handled,
+            expiration_date: urr.expiration_date,
+            created_at: urr.created_at,
+          }
+        })[0]
+      }
+      : null,
   };
 });
-console.table(boardsList);
+console.log(boardsList);
