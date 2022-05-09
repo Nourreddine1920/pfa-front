@@ -33,6 +33,7 @@ import {
   TeachersList,
 } from "./pages/Teachers";
 import { AddTimeTable, EditTimeTable, TimeTable } from "./pages/TimeTable";
+import { Terminal } from "./_components/_terminal/Terminal";
 
 const routes = [
   { path: "dashboard", component: Dashboard, exact: true },
@@ -75,5 +76,6 @@ const routes = [
   { path: "form-vertical", component: FormVertical, exact: true },
   { path: "tables-basic", component: TablesBasic, exact: true },
   { path: "data-tables", component: DataTables, exact: true },
+  { path: "ter", component: Terminal, exact: true },
 ];
 export default routes;

@@ -22,6 +22,7 @@ import CountDownTimer from "../../_components/_countdown/CountDownTimer";
 import { EXTRACT_USER_REQUEST, GetLogFile } from "../../_services/app-services";
 import Uploading from "./Uploading";
 import Swal from "sweetalert2";
+import { Terminal } from "../../_components/_terminal/Terminal";
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
@@ -43,6 +44,7 @@ const IMAGES = [
 ];
 const Allert = () => {
   const [visible, setVisible] = useState(false);
+
   useEffect(() => {
     if (visible) {
       $("#alert-box")
@@ -90,6 +92,7 @@ const eventsList = ["sending", "uploading", "runing", "writing"]; // remove wait
 export const Board = (props) => {
   const webSocket = useRef(null);
   token = JSON.parse(localStorage.getItem("login"));
+
   const [isOpen, setisOpen] = useState(false);
   const [logfileurl, setlogfileurl] = useState("");
   const [tab, settab] = useState(0);
@@ -126,7 +129,7 @@ export const Board = (props) => {
   // },[])
   const [form, setForm] = useState(initialValues);
   const [date_expiration, setdate_expiration] = useState("");
-  
+
   useEffect(() => {
     if (token) {
       webSocket.current = new WebSocket(
@@ -454,10 +457,10 @@ export const Board = (props) => {
                                 {currentEvent === "sending"
                                   ? "Uploading file in server "
                                   : currentEvent === "uploading"
-                                  ? "Uploading file to board 🤞"
-                                  : currentEvent === "runing"
-                                  ? "Runing file code in board 🕖 "
-                                  : "Writing your report (video|text|pdf) file"}
+                                    ? "Uploading file to board 🤞"
+                                    : currentEvent === "runing"
+                                      ? "Runing file code in board 🕖 "
+                                      : "Writing your report (video|text|pdf) file"}
                               </p>
                             </div>
                             <Uploading currentEvent={currentEvent} />
@@ -469,20 +472,26 @@ export const Board = (props) => {
                                 Repport (video|text|pdf) file here
                               </p>
                             </div>
+
                             <div className="card-body">
-                              <div>
+
+                              <>
+
                                 {logfileurl !== "" && (
                                   <a href={logfileurl}>Download log file</a>
                                 )}
-                                {/* <Allert /> */}
-                                {/* <Alerts /> */}
-                              </div>
+
+
+                              </>
                             </div>
                           </div>
                         </div>
                       </CAccordionBody>
                     </CAccordionItem>
+                    <div><small>Serial output:</small><Terminal data={"serial output here !"} /></div>
+
                   </CAccordion>
+
                 </div>
               </Tab>
               <Tab eventKey="overview" title="Overview">
