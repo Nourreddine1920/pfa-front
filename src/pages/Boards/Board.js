@@ -22,7 +22,6 @@ import CountDownTimer from "../../_components/_countdown/CountDownTimer";
 import { EXTRACT_USER_REQUEST, GetLogFile } from "../../_services/app-services";
 import Uploading from "./Uploading";
 import Swal from "sweetalert2";
-import './Board.css';
 import { Terminal } from "../../_components/_terminal/Terminal";
 const Toast = Swal.mixin({
   toast: true,
