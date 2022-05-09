@@ -197,9 +197,9 @@ const Profile = (props) => {
                   ) : (
                     <>
                       {data.length > 0 ? (
-                        <div class="content">
-                          <div class="table-responsive custom-table-responsive">
-                            <table class="table custom-table">
+                        <div className="content">
+                          <div className="table-responsive custom-table-responsive">
+                            <table className="table custom-table">
                               <thead>
                                 <tr>
                                   <th scope="col">Created By</th>
@@ -218,7 +218,20 @@ const Profile = (props) => {
                           </div>
                         </div>
                       ) : (
-                        <p>no files</p>
+                        <div className="content">
+
+                          <div style={{ textAlign: "center" }}>
+                            <p
+                              style={{
+                                color: "black",
+                                fontWeight: "revert",
+                                display: "contents",
+                              }}
+                            >
+                              No TP
+                            </p>
+                          </div>
+                        </div>
                       )}
                     </>
                   )}

@@ -3,10 +3,18 @@ import { faAlignLeft, faSearch } from "@fortawesome/fontawesome-free-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AuthContext from "../../_context/authContext.tsx";
 import $ from "jquery";
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
+let storage;
 const Header = (props) => {
-  const { login, logout } = React.useContext(AuthContext);
+  const { logout } = React.useContext(AuthContext);
+  const [user, setuser] = useState(null)
+  useEffect(() => {
+    if (localStorage.getItem("login")) {
+      storage = localStorage.getItem("login");
+      let user = JSON.parse(storage || JSON.stringify({}));
+      setuser(user.user)
+    }
+  }, [])
   useEffect(() => {
     var $wrapper = $(".main-wrapper");
 
@@ -53,7 +61,7 @@ const Header = (props) => {
       {/* Logo */}
       <div className="header-left">
         <a href="" to="index" className="logo">
-          <img src="assets/img/elab.png" alt="Logo"/>
+          <img src="assets/img/elab.png" alt="Logo" />
         </a>
         <a href="" className="logo logo-small">
           <img src={"assets/img/elab.png"} alt="Logo" />
@@ -64,7 +72,7 @@ const Header = (props) => {
         <FontAwesomeIcon icon={faAlignLeft} />
       </a>
       {/* Search Bar */}
-      <div className="top-nav-search">
+      {/* <div className="top-nav-search">
         <form>
           <input
             type="text"
@@ -75,7 +83,7 @@ const Header = (props) => {
             <FontAwesomeIcon icon={faSearch} />
           </button>
         </form>
-      </div>
+      </div> */}
       {/* /Search Bar */}
       <a className="mobile_btn" id="mobile_btn">
         <i className="fas fa-bars"> </i>
@@ -177,8 +185,8 @@ const Header = (props) => {
                       <span className="avatar avatar-sm flex-shrink-0">
                         <img
                           className="avatar-img rounded-circle"
-                          alt="User Image"
-                          src="assets/img/profiles/avatar-13.jpg"
+                          alt="elab user"
+                          src={user === null ? "assets/img/user.png" : user.photo}
                         ></img>
                       </span>
                       <div className="media-body flex-grow-1">
@@ -213,9 +221,9 @@ const Header = (props) => {
             <span className="user-img">
               <img
                 className="rounded-circle"
-                src="assets/img/profiles/avatar-13.jpg"
+                src={user === null ? "assets/img/user.png" : user.photo}
                 width="31"
-                alt="Ryan Taylor"
+                alt="elab user"
               ></img>
             </span>
           </a>
@@ -223,21 +231,21 @@ const Header = (props) => {
             <div className="user-header">
               <div className="avatar avatar-sm">
                 <img
-                  src="assets/img/profiles/avatar-13.jpg"
-                  alt="User Image"
+                  src={user === null ? "assets/img/user.png" : user.photo}
+                  alt="elab user"
                   className="avatar-img rounded-circle"
                 ></img>
               </div>
               <div className="user-text">
-                <h6>Ryan Taylor</h6>
-                <p className="text-muted mb-0">👨‍🏫 Teacher</p>
+                <h6>{user != null && user.first_name}</h6>
+                <p className="text-muted mb-0">👨‍🏫 {user != null && user.kind}</p>
               </div>
             </div>
             <a className="dropdown-item" href="/profile">
-              My Profile
+              profile
             </a>
             <a className="dropdown-item" href="/inbox">
-              Inbox
+              inbox
             </a>
             <a
               className="dropdown-item"
@@ -246,7 +254,7 @@ const Header = (props) => {
                 LogOUt();
               }}
             >
-              Logout
+              logout
             </a>
           </div>
         </li>

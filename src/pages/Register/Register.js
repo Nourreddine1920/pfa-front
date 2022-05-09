@@ -67,13 +67,13 @@ const Register = () => {
                     <input
                       className="form-control"
                       type="text"
-                      placeholder="User Name"
+                      placeholder="user name"
                       onChange={(e) => {
                         setForm((form) => ({ ...form, name: e.target.value }));
                       }}
                       onBlur={(e) => {
                         if (e.target.value === "") {
-                          setUserNameError("User Name is  required");
+                          setUserNameError("user name is required");
                         } else {
                           setUserNameError("");
                         }
@@ -82,7 +82,7 @@ const Register = () => {
                     />
                   </div>
                   <div style={{ textAlign: "center" }}>
-                    {UserNameError != "" ? (
+                    {UserNameError !== "" ? (
                       <small
                         style={{
                           color: "red",
@@ -98,12 +98,12 @@ const Register = () => {
                     <input
                       className="form-control"
                       type="text"
-                      placeholder="Email"
+                      placeholder="email"
                       onChange={(e) => {
                         setForm((form) => ({ ...form, email: e.target.value }));
                         let reg = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
                         if (!reg.test(e.target.value)) {
-                          setemailError("Enter a valid email address");
+                          setemailError("enter a valid email address");
                         } else {
                           setemailError("");
                         }
@@ -122,7 +122,7 @@ const Register = () => {
                     />
                   </div>
                   <div style={{ textAlign: "center" }}>
-                    {emailError != "" ? (
+                    {emailError !== "" ? (
                       <small
                         style={{
                           color: "red",
@@ -158,11 +158,11 @@ const Register = () => {
                       required={true}
                       className="form-control"
                       type="text"
-                      placeholder="Password"
+                      placeholder="password"
                     />
                   </div>
                   <div style={{ textAlign: "center" }}>
-                    {PasswordError != "" ? (
+                    {PasswordError !== "" ? (
                       <small
                         style={{
                           color: "red",
@@ -184,10 +184,10 @@ const Register = () => {
 
                         if (e.target.value === "") {
                           setPassword2Error(
-                            "Password Confirmation is required"
+                            "password confirmation is required"
                           );
                         } else if (e.target.value !== confirmPassword) {
-                          setPassword2Error("Password mismatch");
+                          setPassword2Error("password mismatch");
                         } else {
                           setPassword2Error("");
                         }
@@ -195,7 +195,7 @@ const Register = () => {
                       onBlur={(e) => {
                         if (e.target.value === "") {
                           setPassword2Error(
-                            "Password Confirmation is required"
+                            "password confirmation is required"
                           );
                         } else {
                           setPassword2Error("");
@@ -204,11 +204,11 @@ const Register = () => {
                       required={true}
                       className="form-control"
                       type="text"
-                      placeholder="Confirm Password"
+                      placeholder="confirm password"
                     />
                   </div>
                   <div style={{ textAlign: "center" }}>
-                    {Password2Error != "" ? (
+                    {Password2Error !== "" ? (
                       <small
                         style={{
                           color: "red",
@@ -221,7 +221,7 @@ const Register = () => {
                     ) : null}
                   </div>
                   <div style={{ textAlign: "center" }}>
-                    {registerError != "" ? (
+                    {registerError !== "" ? (
                       <p
                         style={{
                           color: "red",
@@ -260,15 +260,15 @@ const Register = () => {
                 </div>
                 <div className="social-login">
                   <span> Register with </span>
-                  <a href="#" className="facebook">
+                  <a href="/login" type="button" className="facebook">
                     <FontAwesomeIcon icon={faFacebookF} />
                   </a>
-                  <a href="#" className="google">
+                  <a href="/login" type="button" className="google">
                     <FontAwesomeIcon icon={faGoogle} />
                   </a>
                 </div>
                 <div className="text-center dont-have">
-                  Already have an account ? <a href="/"> Login </a>
+                  Already have an account ? <a href="/login"> Login </a>
                 </div>
               </div>
             </div>

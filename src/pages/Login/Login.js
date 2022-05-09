@@ -2,17 +2,12 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import AuthContext from "../../_context/authContext.tsx";
-let initialValues = {};
 const Login = () => {
-  const { login, logout } = React.useContext(AuthContext);
+  const { login } = React.useContext(AuthContext);
   const [emailError, setemailError] = useState("");
   const [PasswordError, setPasswordError] = useState("");
   const [loginError, setLoginError] = useState(false);
   const [Loading, setLoading] = useState(false);
-  initialValues = {
-    email: "",
-    password: "",
-  };
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -61,7 +56,7 @@ const Login = () => {
                     <input
                       className="form-control"
                       type="email"
-                      placeholder="Email Address"
+                      placeholder="email address"
                       onChange={(e) => {
                         setForm((form) => ({ ...form, email: e.target.value }));
                         let reg = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -85,7 +80,7 @@ const Login = () => {
                     />
                   </div>
                   <div style={{ textAlign: "center" }}>
-                    {emailError != "" ? (
+                    {emailError !== "" ? (
                       <small
                         style={{
                           color: "red",
@@ -121,11 +116,11 @@ const Login = () => {
                       required={true}
                       className="form-control"
                       type="text"
-                      placeholder="Password"
+                      placeholder="password"
                     />
                   </div>
                   <div style={{ textAlign: "center" }}>
-                    {PasswordError != "" ? (
+                    {PasswordError !== "" ? (
                       <small
                         style={{
                           color: "red",
@@ -138,7 +133,7 @@ const Login = () => {
                     ) : null}
                   </div>
                   <div style={{ textAlign: "center" }}>
-                    {loginError != "" ? (
+                    {loginError !== "" ? (
                       <p
                         style={{
                           color: "red",
@@ -170,7 +165,7 @@ const Login = () => {
                   </div>
                 </form>
                 <div className="text-center forgotpass">
-                  <a href="forgot-password"> Forgot Password ? </a>
+                  <a href="/reset_password"> Forgot Password ? </a>
                 </div>
                 <div className="login-or">
                   <span className="or-line"> </span>
@@ -178,10 +173,10 @@ const Login = () => {
                 </div>
                 <div className="social-login">
                   <span> Login with </span>
-                  <a href="#" className="facebook">
+                  <a type="button" href="/login" className="facebook">
                     <FontAwesomeIcon icon={faFacebookF} />
                   </a>
-                  <a href="#" className="google">
+                  <a type="button" href="/login" className="google">
                     <FontAwesomeIcon icon={faGoogle} />
                   </a>
                 </div>

@@ -19,10 +19,18 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import { GetUserExam } from "../../_services/app-services";
 
-
+let storage;
 export const Exam = (props) => {
   const [loading, setloading] = useState(false);
   const [examitems, setexamitmes] = useState([]);
+  const [user, setuser] = useState(null)
+  useEffect(() => {
+    if (localStorage.getItem("login")) {
+      storage = localStorage.getItem("login");
+      let user = JSON.parse(storage || JSON.stringify({}));
+      setuser(user.user)
+    }
+  }, [])
   useEffect(() => {
     setloading(true);
 
@@ -36,11 +44,6 @@ export const Exam = (props) => {
     })
 
   }, []);
-  // console.log("props...", props);
-
-
-
-
 
   return (
     <div className="main-wrapper login-body">
@@ -61,7 +64,7 @@ export const Exam = (props) => {
         <Col sm={12} className="mb-5">
           <Card className="flex-fill">
             <Card.Header>
-              <h5 className="card-title"> Student or Teacher Exams </h5>
+              <h5 className="card-title"> {user != null && user.kind} Exams </h5>
             </Card.Header>
             <div>
               {loading ? (
@@ -80,6 +83,7 @@ export const Exam = (props) => {
 
                               <th scope="col">Created At</th>
                               <th scope="col">File</th>
+                              <th scope="col">State</th>
                             </tr>
                           </thead>
                           {examitems.map((exam, index) => {
@@ -100,7 +104,9 @@ export const Exam = (props) => {
                                 <td>
                                   <a href={exam.file}>File</a>
                                 </td>
-
+                                <td>
+                                  <small>{exam.state}</small>
+                                </td>
 
 
                               </tbody></>
@@ -110,7 +116,18 @@ export const Exam = (props) => {
                       </div>
                     </div>
                   ) : (
-                    <p>No Exams</p>
+
+                    <div style={{ textAlign: "center", paddingTop: "5%" }}>
+                      <p
+                        style={{
+                          color: "black",
+                          fontWeight: "revert",
+                          display: "contents",
+                        }}
+                      >
+                        No Exams
+                      </p>
+                    </div>
                   )}
                 </>
               )}

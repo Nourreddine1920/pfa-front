@@ -8,7 +8,8 @@ const ForgotPassword = () => {
             <div className="login-left">
               <img
                 className="img-fluid"
-                src="assets/img/logo-white.png"
+                src="assets/img/elab.png
+                "
                 alt="Logo"
               />
             </div>
@@ -27,13 +28,13 @@ const ForgotPassword = () => {
                     />
                   </div>
                   <div className="form-group mb-0">
-                    <a href="" className="btn btn-primary btn-block">
+                    <a type="button" className="btn btn-info btn-block">
                       Reset Password
                     </a>
                   </div>
                 </form>
                 <div className="text-center dont-have">
-                  Remember your password ? <a href="/"> Login </a>
+                  Remember your password ? <a href="/login"> Login </a>
                 </div>
               </div>
             </div>

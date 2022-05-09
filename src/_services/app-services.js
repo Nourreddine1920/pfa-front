@@ -149,19 +149,19 @@ export async function GetElabUser() {
       })
       .then((res) => {
         let data = res.data.results;
-        data = data.map((use) => {
+        data = data.map((user) => {
           return {
-            name: use.first_name,
-            kind: use.kind,
-            email: use.email,
-            photo: use.photo ? use.photo : "assets/img/user.png",
-            files: use.uploaded_file.map((file) => {
+            name: user.first_name ? user.first_name : user.username,
+            kind: user.kind,
+            email: user.email,
+            photo: user.photo ? user.photo : "assets/img/user.png",
+            files: user.uploaded_file.map((file) => {
               return {
                 id_tp: file.id_tp,
                 file_id: file.file_tp.id_file,
                 file_url: file.file_tp.file,
                 created_at: file.file_tp.created_at,
-                created_by: file.user.first_name + " " + file.user.last_name,
+                created_by: file.user.first_name ? file.user.first_name : file.user.username,
                 is_from_me: file.user.id === id,
                 title_tp: file.title_tp,
               };
@@ -229,7 +229,7 @@ export async function GetTeacherStudent(kind) {
         data = data.map((user) => {
           return {
             id: user.user,
-            name: user.first_name + " " + user.last_name,
+            name: user.first_name ? user.first_name : user.username,
             email: user.email,
             img_url: user.photo ? user.photo : "assets/img/user.png",
           };
