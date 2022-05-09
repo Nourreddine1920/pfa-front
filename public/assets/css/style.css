@@ -4094,6 +4094,7 @@ table.table-inbox tbody tr.checked {
         transform: translateX(-50%);
         -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
+        width: 32px;
     }
 
     .login-wrapper .loginbox .login-left {
