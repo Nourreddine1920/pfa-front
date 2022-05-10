@@ -6,7 +6,7 @@ let initialValues, storage;
 const EditProfile = (props) => {
     const [user, setuser] = useState(null)
     if (props.location.state === undefined) {
-        window.location.replace('/profile')
+        window.location.replace('/error')
     }
 
     useEffect(() => {
@@ -40,11 +40,11 @@ const EditProfile = (props) => {
         _form.append('first_name', form.first_name);
         _form.append('last_name', form.last_name);
         _form.append('email', form.email);
-        
+
         if (form.photo) {
             _form.append('photo', form.photo);
         }
-        console.log("form",_form);
+        console.log("form", _form);
         UpdateElabUser(_form).then((res) => {
             // TODO update local Storage ->DONE 
             localStorage.setItem(

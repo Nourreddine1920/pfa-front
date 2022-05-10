@@ -4,7 +4,7 @@ import { Card, Col, Media, Row } from "react-bootstrap";
 const ProfileDetails = (props) => {
     console.log("propssss", props);
     if (props.location.state === undefined) {
-        window.location.replace('/profile')
+        window.location.replace('/error')
     }
     const { name, img_url, email, kind } = props.location.state.profile
     return (

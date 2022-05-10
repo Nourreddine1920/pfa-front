@@ -91,7 +91,7 @@ let token;
 const eventsList = ["sending", "uploading", "runing", "writing"]; // remove waiting event from list
 export const Board = (props) => {
   if (props.location.state === undefined) {
-    window.location.replace('/boardslist')
+    window.location.replace('/error')
   }
   const webSocket = useRef(null);
   token = JSON.parse(localStorage.getItem("login"));
