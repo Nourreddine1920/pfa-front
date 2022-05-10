@@ -103,7 +103,13 @@ const Profile = (props) => {
                 <a
                   type="button"
                   onClick={() => {
-                    props.history.push("/edit-profile", {});
+                    props.history.push("/edit-profile", {
+                      first_name: user.first_name,
+                      last_name: user.last_name,
+                      email: user.email,
+                      kind: user.kind
+
+                    });
                   }}
                   className="btn btn-primary"
                 >
@@ -129,7 +135,12 @@ const Profile = (props) => {
                           data-toggle="modal"
                           type="button"
                           onClick={() => {
-                            props.history.push("/edit-profile", {});
+                            props.history.push("/edit-profile", {
+                              first_name: user.first_name,
+                              last_name: user.last_name,
+                              email: user.email,
+                              kind: user.kind
+                            });
                           }}
                         >
                           <FontAwesomeIcon icon={faEdit} className="mr-1" />
@@ -189,7 +200,7 @@ const Profile = (props) => {
                 </Col> */}
               </Row>
             </Tab>
-            <Tab eventKey="files" title="Files">
+            <Tab eventKey="tps" title="TPs">
               <Row>
                 <div>
                   {loading ? (
@@ -243,7 +254,7 @@ const Profile = (props) => {
                 </Card.Body>
               </Card> */}
             </Tab>
-            <Tab eventKey="upload files" title="Upload Files">
+            <Tab eventKey="upload TPs" title="Upload TPs">
               <Card>
                 <Card.Body>
                   <Card.Title> Upload files </Card.Title>
@@ -316,7 +327,7 @@ const Profile = (props) => {
                 </Card.Body>
               </Card>
             </Tab>
-            <Tab eventKey="password" title="Password">
+            <Tab eventKey="security" title="Security">
               <Card>
                 <Card.Body>
                   <Card.Title> Change Password </Card.Title>

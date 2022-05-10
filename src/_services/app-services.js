@@ -152,6 +152,8 @@ export async function GetElabUser() {
         data = data.map((user) => {
           return {
             name: user.first_name ? user.first_name : user.username,
+            first_name: user.first_name,
+            last_name: user.last_name,
             kind: user.kind,
             email: user.email,
             photo: user.photo ? user.photo : "assets/img/user.png",
@@ -169,6 +171,31 @@ export async function GetElabUser() {
           };
         });
         resolve(data);
+      })
+      .catch((e) => {
+        if (e.message === "Network Error") {
+          reject(e.message);
+        } else {
+          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+        }
+      });
+  });
+}
+export async function UpdateElabUser(data) {
+  let storage = localStorage.getItem("login");
+  let user = JSON.parse(storage || JSON.stringify({}));
+  let id = user.user.user;
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .patch(API_URL + "elabuser/" + id + "/", data, {
+        "Content-Type": "multipart/form-data",
+        headers: authHeader(),
+        params: { user: id },
+
+      })
+      .then((res) => {
+        console.log(res);
+        resolve(res);
       })
       .catch((e) => {
         if (e.message === "Network Error") {
@@ -231,6 +258,7 @@ export async function GetTeacherStudent(kind) {
             id: user.user,
             name: user.first_name ? user.first_name : user.username,
             email: user.email,
+            kind: user.kind,
             img_url: user.photo ? user.photo : "assets/img/user.png",
           };
         });
@@ -267,6 +295,27 @@ export async function EXTRACT_USER_REQUEST(data) {
       });
   });
 }
+export async function MAKE_USER_REQUEST_HANDLED(id_request) {
+  // data ={"id_request":id}
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .patch(API_URL + "userrequests/" + id_request + "/", { "is_handled": true }, {
+        headers: authHeader(),
+      })
+      .then((res) => {
+        console.log(res.data[0]);
+        resolve(res.data[0]);
+      })
+      .catch((e) => {
+        if (e.message === "Network Error") {
+          reject(e.message);
+        } else {
+          reject(e.response.data[Object.keys(e.response.data)[0]][0]);
+        }
+      });
+  });
+}
+
 
 
 export async function GetUserActivity() {
@@ -296,21 +345,16 @@ export async function GetUserActivity() {
               break;
             case 0:
               return {
-
                 name: activity.created_by.username,
                 user_id: activity.created_by.id,
                 tp_activity: activity.tp_activity.file_tp.file,
                 type_activity: activity.type_activity,
                 created_at: activity.created_at,
                 kind: activity.created_by.kind
-
-
               }
               break;
             default:
               break;
-
-
           }
         })
 
@@ -318,7 +362,7 @@ export async function GetUserActivity() {
         resolve(data);
       })
       .catch((e) => {
-        console.log('error',e);
+        console.log('error', e);
         if (e.message === "Network Error") {
           reject(e.message);
         } else {
@@ -348,7 +392,7 @@ export async function GetUserExam() {
             state: exam.state,
             file: exam.file_uploaded.file,
             created_at: exam.file_uploaded.created_at,
-            examsubject:exam.examsubject
+            examsubject: exam.examsubject
 
           };
         })

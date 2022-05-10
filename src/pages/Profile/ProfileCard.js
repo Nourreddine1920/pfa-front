@@ -1,4 +1,4 @@
-import { faAt, faMapMarkerAlt, faPhone } from "@fortawesome/fontawesome-free-solid";
+import { faAt } from "@fortawesome/fontawesome-free-solid";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";

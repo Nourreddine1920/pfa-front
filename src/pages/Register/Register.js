@@ -36,7 +36,7 @@ const Register = () => {
         if (res.status === 201) {
           window.location.replace("/login");
         }
-        
+
       })
       .catch((err) => {
         console.log("err", err);
@@ -51,7 +51,7 @@ const Register = () => {
             <div className="login-left">
               <img
                 className="img-fluid"
-                src="/assets/img/logo-white.png"
+                src="/assets/img/elab.png"
                 alt="Logo"
               />
             </div>
@@ -59,8 +59,7 @@ const Register = () => {
               <div className="login-right-wrap">
                 <h1> Register </h1>
                 <p className="account-subtitle">
-                  {" "}
-                  Remote access to HW testing Boards{" "}
+                  Remote access to HW testing Boards
                 </p>
                 <form>
                   <div className="form-group">

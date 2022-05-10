@@ -19,7 +19,7 @@ import ReactTimeAgo from "react-time-ago";
 import MyPdf from "../../_components/PdfLoader";
 import Donut from "../../_components/progressbar/Chart1";
 import CountDownTimer from "../../_components/_countdown/CountDownTimer";
-import { EXTRACT_USER_REQUEST, GetLogFile } from "../../_services/app-services";
+import { EXTRACT_USER_REQUEST, GetLogFile, MAKE_USER_REQUEST_HANDLED } from "../../_services/app-services";
 import Uploading from "./Uploading";
 import Swal from "sweetalert2";
 import { Terminal } from "../../_components/_terminal/Terminal";
@@ -91,7 +91,7 @@ let token;
 const eventsList = ["sending", "uploading", "runing", "writing"]; // remove waiting event from list
 export const Board = (props) => {
   if (props.location.state === undefined) {
-    window.location.replace('/boardslist')
+    window.location.replace('/error')
   }
   const webSocket = useRef(null);
   token = JSON.parse(localStorage.getItem("login"));
@@ -147,9 +147,25 @@ export const Board = (props) => {
           .then((res) => {
             let _now = new Date()
             let _expiration = new Date(res.expiration_date)
+            // TODO if date is expired redirect to /boardslist -> DONE
+            if (_expiration - _now < 0) {
+              // show popup indicate that user request is expired ...->DONE
+              // make user request as handled ..->DONE
+              Toast.fire({
+                icon: "error",
+                title: "your request is expired !",
+              }).then(() => {
+                MAKE_USER_REQUEST_HANDLED(res.id_request).then((_res) => {
+                  console.log("ress", _res);
+                }).catch((err) => {
+                  console.log("err", err);
+                })
+                setTimeout(() => {
+                  window.location.replace('/boardslist')
+                }, 100);
+              })
 
-            console.log("user request details", _expiration - _now);
-            // TODO if date is expired redirect to /boardslist
+            }
 
             setdate_expiration(res.expiration_date)
           })

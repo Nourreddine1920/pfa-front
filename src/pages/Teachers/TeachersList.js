@@ -88,12 +88,12 @@ const TeachersList = (props) => {
                         <div className="col-auto profile-btn">
                           <a
                             onClick={() => {
-                              props.history.push("/teacher-details", {
-                                teacher: teacher,
+                              props.history.push("/profile-details", {
+                                profile: teacher,
                               });
                             }}
                             type="button"
-                            className="btn btn-primary"
+                            className="btn btn-info"
                           >
                             View Profile
                           </a>
