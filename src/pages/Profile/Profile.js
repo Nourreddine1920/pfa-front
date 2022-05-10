@@ -200,7 +200,7 @@ const Profile = (props) => {
                 </Col> */}
               </Row>
             </Tab>
-            <Tab eventKey="files" title="Files">
+            <Tab eventKey="tps" title="TPs">
               <Row>
                 <div>
                   {loading ? (
@@ -254,7 +254,7 @@ const Profile = (props) => {
                 </Card.Body>
               </Card> */}
             </Tab>
-            <Tab eventKey="upload files" title="Upload Files">
+            <Tab eventKey="upload TPs" title="Upload TPs">
               <Card>
                 <Card.Body>
                   <Card.Title> Upload files </Card.Title>
@@ -327,7 +327,7 @@ const Profile = (props) => {
                 </Card.Body>
               </Card>
             </Tab>
-            <Tab eventKey="password" title="Password">
+            <Tab eventKey="security" title="Security">
               <Card>
                 <Card.Body>
                   <Card.Title> Change Password </Card.Title>

@@ -40,9 +40,11 @@ const EditProfile = (props) => {
         _form.append('first_name', form.first_name);
         _form.append('last_name', form.last_name);
         _form.append('email', form.email);
+        
         if (form.photo) {
             _form.append('photo', form.photo);
         }
+        console.log("form",_form);
         UpdateElabUser(_form).then((res) => {
             // TODO update local Storage ->DONE 
             localStorage.setItem(
@@ -258,7 +260,11 @@ const EditProfile = (props) => {
                                         }
                                     }>
 
-                                        <Button variant="info" type="submit">
+                                        <Button variant="info" type="submit" disabled={
+                                            form.last_name === "" ||
+                                            form.first_name === "" ||
+                                            form.email === "" || emailError !== ""
+                                        }>
                                             {Loading && (
                                                 <span className="spinner-border spinner-border-sm mr-1"></span>
                                             )}

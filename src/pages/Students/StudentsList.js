@@ -49,11 +49,6 @@ const StudentsList = (props) => {
                 <li className="breadcrumb-item active"> Students </li>
               </ul>
             </Col>
-            <Col className="col-auto text-end float-right ms-auto">
-              <a type="button" className="btn btn-outline-primary me-2">
-                <FontAwesomeIcon icon={faDownload} /> Download
-              </a>
-            </Col>
           </Row>
         </div>
       </div>
@@ -73,12 +68,12 @@ const StudentsList = (props) => {
                         <div className="col-auto profile-btn">
                           <a
                             onClick={() => {
-                              props.history.push("/student-details", {
-                                student: student,
+                              props.history.push("/profile-details", {
+                                profile: student,
                               });
                             }}
                             type="button"
-                            className="btn btn-primary"
+                            className="btn btn-info"
                           >
                             View Profile
                           </a>

@@ -20,6 +20,7 @@ import { Compose, Inbox } from "./pages/Inbox";
 import { Notifs } from "./pages/Notifications/Notifs";
 import { EditProfile } from "./pages/Profile/EditProfile";
 import Profile from "./pages/Profile/Profile";
+import { ProfileDetails } from "./pages/Profile/ProfileDetails";
 import {
   AddStudent,
   EditStudent,
@@ -78,5 +79,7 @@ const routes = [
   { path: "tables-basic", component: TablesBasic, exact: true },
   { path: "data-tables", component: DataTables, exact: true },
   { path: "edit-profile", component: withRouter(EditProfile), exact: true },
+  { path: "profile-details", component: withRouter(ProfileDetails), exact: true },
+  
 ];
 export default routes;

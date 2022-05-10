@@ -258,6 +258,7 @@ export async function GetTeacherStudent(kind) {
             id: user.user,
             name: user.first_name ? user.first_name : user.username,
             email: user.email,
+            kind: user.kind,
             img_url: user.photo ? user.photo : "assets/img/user.png",
           };
         });
