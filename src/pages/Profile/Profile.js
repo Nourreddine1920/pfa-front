@@ -103,7 +103,13 @@ const Profile = (props) => {
                 <a
                   type="button"
                   onClick={() => {
-                    props.history.push("/edit-profile", {});
+                    props.history.push("/edit-profile", {
+                      first_name: user.first_name,
+                      last_name: user.last_name,
+                      email: user.email,
+                      kind: user.kind
+
+                    });
                   }}
                   className="btn btn-primary"
                 >
@@ -129,7 +135,12 @@ const Profile = (props) => {
                           data-toggle="modal"
                           type="button"
                           onClick={() => {
-                            props.history.push("/edit-profile", {});
+                            props.history.push("/edit-profile", {
+                              first_name: user.first_name,
+                              last_name: user.last_name,
+                              email: user.email,
+                              kind: user.kind
+                            });
                           }}
                         >
                           <FontAwesomeIcon icon={faEdit} className="mr-1" />

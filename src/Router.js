@@ -18,6 +18,7 @@ import {
 } from "./pages/Forms";
 import { Compose, Inbox } from "./pages/Inbox";
 import { Notifs } from "./pages/Notifications/Notifs";
+import { EditProfile } from "./pages/Profile/EditProfile";
 import Profile from "./pages/Profile/Profile";
 import {
   AddStudent,
@@ -76,6 +77,6 @@ const routes = [
   { path: "form-vertical", component: FormVertical, exact: true },
   { path: "tables-basic", component: TablesBasic, exact: true },
   { path: "data-tables", component: DataTables, exact: true },
-  { path: "ter", component: Terminal, exact: true },
+  { path: "edit-profile", component: withRouter(EditProfile), exact: true },
 ];
 export default routes;
