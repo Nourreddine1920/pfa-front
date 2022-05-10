@@ -1,22 +1,9 @@
-import { faDownload } from "@fortawesome/fontawesome-free-solid";
-// Import Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Card, Col, Pagination, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import "react-data-table-component-extensions/dist/index.css";
 import Load from "../../_components/progressbar/Load";
 import { GetTeacherStudent } from "../../_services/app-services";
 import ProfileCard from "../Profile/ProfileCard";
-
-const data = [
-  {
-    id: "1",
-    name: "Aaliyah",
-    email: "test@g.com",
-    img_url: "assets/img/profiles/avatar-01.jpg",
-  },
-];
-
 const StudentsList = (props) => {
   console.log("props", props);
   const [loading, setloading] = useState(false);
@@ -104,3 +91,4 @@ const StudentsList = (props) => {
 };
 
 export { StudentsList };
+
