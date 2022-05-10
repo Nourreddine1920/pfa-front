@@ -33,7 +33,6 @@ const EditProfile = (props) => {
     const [form, setForm] = useState(initialValues);
     const handelSubmit = async (e) => {
         e.preventDefault();
-
         setupdateError('')
         setLoading(true);
         const _form = new FormData();

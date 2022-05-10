@@ -44,7 +44,7 @@ export async function GetBoards() {
               ? {
                 id_queue: board.boardqueue.id_queue,
                 last_user_request: board.boardqueue.users_request.filter((ur) => {
-                  return ur.is_handled === false
+                  return ur.is_handled === false // TODO this preduse error when all request mark as handled ...
                 }).map((urr) => {
                   return {
                     id_request: urr.id_request,
