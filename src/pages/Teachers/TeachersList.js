@@ -1,34 +1,16 @@
 import {
-  faDownload,
-  faPencilAlt,
-  faPlus,
-  faTrash,
+  faDownload, faPlus
 } from "@fortawesome/fontawesome-free-solid";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 // Import Components
-import { Card, Col, Pagination, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 //Import Data Table
 import "react-data-table-component-extensions/dist/index.css";
 import Load from "../../_components/progressbar/Load";
 import { GetTeacherStudent } from "../../_services/app-services";
 import ProfileCard from "../Profile/ProfileCard";
-
-const data = [
-  {
-    id: "PRE2209",
-    name: "Aaliyah",
-    class: "10",
-    gender: "Female",
-    subject: "Mathematics",
-    section: "A",
-    mobileNumber: "097 3584 5870",
-    address: "911 Deer Ridge Drive,USA",
-    action: "",
-    img_url: "assets/img/profiles/avatar-01.jpg",
-  },
-];
 
 const TeachersList = (props) => {
   console.log("props", props);
@@ -124,3 +106,4 @@ const TeachersList = (props) => {
 };
 
 export { TeachersList };
+

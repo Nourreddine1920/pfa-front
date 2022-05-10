@@ -1,4 +1,4 @@
-import { faCheck, faEdit } from "@fortawesome/fontawesome-free-solid";
+import { faEdit } from "@fortawesome/fontawesome-free-solid";
 // Import Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { default as React, useEffect, useState } from "react";
